@@ -1,4 +1,4 @@
-# Cahier des Charges Fonctionnel - Projet "Le Jardin"
+# Cahier des Charges Fonctionnel - Projet "Au jardin de Lison"
 
 ## 1. Vision & Identité
 *   **Activité** : Micro-ferme florale (< 1 hectare), fleurs coupées locales, bio, de saison.

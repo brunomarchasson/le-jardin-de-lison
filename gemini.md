@@ -1,4 +1,4 @@
-# Contexte du Projet : "Le Jardin" (Nom de code)
+# Contexte du Projet : "Au jardin de Lison"
 
 ## Vue d'ensemble
 Création d'un site web pour une micro-ferme florale bio, locale et de saison. Le projet a une dimension écologique (slow life, zéro déchet) et sociale (lien intergénérationnel, bien-être).

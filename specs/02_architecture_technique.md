@@ -1,4 +1,4 @@
-# Spécifications Techniques - Projet "Le Jardin"
+# Spécifications Techniques - Projet "Au jardin de Lison"
 
 ## 1. Architecture Globale : "Le Monolithe Modulaire"
 
