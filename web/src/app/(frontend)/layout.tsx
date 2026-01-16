@@ -1,11 +1,11 @@
 import React from 'react'
 import './styles.css'
-import { NavigationMenu, NavigationMenuItem, NavigationMenuList, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu"
 import Link from 'next/link'
 import { Spirax, Lato } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import { MotionProvider } from '@/components/MotionProvider'
 import { Logo } from '@/components/Logo'
+import { HeaderNavigation } from '@/components/HeaderNavigation'
 
 const spirax = Spirax({ 
   subsets: ['latin'],
@@ -38,30 +38,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
               <Link href="/" className="flex items-center gap-3 group">
                 <Logo className="w-auto h-16 md:h-20 text-primary transition-transform duration-500 group-hover:scale-105" />
               </Link>
-              <NavigationMenu>
-                <NavigationMenuList className="gap-1 md:gap-2">
-                  <NavigationMenuItem>
-                    <Link href="/la-ferme" className={cn(navigationMenuTriggerStyle(), "font-spirax text-base bg-transparent hover:bg-primary/5 text-foreground/80")}>
-                      La Ferme
-                    </Link>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    <Link href="/fleurs" className={cn(navigationMenuTriggerStyle(), "font-spirax text-base bg-transparent hover:bg-primary/5 text-foreground/80")}>
-                      Nos Fleurs
-                    </Link>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    <Link href="/blog" className={cn(navigationMenuTriggerStyle(), "font-spirax text-base bg-transparent hover:bg-primary/5 text-foreground/80")}>
-                      Blog
-                    </Link>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    <Link href="/contact" className={cn(navigationMenuTriggerStyle(), "font-spirax text-base bg-transparent hover:bg-primary/5 text-foreground/80")}>
-                      Contact
-                    </Link>
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
+              <HeaderNavigation />
             </div>
           </header>
           <main>{children}</main>
@@ -69,7 +46,6 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             <div className="container mx-auto py-12 px-4 text-center text-sm text-muted-foreground font-spirax">
               <div className="flex flex-col items-center gap-4 mb-6">
                 <Logo className="w-auto h-16 opacity-80 text-primary/60 hover:text-primary transition-all grayscale hover:grayscale-0" />
-                <p className="text-xl text-primary/80">Au jardin de Lison</p>
               </div>
               <p>© {new Date().getFullYear()} - Micro-ferme florale bio & locale</p>
             </div>
