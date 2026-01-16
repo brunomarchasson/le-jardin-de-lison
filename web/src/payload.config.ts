@@ -4,9 +4,15 @@ import path from 'path'
 import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
+import { fr } from '@payloadcms/translations/languages/fr'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Pages } from './collections/Pages'
+import { Posts } from './collections/Posts'
+import { Flowers } from './collections/Flowers'
+import { Categories } from './collections/Categories'
+import { SiteSettings } from './globals/SiteSettings'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -18,7 +24,21 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  i18n: {
+    supportedLanguages: { fr },
+    fallbackLanguage: 'fr', 
+  },
+  collections: [
+    Users,
+    Media,
+    Pages,
+    Posts,
+    Flowers,
+    Categories,
+  ],
+  globals: [
+    SiteSettings,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

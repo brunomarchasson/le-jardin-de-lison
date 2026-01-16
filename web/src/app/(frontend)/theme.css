@@ -1,0 +1,119 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+
+/* ========================================================================
+   Fichier de Configuration du Thème Global "Au jardin de Lison"
+   ========================================================================
+   Modifiez ici les variables pour changer l'apparence du site.
+*/
+
+@theme inline {
+  /* MAPPING TAILWIND (Ne pas toucher sauf expert) */
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  /* --- REGLAGES GENERAUX --- */
+  --radius: 0.75rem; /* Arrondi global des boutons et cartes */
+
+  /* --- PALETTE DE COULEURS (Format OKLCH) --- */
+  /* Outil couleur : https://oklch.com/ */
+
+  /* FOND & TEXTE (Papier Crème & Encre Brune) */
+  --background: oklch(0.98 0.01 90); 
+  --foreground: oklch(0.25 0.04 70);
+
+  /* CARTES (Légèrement détachées du fond) */
+  --card: oklch(0.99 0.005 90);
+  --card-foreground: oklch(0.25 0.04 70);
+  --popover: oklch(0.99 0.005 90);
+  --popover-foreground: oklch(0.25 0.04 70);
+
+  /* COULEUR PRINCIPALE (Vert Forêt) - Boutons, Titres importants */
+  --primary: oklch(0.45 0.08 140);
+  --primary-foreground: oklch(0.98 0.01 90);
+
+  /* COULEUR SECONDAIRE (Rose Ancien) - Badges, Décorations */
+  --secondary: oklch(0.92 0.06 40);
+  --secondary-foreground: oklch(0.35 0.04 20);
+
+  /* ELEMENT DISCRET (Beige Sablé) - Fonds alternatifs */
+  --muted: oklch(0.94 0.03 90);
+  --muted-foreground: oklch(0.50 0.04 70);
+
+  /* ACCENT (Ocre) - Mises en avant */
+  --accent: oklch(0.90 0.08 80);
+  --accent-foreground: oklch(0.35 0.04 70);
+
+  /* BORDURES & LIGNES */
+  --border: oklch(0.90 0.02 90);
+  --input: oklch(0.90 0.02 90);
+  --ring: oklch(0.70 0.10 140);
+
+  /* ETAT D'ERREUR */
+  --destructive: oklch(0.577 0.245 27.325);
+}
+
+.dark {
+  /* --- PALETTE MODE SOMBRE (Nuit au jardin) --- */
+  --background: oklch(0.18 0.03 260);
+  --foreground: oklch(0.95 0.02 90);
+  
+  --card: oklch(0.22 0.03 260);
+  --card-foreground: oklch(0.95 0.02 90);
+  
+  --popover: oklch(0.22 0.03 260);
+  --popover-foreground: oklch(0.95 0.02 90);
+  
+  --primary: oklch(0.65 0.12 140);
+  --primary-foreground: oklch(0.15 0.03 260);
+  
+  --secondary: oklch(0.35 0.06 20);
+  --secondary-foreground: oklch(0.95 0.02 90);
+  
+  --muted: oklch(0.25 0.03 260);
+  --muted-foreground: oklch(0.70 0.02 260);
+  
+  --accent: oklch(0.30 0.06 260);
+  --accent-foreground: oklch(0.95 0.02 90);
+  
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(0.30 0.03 260);
+  --input: oklch(0.30 0.03 260);
+  --ring: oklch(0.65 0.12 140);
+}

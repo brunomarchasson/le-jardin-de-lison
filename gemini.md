@@ -15,3 +15,4 @@ Création d'un site web pour une micro-ferme florale bio, locale et de saison. L
 *   Respecter les conventions du framework choisi.
 *   Privilégier une architecture modulaire pour faciliter l'ajout des briques e-commerce plus tard.
 *   Documenter les choix techniques dans le dossier `specs/`.
+*   **Documentation** : Maintenir à jour le fichier `web/MAINTENANCE.md` à chaque modification structurelle ou architecturale majeure.
