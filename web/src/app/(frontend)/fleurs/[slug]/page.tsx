@@ -59,7 +59,7 @@ export default async function FlowerDetailPage({ params }: Props) {
 
   return (
     <div className="container mx-auto px-4 py-12">
-      <Link href="/fleurs" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-8 transition-colors font-serif">
+      <Link href="/fleurs" className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary mb-8 transition-colors font-spirax">
         <ArrowLeft className="w-4 h-4" />
         Retour au catalogue
       </Link>
@@ -78,24 +78,24 @@ export default async function FlowerDetailPage({ params }: Props) {
                     </Badge>
                 ))}
              </div>
-             <h1 className="text-4xl md:text-5xl font-serif text-primary mb-4">{flower.name}</h1>
-             <div className="text-3xl font-sans font-bold text-foreground/80">{flower.price} € <span className="text-base font-normal text-muted-foreground">/ la botte</span></div>
+             <h1 className="text-4xl md:text-5xl font-spirax text-primary mb-4">{flower.name}</h1>
+             <div className="text-3xl font-sans font-bold text-foreground/80">{flower.price} € <span className="text-base font-normal text-muted-foreground font-lora">/ la botte</span></div>
            </div>
 
-           <div className="prose prose-stone max-w-none text-muted-foreground font-sans leading-relaxed">
+           <div className="prose prose-stone max-w-none text-muted-foreground font-lora leading-relaxed">
              <p>{flower.description}</p>
            </div>
 
            <div className="mt-auto pt-8 border-t border-border">
               <div className="flex items-center gap-4 mb-4">
                  <div className={`w-3 h-3 rounded-full ${flower.stock && flower.stock > 0 ? 'bg-green-500' : 'bg-red-500'}`} />
-                 <span className="font-sans text-sm">
+                 <span className="font-lora text-sm">
                     {flower.stock && flower.stock > 0 ? `${flower.stock} bottes disponibles` : 'Rupture de stock'}
                  </span>
               </div>
               
               {/* Placeholder pour future fonctionnalité Panier */}
-              <Button disabled={!flower.stock || flower.stock <= 0} className="w-full md:w-auto font-serif text-lg py-6 bg-primary hover:bg-primary/90">
+              <Button disabled={!flower.stock || flower.stock <= 0} className="w-full md:w-auto font-spirax text-lg py-6 bg-primary hover:bg-primary/90">
                  <ShoppingBasket className="mr-2 h-5 w-5" />
                  Ajouter au panier (Bientôt)
               </Button>

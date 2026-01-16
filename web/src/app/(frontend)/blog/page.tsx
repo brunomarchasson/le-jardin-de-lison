@@ -20,7 +20,7 @@ export default async function BlogPage() {
     <div className="container mx-auto px-4 py-12 flex flex-col gap-12">
       <header className="text-center">
         <FadeIn>
-          <h1 className="text-4xl md:text-5xl font-serif mb-6 text-primary">Le Journal du Jardin</h1>
+          <h1 className="text-4xl md:text-5xl font-spirax mb-6 text-primary">Le Journal du Jardin</h1>
         </FadeIn>
         <FadeIn delay={0.2}>
           <p className="text-xl text-muted-foreground font-light italic max-w-2xl mx-auto">
@@ -31,7 +31,7 @@ export default async function BlogPage() {
 
       {posts.length === 0 ? (
         <FadeIn delay={0.4}>
-          <div className="text-center py-24 bg-muted/20 rounded-3xl italic text-muted-foreground">
+          <div className="text-center py-24 bg-muted/20 rounded-3xl italic text-muted-foreground font-spirax">
             Aucun article pour le moment. Nous écrivons la suite !
           </div>
         </FadeIn>
@@ -54,7 +54,7 @@ export default async function BlogPage() {
                             className="object-cover group-hover:scale-105 transition-transform duration-700"
                           />
                         ) : (
-                          <div className="flex items-center justify-center h-full text-muted-foreground italic font-serif">
+                          <div className="flex items-center justify-center h-full text-muted-foreground italic font-spirax">
                             [Sans image]
                           </div>
                         )}
@@ -67,7 +67,7 @@ export default async function BlogPage() {
                             year: 'numeric'
                           }) : 'Date inconnue'}
                         </div>
-                        <CardTitle className="font-serif italic text-3xl group-hover:text-primary transition-colors">
+                        <CardTitle className="font-spirax italic text-3xl group-hover:text-primary transition-colors">
                           {post.title}
                         </CardTitle>
                       </CardHeader>

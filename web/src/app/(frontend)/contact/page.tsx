@@ -6,17 +6,17 @@ export default function ContactPage() {
   return (
     <div className="container mx-auto px-4 py-12 flex flex-col gap-12 max-w-5xl">
       <header className="text-center">
-        <h1 className="text-4xl md:text-5xl font-serif italic mb-6">Contact & Infos</h1>
-        <p className="text-xl text-muted-foreground font-light italic">
+        <h1 className="text-4xl md:text-5xl font-spirax mb-6 text-primary">Contact & Infos</h1>
+        <p className="text-xl text-muted-foreground font-light italic font-lora">
           Une question ? Envie de venir nous voir ?
         </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 font-lora">
         <Card className="border-none shadow-sm bg-muted/30">
           <CardHeader>
             <MapPin className="h-6 w-6 text-primary mb-2" />
-            <CardTitle className="font-serif italic">Adresse</CardTitle>
+            <CardTitle className="font-spirax text-2xl text-primary/80">Adresse</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground">
@@ -30,7 +30,7 @@ export default function ContactPage() {
         <Card className="border-none shadow-sm bg-muted/30">
           <CardHeader>
             <Clock className="h-6 w-6 text-primary mb-2" />
-            <CardTitle className="font-serif italic">Horaires</CardTitle>
+            <CardTitle className="font-spirax text-2xl text-primary/80">Horaires</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground">
@@ -44,7 +44,7 @@ export default function ContactPage() {
         <Card className="border-none shadow-sm bg-muted/30">
           <CardHeader>
             <Mail className="h-6 w-6 text-primary mb-2" />
-            <CardTitle className="font-serif italic">Contact</CardTitle>
+            <CardTitle className="font-spirax text-2xl text-primary/80">Contact</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="flex items-center gap-2 text-muted-foreground">
@@ -59,7 +59,7 @@ export default function ContactPage() {
         </Card>
       </div>
 
-      <div className="bg-muted aspect-video rounded-3xl flex items-center justify-center text-muted-foreground italic shadow-inner">
+      <div className="bg-muted aspect-video rounded-3xl flex items-center justify-center text-muted-foreground italic font-spirax text-xl shadow-inner">
         [Carte Interactive / Google Maps Placeholder]
       </div>
     </div>

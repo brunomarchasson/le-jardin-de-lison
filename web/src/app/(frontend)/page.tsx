@@ -40,13 +40,13 @@ export default async function HomePage() {
           </FadeIn>
           
           <FadeIn delay={0.2}>
-            <h1 className="text-6xl md:text-9xl font-serif mb-6 drop-shadow-lg tracking-wide">
+            <h1 className="text-6xl md:text-9xl font-spirax mb-6 drop-shadow-lg tracking-wide">
               Au jardin de Lison
             </h1>
           </FadeIn>
 
           <FadeIn delay={0.4}>
-            <p className="text-xl md:text-2xl font-sans font-light max-w-2xl mx-auto drop-shadow-md text-white/90 leading-relaxed">
+            <p className="text-xl md:text-2xl font-light max-w-2xl mx-auto drop-shadow-md text-white/90 leading-relaxed">
               Cultiver la beauté sauvage, au rythme lent des saisons.
             </p>
           </FadeIn>
@@ -74,10 +74,10 @@ export default async function HomePage() {
                     <div className="p-3 bg-secondary/10 rounded-full">
                       <Flower className="h-6 w-6 text-secondary" />
                     </div>
-                    <CardTitle className="font-serif italic text-3xl text-primary">Au jardin en ce moment</CardTitle>
+                    <CardTitle className="font-spirax text-3xl text-primary">Au jardin en ce moment</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-lg text-muted-foreground font-serif italic leading-relaxed">
+                    <p className="text-lg text-muted-foreground italic leading-relaxed">
                       "{settings.meteoFleurs || "La nature se repose..."}"
                     </p>
                   </CardContent>
@@ -92,12 +92,12 @@ export default async function HomePage() {
                     <div className="p-3 bg-primary/10 rounded-full">
                       <Info className="h-6 w-6 text-primary" />
                     </div>
-                    <CardTitle className="font-serif italic text-3xl text-primary">Cueillette & Glanage</CardTitle>
+                    <CardTitle className="font-spirax text-3xl text-primary">Cueillette & Glanage</CardTitle>
                   </CardHeader>
                   <CardContent className="flex flex-col gap-6">
                     <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl border border-border/50">
                       <span className="text-muted-foreground font-medium">Statut du champ</span>
-                      <Badge className={`${currentGlanage.color} hover:${currentGlanage.color} text-white px-6 py-1 text-base border-none rounded-full font-serif tracking-wide`}>
+                      <Badge className={`${currentGlanage.color} hover:${currentGlanage.color} text-white px-6 py-1 text-base border-none rounded-full font-spirax tracking-wide`}>
                         {currentGlanage.label}
                       </Badge>
                     </div>
@@ -116,7 +116,7 @@ export default async function HomePage() {
           <FadeIn delay={0.3}>
             <section className="mt-24 text-center max-w-3xl mx-auto space-y-8">
               <span className="text-sm uppercase tracking-[0.2em] text-primary/60 font-bold">Philosophie</span>
-              <h2 className="text-4xl md:text-5xl font-serif italic text-primary">Des fleurs qui ont du sens</h2>
+              <h2 className="text-4xl md:text-5xl font-spirax text-primary">Des fleurs qui ont du sens</h2>
               <div className="w-24 h-1 bg-secondary mx-auto rounded-full" />
               <p className="text-lg text-muted-foreground leading-loose font-light">
                 Cultivées avec amour et respect de la biodiversité, nos fleurs suivent le cycle naturel des saisons. 

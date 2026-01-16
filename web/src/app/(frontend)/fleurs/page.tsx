@@ -27,7 +27,7 @@ export default async function FleursPage() {
     <div className="container mx-auto px-4 py-12 flex flex-col gap-12">
       <header className="text-center">
         <FadeIn>
-          <h1 className="text-4xl md:text-5xl font-serif mb-6 text-primary">Nos Fleurs</h1>
+          <h1 className="text-4xl md:text-5xl font-spirax mb-6 text-primary">Nos Fleurs</h1>
         </FadeIn>
         <FadeIn delay={0.2}>
           <p className="text-xl text-muted-foreground font-light italic max-w-2xl mx-auto">
@@ -38,7 +38,7 @@ export default async function FleursPage() {
 
       {flowers.length === 0 ? (
         <FadeIn delay={0.4}>
-          <div className="text-center py-24 bg-muted/20 rounded-3xl italic text-muted-foreground font-serif">
+          <div className="text-center py-24 bg-muted/20 rounded-3xl italic text-muted-foreground font-spirax">
             Le catalogue est en cours de préparation. Revenez bientôt !
           </div>
         </FadeIn>
@@ -64,14 +64,14 @@ export default async function FleursPage() {
                           className="object-cover transition-transform duration-700 hover:scale-105"
                         />
                       ) : (
-                        <div className="flex items-center justify-center h-full text-muted-foreground italic font-serif">
+                        <div className="flex items-center justify-center h-full text-muted-foreground italic font-spirax">
                           [Photo à venir]
                         </div>
                       )}
                     </div>
                     <CardHeader>
                       <div className="flex justify-between items-start gap-2">
-                        <CardTitle className="font-serif text-2xl text-primary">{flower.name}</CardTitle>
+                        <CardTitle className="font-spirax text-2xl text-primary">{flower.name}</CardTitle>
                         <span className="font-bold font-sans text-lg">{flower.price}€</span>
                       </div>
                       <div className="flex flex-wrap gap-2 mt-2">
