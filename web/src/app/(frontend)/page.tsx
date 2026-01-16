@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Flower, Info, Leaf } from 'lucide-react'
 import { WaveSeparator, FloralPattern } from '@/components/ui/decorative'
+import { FadeIn, FadeInStagger } from '@/components/FadeIn'
 
 export default async function HomePage() {
   const payload = await getPayload({ config })
@@ -25,7 +26,6 @@ export default async function HomePage() {
       
       {/* Hero Section */}
       <section className="relative h-[75vh] flex items-center justify-center overflow-hidden">
-        {/* Background Image avec overlay doux */}
         <div className="absolute inset-0 z-0">
              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1464695110811-dcf3903dc2f4?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center" />
              <div className="absolute inset-0 bg-black/20" />
@@ -33,83 +33,98 @@ export default async function HomePage() {
         </div>
 
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto mt-12">
-          <div className="inline-block p-3 border border-white/30 rounded-full mb-6 backdrop-blur-sm">
-             <Leaf className="w-8 h-8 text-white/90" />
-          </div>
-          <h1 className="text-6xl md:text-9xl font-serif mb-6 drop-shadow-lg tracking-wide">
-            Au jardin de Lison
-          </h1>
-          <p className="text-xl md:text-2xl font-sans font-light max-w-2xl mx-auto drop-shadow-md text-white/90 leading-relaxed">
-            Cultiver la beauté sauvage, au rythme lent des saisons.
-          </p>
+          <FadeIn direction="down">
+            <div className="inline-block p-3 border border-white/30 rounded-full mb-6 backdrop-blur-sm">
+               <Leaf className="w-8 h-8 text-white/90" />
+            </div>
+          </FadeIn>
+          
+          <FadeIn delay={0.2}>
+            <h1 className="text-6xl md:text-9xl font-serif mb-6 drop-shadow-lg tracking-wide">
+              Au jardin de Lison
+            </h1>
+          </FadeIn>
+
+          <FadeIn delay={0.4}>
+            <p className="text-xl md:text-2xl font-sans font-light max-w-2xl mx-auto drop-shadow-md text-white/90 leading-relaxed">
+              Cultiver la beauté sauvage, au rythme lent des saisons.
+            </p>
+          </FadeIn>
         </div>
 
-        {/* Vague de transition en bas du hero */}
         <div className="absolute bottom-0 left-0 w-full z-20 text-background">
             <WaveSeparator flip />
         </div>
       </section>
 
-      {/* Contenu Principal avec Motif Floral */}
+      {/* Contenu Principal */}
       <div className="relative py-12 md:py-24">
         <FloralPattern opacity={0.03} />
         
         <div className="container mx-auto px-4 relative z-10">
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
-            
-            {/* Météo des Fleurs */}
-            <Card className="border-none shadow-lg bg-white/60 backdrop-blur-sm overflow-hidden">
-              <div className="h-2 bg-secondary w-full" />
-              <CardHeader className="flex flex-row items-center gap-4 pb-2">
-                <div className="p-3 bg-secondary/10 rounded-full">
-                  <Flower className="h-6 w-6 text-secondary" />
-                </div>
-                <CardTitle className="font-serif italic text-3xl text-primary">Au jardin en ce moment</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-lg text-muted-foreground font-serif italic leading-relaxed">
-                  "{settings.meteoFleurs || "La nature se repose..."}"
-                </p>
-              </CardContent>
-            </Card>
+          <FadeInStagger>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
+              
+              {/* Météo des Fleurs */}
+              <FadeIn direction="right">
+                <Card className="border-none shadow-lg bg-white/60 backdrop-blur-sm overflow-hidden h-full">
+                  <div className="h-2 bg-secondary w-full" />
+                  <CardHeader className="flex flex-row items-center gap-4 pb-2">
+                    <div className="p-3 bg-secondary/10 rounded-full">
+                      <Flower className="h-6 w-6 text-secondary" />
+                    </div>
+                    <CardTitle className="font-serif italic text-3xl text-primary">Au jardin en ce moment</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-lg text-muted-foreground font-serif italic leading-relaxed">
+                      "{settings.meteoFleurs || "La nature se repose..."}"
+                    </p>
+                  </CardContent>
+                </Card>
+              </FadeIn>
 
-            {/* Statut Glanage */}
-            <Card className="border-none shadow-lg bg-white/60 backdrop-blur-sm overflow-hidden">
-              <div className="h-2 bg-primary w-full" />
-              <CardHeader className="flex flex-row items-center gap-4 pb-2">
-                <div className="p-3 bg-primary/10 rounded-full">
-                  <Info className="h-6 w-6 text-primary" />
-                </div>
-                <CardTitle className="font-serif italic text-3xl text-primary">Cueillette & Glanage</CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col gap-6">
-                <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl border border-border/50">
-                  <span className="text-muted-foreground font-medium">Statut du champ</span>
-                  <Badge className={`${currentGlanage.color} hover:${currentGlanage.color} text-white px-6 py-1 text-base border-none rounded-full font-serif tracking-wide`}>
-                    {currentGlanage.label}
-                  </Badge>
-                </div>
-                <p className="text-muted-foreground leading-relaxed">
-                  Le champ est ouvert à la cueillette selon les horaires et la floraison. 
-                  Venez composer votre bouquet directement à la source.
-                </p>
-              </CardContent>
-            </Card>
+              {/* Statut Glanage */}
+              <FadeIn direction="left">
+                <Card className="border-none shadow-lg bg-white/60 backdrop-blur-sm overflow-hidden h-full">
+                  <div className="h-2 bg-primary w-full" />
+                  <CardHeader className="flex flex-row items-center gap-4 pb-2">
+                    <div className="p-3 bg-primary/10 rounded-full">
+                      <Info className="h-6 w-6 text-primary" />
+                    </div>
+                    <CardTitle className="font-serif italic text-3xl text-primary">Cueillette & Glanage</CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex flex-col gap-6">
+                    <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl border border-border/50">
+                      <span className="text-muted-foreground font-medium">Statut du champ</span>
+                      <Badge className={`${currentGlanage.color} hover:${currentGlanage.color} text-white px-6 py-1 text-base border-none rounded-full font-serif tracking-wide`}>
+                        {currentGlanage.label}
+                      </Badge>
+                    </div>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Le champ est ouvert à la cueillette selon les horaires et la floraison. 
+                      Venez composer votre bouquet directement à la source.
+                    </p>
+                  </CardContent>
+                </Card>
+              </FadeIn>
 
-          </div>
+            </div>
+          </FadeInStagger>
 
-          {/* Intro Section - Texte Centré */}
-          <section className="mt-24 text-center max-w-3xl mx-auto space-y-8">
-            <span className="text-sm uppercase tracking-[0.2em] text-primary/60 font-bold">Philosophie</span>
-            <h2 className="text-4xl md:text-5xl font-serif italic text-primary">Des fleurs qui ont du sens</h2>
-            <div className="w-24 h-1 bg-secondary mx-auto rounded-full" />
-            <p className="text-lg text-muted-foreground leading-loose font-light">
-              Cultivées avec amour et respect de la biodiversité, nos fleurs suivent le cycle naturel des saisons. 
-              Du premier perce-neige aux derniers dahlias d'automne, chaque tige raconte une histoire de terre, de pluie et de soleil.
-              Pas de serres chauffées, pas de pesticides, juste la nature dans ce qu'elle a de plus beau.
-            </p>
-          </section>
+          {/* Intro Section */}
+          <FadeIn delay={0.3}>
+            <section className="mt-24 text-center max-w-3xl mx-auto space-y-8">
+              <span className="text-sm uppercase tracking-[0.2em] text-primary/60 font-bold">Philosophie</span>
+              <h2 className="text-4xl md:text-5xl font-serif italic text-primary">Des fleurs qui ont du sens</h2>
+              <div className="w-24 h-1 bg-secondary mx-auto rounded-full" />
+              <p className="text-lg text-muted-foreground leading-loose font-light">
+                Cultivées avec amour et respect de la biodiversité, nos fleurs suivent le cycle naturel des saisons. 
+                Du premier perce-neige aux derniers dahlias d'automne, chaque tige raconte une histoire de terre, de pluie et de soleil.
+                Pas de serres chauffées, pas de pesticides, juste la nature dans ce qu'elle a de plus beau.
+              </p>
+            </section>
+          </FadeIn>
 
         </div>
       </div>
