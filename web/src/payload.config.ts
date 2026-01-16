@@ -11,6 +11,7 @@ import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Flowers } from './collections/Flowers'
+import { CultivationLogs } from './collections/CultivationLogs'
 import { Categories } from './collections/Categories'
 import { SiteSettings } from './globals/SiteSettings'
 
@@ -34,6 +35,7 @@ export default buildConfig({
     Pages,
     Posts,
     Flowers,
+    CultivationLogs,
     Categories,
   ],
   globals: [

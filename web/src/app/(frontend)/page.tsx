@@ -36,7 +36,7 @@ export default async function HomePage() {
           <div className="inline-block p-3 border border-white/30 rounded-full mb-6 backdrop-blur-sm">
              <Leaf className="w-8 h-8 text-white/90" />
           </div>
-          <h1 className="text-6xl md:text-8xl font-serif italic mb-6 drop-shadow-lg tracking-wide">
+          <h1 className="text-6xl md:text-9xl font-serif mb-6 drop-shadow-lg tracking-wide">
             Au jardin de Lison
           </h1>
           <p className="text-xl md:text-2xl font-sans font-light max-w-2xl mx-auto drop-shadow-md text-white/90 leading-relaxed">

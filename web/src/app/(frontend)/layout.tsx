@@ -2,16 +2,18 @@ import React from 'react'
 import './styles.css'
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu"
 import Link from 'next/link'
-import { Playfair_Display, Lato } from 'next/font/google'
+import { Spirax, Lato } from 'next/font/google'
 import { cn } from '@/lib/utils'
+import Image from 'next/image'
 
-const playfair = Playfair_Display({ 
+const spirax = Spirax({
   subsets: ['latin'],
-  variable: '--font-serif',
+  weight: ['400'],
+  variable: '--font-spirax',
   display: 'swap',
 })
 
-const lato = Lato({ 
+const lato = Lato({
   subsets: ['latin'],
   weight: ['300', '400', '700'],
   variable: '--font-sans',
@@ -27,32 +29,41 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="fr" className={cn(playfair.variable, lato.variable)}>
+    <html lang="fr" className={cn(spirax.variable, lato.variable)}>
       <body className="min-h-screen bg-background font-sans antialiased text-foreground selection:bg-primary/20">
         <header className="sticky top-0 z-50 w-full border-b border-primary/10 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
-          <div className="container mx-auto flex h-20 items-center justify-between px-4">
-            <Link href="/" className="text-2xl font-serif font-bold text-primary tracking-tight">
-              Au jardin de Lison
+          <div className="container mx-auto flex h-24 items-center justify-between px-4">
+            <Link href="/" className="flex items-center gap-3">
+              <Image 
+                src="/logo.svg" 
+                alt="Au jardin de Lison" 
+                width={80} 
+                height={80} 
+                className="w-auto h-16 md:h-20"
+              />
+              <span className="text-2xl md:text-3xl font-spirax text-primary tracking-tight hidden sm:block">
+                Au jardin de Lison
+              </span>
             </Link>
             <NavigationMenu>
-              <NavigationMenuList className="gap-2">
+              <NavigationMenuList className="gap-1 md:gap-2">
                 <NavigationMenuItem>
-                  <Link href="/la-ferme" className={cn(navigationMenuTriggerStyle(), "font-serif text-base bg-transparent hover:bg-primary/5 text-foreground/80")}>
+                  <Link href="/la-ferme" className={cn(navigationMenuTriggerStyle(), "font-spirax text-base bg-transparent hover:bg-primary/5 text-foreground/80")}>
                     La Ferme
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <Link href="/fleurs" className={cn(navigationMenuTriggerStyle(), "font-serif text-base bg-transparent hover:bg-primary/5 text-foreground/80")}>
+                  <Link href="/fleurs" className={cn(navigationMenuTriggerStyle(), "font-spirax text-base bg-transparent hover:bg-primary/5 text-foreground/80")}>
                     Nos Fleurs
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <Link href="/blog" className={cn(navigationMenuTriggerStyle(), "font-serif text-base bg-transparent hover:bg-primary/5 text-foreground/80")}>
+                  <Link href="/blog" className={cn(navigationMenuTriggerStyle(), "font-spirax text-base bg-transparent hover:bg-primary/5 text-foreground/80")}>
                     Blog
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <Link href="/contact" className={cn(navigationMenuTriggerStyle(), "font-serif text-base bg-transparent hover:bg-primary/5 text-foreground/80")}>
+                  <Link href="/contact" className={cn(navigationMenuTriggerStyle(), "font-spirax text-base bg-transparent hover:bg-primary/5 text-foreground/80")}>
                     Contact
                   </Link>
                 </NavigationMenuItem>
@@ -62,9 +73,17 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         </header>
         <main>{children}</main>
         <footer className="border-t border-primary/10 bg-primary/5 mt-12 relative overflow-hidden">
-          {/* Decorative pattern for footer could go here */}
-          <div className="container mx-auto py-12 px-4 text-center text-sm text-muted-foreground font-serif">
-            <p className="text-lg mb-2">Au jardin de Lison</p>
+          <div className="container mx-auto py-12 px-4 text-center text-sm text-muted-foreground font-spirax">
+            <div className="flex flex-col items-center gap-4 mb-6">
+              <Image 
+                src="/logo.svg" 
+                alt="Au jardin de Lison" 
+                width={60} 
+                height={60} 
+                className="opacity-80 grayscale hover:grayscale-0 transition-all"
+              />
+              <p className="text-xl text-primary/80">Au jardin de Lison</p>
+            </div>
             <p>© {new Date().getFullYear()} - Micro-ferme florale bio & locale</p>
           </div>
         </footer>

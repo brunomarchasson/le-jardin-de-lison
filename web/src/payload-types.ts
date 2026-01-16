@@ -72,6 +72,7 @@ export interface Config {
     pages: Page;
     posts: Post;
     flowers: Flower;
+    'cultivation-logs': CultivationLog;
     categories: Category;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -85,6 +86,7 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     flowers: FlowersSelect<false> | FlowersSelect<true>;
+    'cultivation-logs': CultivationLogsSelect<false> | CultivationLogsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -246,6 +248,10 @@ export interface Category {
 export interface Flower {
   id: number;
   name: string;
+  /**
+   * Identifiant unique pour l'URL (ex: dahlia-cafe)
+   */
+  slug?: string | null;
   description?: string | null;
   price?: number | null;
   stock?: number | null;
@@ -256,10 +262,38 @@ export interface Flower {
       }[]
     | null;
   season?: ('spring' | 'summer' | 'autumn' | 'winter')[] | null;
+  waterNeeds?: ('low' | 'medium' | 'high') | null;
+  sunExposure?: ('shadow' | 'part_shade' | 'sun') | null;
+  sowingPeriod?:
+    | ('jan' | 'feb' | 'mar' | 'apr' | 'may' | 'jun' | 'jul' | 'aug' | 'sep' | 'oct' | 'nov' | 'dec')[]
+    | null;
+  harvestPeriod?:
+    | ('jan' | 'feb' | 'mar' | 'apr' | 'may' | 'jun' | 'jul' | 'aug' | 'sep' | 'oct' | 'nov' | 'dec')[]
+    | null;
+  technicalNotes?: string | null;
   status?: ('draft' | 'published') | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cultivation-logs".
+ */
+export interface CultivationLog {
+  id: number;
+  date: string;
+  flower: number | Flower;
+  action: 'sowing' | 'planting' | 'care' | 'observation' | 'harvest';
+  notes?: string | null;
+  photos?:
+    | {
+        photo?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -304,6 +338,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'flowers';
         value: number | Flower;
+      } | null)
+    | ({
+        relationTo: 'cultivation-logs';
+        value: number | CultivationLog;
       } | null)
     | ({
         relationTo: 'categories';
@@ -425,6 +463,7 @@ export interface PostsSelect<T extends boolean = true> {
  */
 export interface FlowersSelect<T extends boolean = true> {
   name?: T;
+  slug?: T;
   description?: T;
   price?: T;
   stock?: T;
@@ -435,10 +474,33 @@ export interface FlowersSelect<T extends boolean = true> {
         id?: T;
       };
   season?: T;
+  waterNeeds?: T;
+  sunExposure?: T;
+  sowingPeriod?: T;
+  harvestPeriod?: T;
+  technicalNotes?: T;
   status?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cultivation-logs_select".
+ */
+export interface CultivationLogsSelect<T extends boolean = true> {
+  date?: T;
+  flower?: T;
+  action?: T;
+  notes?: T;
+  photos?:
+    | T
+    | {
+        photo?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
