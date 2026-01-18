@@ -34,6 +34,21 @@ const colorThemes = [
     label: "Douce Lavande", 
     colors: { primary: "oklch(0.40 0.08 280)", secondary: "oklch(0.92 0.04 280)", background: "oklch(0.98 0.01 280)" } 
   },
+  { 
+    id: "sunny", 
+    label: "Matin Solaire", 
+    colors: { primary: "oklch(0.55 0.15 85)", secondary: "oklch(0.95 0.10 95)", background: "oklch(0.99 0.02 90)" } 
+  },
+  { 
+    id: "forest", 
+    label: "Forêt Sauvage", 
+    colors: { primary: "oklch(0.35 0.06 160)", secondary: "oklch(0.85 0.05 140)", background: "oklch(0.96 0.01 160)" } 
+  },
+  { 
+    id: "chic", 
+    label: "Boutique Chic", 
+    colors: { primary: "oklch(0.25 0.03 140)", secondary: "oklch(0.85 0.10 85)", background: "oklch(0.99 0.005 90)" } 
+  },
 ];
 
 export function ThemeSwitcher() {
@@ -66,7 +81,7 @@ export function ThemeSwitcher() {
             <Settings2 className="w-6 h-6" />
           </button>
         </PopoverTrigger>
-        <PopoverContent side="top" align="start" className="w-80 p-6 bg-background/95 backdrop-blur-xl border-primary/10 shadow-2xl rounded-[2rem] grainy">
+        <PopoverContent side="top" align="start" className="w-80 max-h-[80vh] overflow-y-auto p-6 bg-background/95 backdrop-blur-xl border-primary/10 shadow-2xl rounded-[2rem] grainy">
           <div className="space-y-8">
             <div>
               <h4 className="font-spirax text-xl text-primary mb-4">Typographie</h4>

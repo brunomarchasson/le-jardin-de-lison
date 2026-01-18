@@ -37,6 +37,14 @@ Une interface unique (CMS) optimisée pour le mobile pour une gestion "au champ"
     *   Bouton "Envoyer par Email aux Pros".
     *   Bouton "Copier pour WhatsApp".
 
+### C. Assistant Éditorial (IA)
+Un outil d'aide à la rédaction intégré au CMS pour faciliter la création de contenu :
+*   **Suggestion de sujets** : Proposition d'idées d'articles basées sur un thème donné et l'historique des publications (pour éviter les doublons).
+*   **Rédaction assistée** : Génération de brouillons respectant le ton "bucolique, bienveillant et expert" de la ferme.
+*   **Aide à l'illustration** : Suggestion de prompts pour la génération d'images ou recherche de photos.
+*   **Flexibilité** : Fonctionne par défaut gratuitement (Google Gemini), avec possibilité pour l'utilisatrice de connecter son propre compte (Anthropic Claude) pour une qualité supérieure.
+*   **Contrôle humain** : L'utilisateur reste maître du contenu et doit valider/remanier chaque proposition.
+
 ---
 
 ## 3. Fonctionnalités - Phase 2 (Services & Vente)
@@ -49,4 +57,5 @@ Une interface unique (CMS) optimisée pour le mobile pour une gestion "au champ"
 ## 4. Contraintes & Exigences
 *   **Auto-hébergement** : Pas d'abonnements mensuels (hors VPS).
 *   **Évolutivité** : Structure modulaire préparée pour la Phase 2.
-*   **Accessibilité & Performance** : Chargement rapide et confort de lecture.
+*   **Performance & SEO** : Optimisation maximale pour le référencement naturel (chargement rapide, balisage sémantique).
+*   **Accessibilité** : Site inclusif respectant les standards WCAG (confort de lecture, contrastes, navigation clavier).

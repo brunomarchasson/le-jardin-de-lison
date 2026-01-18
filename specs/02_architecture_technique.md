@@ -28,8 +28,16 @@
 
 ### A. SEO Local & Sémantique
 *   Injection de données structurées **Schema.org `LocalBusiness`**.
+*   Gestion dynamique des Meta-tags (Titres, Descriptions, OpenGraph) via Payload.
+*   Sitemap automatique et robots.txt optimisé.
 
-### B. Performance & Images
+### B. Accessibilité (A11y)
+*   Respect des ratios de contraste pour la lisibilité.
+*   Support du mode `prefers-reduced-motion` (déjà implémenté).
+*   Structure HTML sémantique et attributs ARIA là où c'est nécessaire.
+*   Focus visible pour la navigation au clavier.
+
+### C. Performance & Images
 *   Redimensionnement et conversion WebP au moment de l'upload via **Hooks Payload**.
 
 ### C. Automatisation Réseaux Sociaux
@@ -40,3 +48,14 @@
 
 ### E. QR Codes
 *   Génération dynamique des QR codes basée sur les URLs des produits.
+
+### F. Assistant IA (Hybride)
+*   **Stratégie** : Architecture multi-fournisseurs pour optimiser coût et qualité.
+*   **Fournisseur par défaut** : **Google Gemini 1.5 Pro**.
+    *   **Coût** : Gratuit (Free Tier : 50 requêtes/jour).
+    *   **Gestion** : Clé API configurée côté serveur (env `GEMINI_API_KEY`).
+*   **Fournisseur Optionnel** : **Anthropic Claude 3.5 Sonnet**.
+    *   **Usage** : Pour une qualité rédactionnelle "Luxe".
+    *   **Gestion** : Champ dans `SiteSettings` pour que l'utilisatrice puisse saisir sa propre clé API si elle le souhaite.
+*   **Coût estimé** : 0€/mois par défaut. ~0.50€/mois pour 10 articles avec Claude.
+*   **Implémentation** : Custom Endpoint Payload (`/api/ai/generate`) avec pattern Adapter pour changer de modèle dynamiquement.

@@ -27,7 +27,7 @@ export default async function HomePage() {
       {/* Hero Section */}
       <section className="relative h-[75vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-             <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1464695110811-dcf3903dc2f4?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center" />
+             <div className="absolute inset-0 bg-[url('/hero-accueil.png')] bg-cover bg-center" />
              <div className="absolute inset-0 bg-black/20" />
              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90" />
         </div>

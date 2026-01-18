@@ -43,9 +43,6 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             <div className="container mx-auto flex h-24 items-center justify-between px-4">
               <Link href="/" className="flex items-center gap-3 group">
                 <Logo className="w-auto h-16 md:h-20 text-primary transition-transform duration-500 group-hover:scale-105" />
-                <span className="text-2xl md:text-3xl font-spirax text-primary tracking-tight hidden sm:block">
-                  Au jardin de Lison
-                </span>
               </Link>
               <HeaderNavigation />
             </div>
@@ -55,7 +52,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             <div className="container mx-auto py-12 px-4 text-center text-sm text-muted-foreground font-spirax">
               <div className="flex flex-col items-center gap-4 mb-6">
                 <Logo className="w-auto h-16 opacity-80 text-primary/60 hover:text-primary transition-all grayscale hover:grayscale-0" />
-                <p className="text-xl text-primary/80">Au jardin de Lison</p>
+             
               </div>
               <p className="font-lora text-xs">© {new Date().getFullYear()} - Micro-ferme florale bio & locale</p>
             </div>
