@@ -562,6 +562,14 @@ export interface SiteSetting {
    * Phrase courte affichée sur la page d'accueil (ex: "Les Dahlias sont là !")
    */
   meteoFleurs?: string | null;
+  /**
+   * Choisissez "Gemini" pour utiliser le quota gratuit inclus, ou un autre fournisseur si vous avez votre propre clé.
+   */
+  aiProvider?: ('gemini' | 'anthropic' | 'openai') | null;
+  /**
+   * Laissez vide pour utiliser la clé système par défaut (Gemini uniquement).
+   */
+  aiApiKey?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -572,6 +580,8 @@ export interface SiteSetting {
 export interface SiteSettingsSelect<T extends boolean = true> {
   glanage?: T;
   meteoFleurs?: T;
+  aiProvider?: T;
+  aiApiKey?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

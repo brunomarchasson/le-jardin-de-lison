@@ -7,6 +7,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { FadeIn, FadeInStagger } from '@/components/FadeIn'
 
+export const dynamic = 'force-dynamic'
+
 export default async function FleursPage() {
   const payload = await getPayload({ config })
   const { docs: flowers } = await payload.find({
