@@ -19,7 +19,7 @@ export default async function FlowerDetailPage({ params }: Props) {
   const payload = await getPayload({ config })
   
   // Try to find by Slug first
-  let flowers = await payload.find({
+  const flowers = await payload.find({
     collection: 'flowers',
     where: {
       slug: { equals: slug }

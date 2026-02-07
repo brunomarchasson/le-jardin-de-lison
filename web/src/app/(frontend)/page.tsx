@@ -78,7 +78,7 @@ export default async function HomePage() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-lg text-muted-foreground italic leading-relaxed">
-                      "{settings.meteoFleurs || "La nature se repose..."}"
+                      &quot;{settings.meteoFleurs || "La nature se repose..."}&quot;
                     </p>
                   </CardContent>
                 </Card>
@@ -120,8 +120,8 @@ export default async function HomePage() {
               <div className="w-24 h-1 bg-secondary mx-auto rounded-full" />
               <p className="text-lg text-muted-foreground leading-loose font-light">
                 Cultivées avec amour et respect de la biodiversité, nos fleurs suivent le cycle naturel des saisons. 
-                Du premier perce-neige aux derniers dahlias d'automne, chaque tige raconte une histoire de terre, de pluie et de soleil.
-                Pas de serres chauffées, pas de pesticides, juste la nature dans ce qu'elle a de plus beau.
+                Du premier perce-neige aux derniers dahlias d&apos;automne, chaque tige raconte une histoire de terre, de pluie et de soleil.
+                Pas de serres chauffées, pas de pesticides, juste la nature dans ce qu&apos;elle a de plus beau.
               </p>
             </section>
           </FadeIn>

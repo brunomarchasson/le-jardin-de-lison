@@ -73,7 +73,7 @@ export default async function BlogPage() {
                       </CardHeader>
                       <CardContent>
                         <div className="text-muted-foreground line-clamp-2">
-                          Lire l'article
+                          Lire l&apos;article
                         </div>
                       </CardContent>
                     </Card>

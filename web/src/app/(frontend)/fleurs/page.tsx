@@ -31,7 +31,7 @@ export default async function FleursPage() {
         </FadeIn>
         <FadeIn delay={0.2}>
           <p className="text-xl text-muted-foreground font-light italic max-w-2xl mx-auto">
-            Découvrez les variétés qui s'épanouissent actuellement au jardin.
+            Découvrez les variétés qui s&apos;épanouissent actuellement au jardin.
           </p>
         </FadeIn>
       </header>

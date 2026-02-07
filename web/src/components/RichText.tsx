@@ -45,7 +45,7 @@ const serialize = (children: any[]): React.ReactNode[] => {
 
     switch (node.type) {
       case 'heading':
-        const Tag = node.tag as keyof JSX.IntrinsicElements
+        const Tag = node.tag as keyof React.JSX.IntrinsicElements
         return <Tag key={i} className="font-serif italic text-primary mt-6 mb-2">{serialize(node.children)}</Tag>
       
       case 'paragraph':

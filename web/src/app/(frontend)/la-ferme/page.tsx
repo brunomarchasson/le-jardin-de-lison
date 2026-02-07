@@ -14,11 +14,11 @@ export default function LaFermePage() {
         <div className="space-y-6">
           <h2 className="text-3xl font-spirax text-primary">Notre Histoire</h2>
           <p className="text-muted-foreground leading-relaxed font-lora text-lg">
-            Au jardin de Lison est né d'une envie profonde de renouer avec la terre et de proposer une alternative aux fleurs industrielles. 
-            Notre micro-ferme s'étend sur moins d'un hectare, où chaque mètre carré est pensé pour favoriser la vie.
+            Au jardin de Lison est né d&apos;une envie profonde de renouer avec la terre et de proposer une alternative aux fleurs industrielles. 
+            Notre micro-ferme s&apos;étend sur moins d&apos;un hectare, où chaque mètre carré est pensé pour favoriser la vie.
           </p>
           <p className="text-muted-foreground leading-relaxed font-lora text-lg">
-            Ici, nous cultivons la patience et l'observation. Nos fleurs ne sont pas forcées sous serre chauffée, elles grandissent au rythme du vent et de la pluie.
+            Ici, nous cultivons la patience et l&apos;observation. Nos fleurs ne sont pas forcées sous serre chauffée, elles grandissent au rythme du vent et de la pluie.
           </p>
         </div>
         <div className="bg-muted aspect-square rounded-3xl overflow-hidden shadow-inner flex items-center justify-center text-muted-foreground italic font-spirax text-xl">

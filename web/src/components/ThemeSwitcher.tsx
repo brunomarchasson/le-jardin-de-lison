@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Settings2, Check } from "lucide-react";
+import React, { useState } from "react";
+import { Settings2 } from "lucide-react";
 import {
   Popover,
   PopoverContent,
