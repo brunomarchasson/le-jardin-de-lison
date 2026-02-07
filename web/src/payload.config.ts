@@ -46,6 +46,17 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  onInit: async (payload) => {
+    if (process.env.NODE_ENV === 'production') {
+      payload.logger.info('Forcing DB push on production init...')
+      try {
+        await payload.db.push()
+        payload.logger.info('DB push successful.')
+      } catch (err) {
+        payload.logger.error('DB push failed:', err)
+      }
+    }
+  },
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
