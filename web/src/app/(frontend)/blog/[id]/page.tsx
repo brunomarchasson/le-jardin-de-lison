@@ -6,8 +6,6 @@ import Image from 'next/image'
 import { RichText } from '@/components/RichText'
 import { Badge } from "@/components/ui/badge"
 
-export const dynamic = 'force-dynamic'
-
 type Props = {
   params: Promise<{
     id: string

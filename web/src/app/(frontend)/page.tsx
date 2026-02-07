@@ -7,8 +7,6 @@ import { Flower, Info, Leaf } from 'lucide-react'
 import { WaveSeparator, FloralPattern } from '@/components/ui/decorative'
 import { FadeIn, FadeInStagger } from '@/components/FadeIn'
 
-export const dynamic = 'force-dynamic'
-
 export default async function HomePage() {
   const payload = await getPayload({ config })
   const settings = await payload.findGlobal({
