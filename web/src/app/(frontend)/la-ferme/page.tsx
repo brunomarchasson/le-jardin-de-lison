@@ -1,5 +1,7 @@
 import React from 'react'
 
+export const dynamic = 'force-dynamic'
+
 export default function LaFermePage() {
   return (
     <div className="container mx-auto px-4 py-12 flex flex-col gap-12 max-w-4xl">
