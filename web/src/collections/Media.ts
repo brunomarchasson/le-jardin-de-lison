@@ -24,6 +24,5 @@ export const Media: CollectionConfig = {
   ],
   upload: {
     staticDir: process.env.PAYLOAD_MEDIA_DIR || path.resolve(dirname, '../../media'),
-    staticURL: '/media',
   },
 }
