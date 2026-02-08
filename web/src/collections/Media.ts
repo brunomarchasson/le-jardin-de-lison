@@ -23,7 +23,7 @@ export const Media: CollectionConfig = {
     },
   ],
   upload: {
-    staticDir: path.resolve(dirname, '../../media'),
+    staticDir: process.env.PAYLOAD_MEDIA_DIR || path.resolve(dirname, '../../media'),
     staticURL: '/media',
   },
 }
