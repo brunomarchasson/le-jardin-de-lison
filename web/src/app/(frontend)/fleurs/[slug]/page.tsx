@@ -8,6 +8,8 @@ import { ArrowLeft, ShoppingBasket } from 'lucide-react'
 import Link from 'next/link'
 import { FlowerGallery } from '@/components/FlowerGallery'
 
+export const dynamic = 'force-dynamic'
+
 type Props = {
   params: Promise<{
     slug: string
