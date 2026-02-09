@@ -18,6 +18,8 @@
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
   },
   "dependencies": {
+    "@fal-ai/serverless-client": "^0.15.0",
+    "@google/generative-ai": "^0.24.1",
     "@payloadcms/db-postgres": "3.71.1",
     "@payloadcms/next": "3.71.1",
     "@payloadcms/richtext-lexical": "3.71.1",
@@ -37,6 +39,7 @@
     "framer-motion": "^12.26.2",
     "graphql": "^16.8.1",
     "lucide-react": "^0.562.0",
+    "marked": "^17.0.1",
     "next": "15.4.10",
     "payload": "3.71.1",
     "react": "19.2.1",

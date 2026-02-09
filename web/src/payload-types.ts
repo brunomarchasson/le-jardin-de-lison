@@ -227,6 +227,7 @@ export interface Post {
     [k: string]: unknown;
   } | null;
   status?: ('draft' | 'published') | null;
+  aiMarkdown?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -453,6 +454,7 @@ export interface PostsSelect<T extends boolean = true> {
   coverImage?: T;
   content?: T;
   status?: T;
+  aiMarkdown?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -570,6 +572,14 @@ export interface SiteSetting {
    * Laissez vide pour utiliser la clé système par défaut (Gemini uniquement).
    */
   aiApiKey?: string | null;
+  /**
+   * Définissez ici comment l'IA doit s'exprimer par défaut.
+   */
+  aiSystemPrompt?: string | null;
+  /**
+   * Collez ici un ou deux articles que vous aimez particulièrement pour que l'IA s'en inspire (ton, vocabulaire, longueur).
+   */
+  aiExamples?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -582,6 +592,8 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   meteoFleurs?: T;
   aiProvider?: T;
   aiApiKey?: T;
+  aiSystemPrompt?: T;
+  aiExamples?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

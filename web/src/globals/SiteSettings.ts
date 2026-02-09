@@ -60,6 +60,23 @@ export const SiteSettings: GlobalConfig = {
               },
             },
             {
+              name: 'aiSystemPrompt',
+              label: 'Instructions de Style (System Prompt)',
+              type: 'textarea',
+              defaultValue: 'Tu es un rédacteur professionnel pour "Au jardin de Lison", une micro-ferme florale bio et poétique. Ton style est doux, inspirant et met en avant le respect de la terre. \n\nLONGUEUR : Rédige des articles longs et détaillés (environ 600-800 mots). Développe chaque idée avec profondeur.\n\nRÈGLE DE GRAMMAIRE CRITIQUE : Ne dis JAMAIS "À Au jardin de Lison". Dis simplement "Au jardin de Lison". \n\nSTRUCTURE : Utilise obligatoirement des titres de section (##) riches.',
+              admin: {
+                description: 'Définissez ici comment l\'IA doit s\'exprimer par défaut.',
+              }
+            },
+            {
+              name: 'aiExamples',
+              label: 'Articles de référence (Style)',
+              type: 'textarea',
+              admin: {
+                description: 'Collez ici un ou deux articles que vous aimez particulièrement pour que l\'IA s\'en inspire (ton, vocabulaire, longueur).',
+              }
+            },
+            {
               name: 'aiGuide',
               type: 'ui',
               admin: {
