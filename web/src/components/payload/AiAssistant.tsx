@@ -1,32 +1,28 @@
 'use client'
 
 import React, { useState } from 'react'
-import { useField, Button, useForm, useFormFields } from '@payloadcms/ui'
-import { Sparkles, Loader2, Type, CheckCircle2 } from 'lucide-react'
+import { useForm, useField, useFormFields } from '@payloadcms/ui'
+import { Sparkles, Loader2, Wand2, Copy, Check } from 'lucide-react'
+import { markdownToLexical } from '../../lib/ai/utils'
 
 export const AiAssistant: React.FC = () => {
-  const { setValue: setTitle } = useField<string>({ path: 'title' })
-  const { setValue: setMarkdown } = useField<string>({ path: 'aiMarkdown' })
+  const form = useForm()
+  const titleField = useField<string>({ path: 'title' })
   
-  // On récupère les valeurs actuelles des champs pour le contexte
   const currentTitle = useFormFields(([fields]) => fields.title?.value as string)
   const currentContent = useFormFields(([fields]) => fields.content?.value as any)
   
-  const { submit } = useForm()
-  
   const [loading, setLoading] = useState(false)
   const [briefing, setBriefing] = useState('')
+  const [preview, setPreview] = useState<{ title: string, markdown: string } | null>(null)
   const [success, setSuccess] = useState(false)
 
   const handleGenerate = async () => {
     if (!briefing) return alert("Dites à l'IA ce qu'elle doit faire.")
-    
     setLoading(true)
-    setSuccess(false)
+    setPreview(null)
     
     try {
-      // Préparation du contenu actuel pour l'IA (si existant)
-      // On essaie d'extraire le texte brut du JSON Lexical
       let existingText = ""
       if (currentContent?.root?.children) {
         existingText = currentContent.root.children
@@ -45,53 +41,104 @@ export const AiAssistant: React.FC = () => {
       })
       
       const data = await response.json()
-      
-      if (data.title && data.markdown) {
-        setTitle(data.title)
-        setMarkdown(data.markdown)
-        setSuccess(true)
-        
-        setTimeout(() => {
-          submit()
-        }, 200)
-        
-      } else {
-        alert("Réponse IA incomplète.")
+      if (data.title || data.markdown) {
+        setPreview({
+          title: data.title || currentTitle || 'Sans titre',
+          markdown: data.markdown || ''
+        })
       }
     } catch (err) {
-      console.error("Erreur assistant IA:", err)
-      alert("Erreur lors de la génération.")
+      console.error(err)
     } finally {
       setLoading(false)
     }
   }
 
+  const applyToForm = () => {
+    if (!preview) return
+    
+    // 1. Titre
+    titleField.setValue(preview.title)
+    
+    // 2. Contenu Lexical
+    if (preview.markdown) {
+      const lexicalValue = markdownToLexical(preview.markdown)
+      
+      console.log("Applying Lexical Value via dispatchFields...");
+      
+      // On utilise dispatchFields qui est l'API la plus directe du formulaire
+      form.dispatchFields({
+        type: 'UPDATE',
+        path: 'content',
+        value: lexicalValue,
+      })
+
+      // On marque le formulaire comme modifié
+      form.setModified(true)
+    }
+    
+    setPreview(null)
+    setBriefing('')
+    setSuccess(true)
+    setTimeout(() => setSuccess(false), 3000)
+  }
+
   return (
-    <div style={{ 
-      marginBottom: '20px', padding: '20px', border: '2px solid var(--theme-elevation-150)', 
-      borderRadius: '12px', backgroundColor: 'var(--theme-elevation-50)'
-    }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
-        <h4 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '8px', color: '#d97757' }}>
-          <Sparkles size={20} /> Assistant Intelligent
-        </h4>
-        {success && <span style={{ fontSize: '11px', color: '#10a37f' }}><CheckCircle2 size={12}/> Modifié</span>}
-      </div>
+    <div style={{ marginBottom: '20px', padding: '20px', border: '1px solid var(--theme-elevation-200)', borderRadius: '10px', backgroundColor: 'var(--theme-elevation-50)' }}>
+      <header style={{ marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <Wand2 size={18} color="#d97757" />
+        <span style={{ fontWeight: 'bold', fontSize: '14px' }}>Assistant IA</span>
+      </header>
 
       <textarea 
         value={briefing}
         onChange={(e) => setBriefing(e.target.value)}
-        placeholder="Décrivez les modifications ou le sujet... (ex: Raccourcis l'introduction)"
+        placeholder="Décrivez ce que vous voulez écrire ou modifier..."
         style={{ 
-          width: '100%', padding: '12px', borderRadius: '6px', border: '1px solid var(--theme-elevation-250)',
-          fontSize: '14px', minHeight: '80px', backgroundColor: 'var(--theme-elevation-0)', color: 'var(--theme-text)', marginBottom: '15px'
+          width: '100%', padding: '10px', borderRadius: '6px', border: '1px solid var(--theme-elevation-300)',
+          fontSize: '13px', minHeight: '60px', backgroundColor: 'var(--theme-elevation-0)', color: 'var(--theme-text)',
+          marginBottom: '10px', resize: 'vertical'
         }}
       />
       
-      <Button size="medium" onClick={handleGenerate} disabled={loading} style={{ width: '100%' }}>
-        {loading ? <Loader2 className="animate-spin" size={16} /> : <Sparkles size={16} style={{ marginRight: '8px' }} />}
-        Générer / Modifier l'Article
-      </Button>
+      <button 
+        type="button"
+        onClick={handleGenerate} 
+        disabled={loading} 
+        style={{ 
+          width: '100%', padding: '10px', borderRadius: '6px', backgroundColor: 'var(--theme-elevation-800)',
+          color: 'var(--theme-elevation-0)', border: 'none', cursor: 'pointer', fontWeight: 'bold',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
+        }}
+      >
+        {loading ? <Loader2 className="animate-spin" size={16} /> : <Sparkles size={16} />}
+        {loading ? 'Génération...' : 'Générer une proposition'}
+      </button>
+
+      {preview && (
+        <div style={{ marginTop: '15px', padding: '12px', borderRadius: '6px', border: '1px dashed #d97757', backgroundColor: '#d9775705' }}>
+          <div style={{ fontSize: '12px', marginBottom: '8px' }}>
+            <strong>Titre :</strong> {preview.title}
+          </div>
+          <button 
+            type="button"
+            onClick={applyToForm}
+            style={{ 
+              width: '100%', padding: '10px', borderRadius: '4px', backgroundColor: '#d97757',
+              color: 'white', border: 'none', cursor: 'pointer', fontSize: '12px', fontWeight: 'bold',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px'
+            }}
+          >
+            <Copy size={14} /> Appliquer à l'article
+          </button>
+        </div>
+      )}
+
+      {success && (
+        <div style={{ marginTop: '10px', color: '#10a37f', fontSize: '12px', textAlign: 'center' }}>
+          <Check size={14} /> Proposition appliquée !
+        </div>
+      )}
     </div>
   )
 }

@@ -40,11 +40,12 @@ export class GeminiProvider implements TextProvider {
       });
 
       const data = await response.json();
+      console.log('data', data)
       if (!response.ok) throw new Error(data.error?.message || `HTTP ${response.status}`);
 
       const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
       if (!rawText) throw new Error("Réponse vide de l'IA");
-
+      console.log('rawText', rawText)
       // PARSING ROBUSTE
       try {
         // Nettoyage des balises markdown éventuelles

@@ -227,7 +227,6 @@ export interface Post {
     [k: string]: unknown;
   } | null;
   status?: ('draft' | 'published') | null;
-  aiMarkdown?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -454,7 +453,6 @@ export interface PostsSelect<T extends boolean = true> {
   coverImage?: T;
   content?: T;
   status?: T;
-  aiMarkdown?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

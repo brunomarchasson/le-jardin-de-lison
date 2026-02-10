@@ -53,7 +53,7 @@ export default buildConfig({
         try {
           const provider = AIFactory.getTextProvider(config)
           const result = await provider.generate(enrichedPrompt, config)
-          
+          console.log(result)
           return Response.json({
             title: result.title,
             markdown: result.content 
