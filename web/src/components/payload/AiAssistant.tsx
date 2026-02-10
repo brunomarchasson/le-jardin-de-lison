@@ -129,7 +129,7 @@ export const AiAssistant: React.FC = () => {
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px'
             }}
           >
-            <Copy size={14} /> Appliquer à l'article
+            <Copy size={14} /> Appliquer à l&apos;article
           </button>
         </div>
       )}

@@ -59,7 +59,7 @@ export const ApiKeyGuide: React.FC = () => {
       <h3 className="text-lg font-semibold mb-4">Guide : Comment obtenir une clé API ?</h3>
       
       <p className="text-sm text-gray-500 mb-6 italic border-l-4 border-gray-200 pl-4 py-1">
-        Une demande d'article complet (800 mots) consomme environ 2500 tokens. 
+        Une demande d&apos;article complet (800 mots) consomme environ 2500 tokens. 
         Les coûts ci-dessous sont des estimations basées sur les tarifs actuels des modèles Flash/Mini.
       </p>
 
