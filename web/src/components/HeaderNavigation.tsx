@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -20,11 +20,42 @@ export function HeaderNavigation() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  
+  // Refs pour calculer la position de la pillule
+  const navRef = useRef<HTMLDivElement>(null);
+  const [pillStyles, setPillStyles] = useState({ left: 0, width: 0, opacity: 0 });
 
-  // Pour éviter les erreurs d'hydratation avec le Portal
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Calcul de la position de la pillule active
+  useEffect(() => {
+    const updatePill = () => {
+      if (!navRef.current) return;
+      
+      const activeLink = navRef.current.querySelector(`[data-active="true"]`) as HTMLElement;
+      if (activeLink) {
+        setPillStyles({
+          left: activeLink.offsetLeft,
+          width: activeLink.offsetWidth,
+          opacity: 1,
+        });
+      } else {
+        setPillStyles(prev => ({ ...prev, opacity: 0 }));
+      }
+    };
+
+    // On attend un court instant que le DOM soit à jour après la navigation
+    const timeout = setTimeout(updatePill, 50);
+    
+    // On écoute aussi le redimensionnement de la fenêtre
+    window.addEventListener('resize', updatePill);
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener('resize', updatePill);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     if (isOpen) {
@@ -37,25 +68,38 @@ export function HeaderNavigation() {
   return (
     <>
       {/* --- NAVIGATION DESKTOP --- */}
-      <nav className="hidden md:flex items-center gap-1 bg-primary/5 p-1.5 rounded-full border border-primary/10">
+      <nav 
+        ref={navRef}
+        className="hidden md:flex items-center gap-1 bg-primary/5 p-1.5 rounded-full border border-primary/10 relative"
+      >
+        {/* LA PILLULE UNIQUE (Animation fluide) */}
+        <motion.div
+          className="absolute h-[calc(100%-12px)] bg-secondary/40 rounded-full shadow-sm z-0"
+          initial={false}
+          animate={{
+            left: pillStyles.left,
+            width: pillStyles.width,
+            opacity: pillStyles.opacity,
+          }}
+          transition={{ 
+            type: "spring", 
+            stiffness: 350, 
+            damping: 30 
+          }}
+        />
+
         {navLinks.map((link) => {
           const isActive = pathname === link.href || pathname.startsWith(link.href + '/');
           return (
             <Link
               key={link.href}
               href={link.href}
+              data-active={isActive}
               className={cn(
-                "px-5 py-2 rounded-full font-spirax text-base transition-colors duration-300 relative",
+                "px-5 py-2 rounded-full font-spirax text-base transition-colors duration-300 relative z-10",
                 isActive ? "text-primary" : "text-foreground/60 hover:text-primary"
               )}
             >
-              {isActive && (
-                <motion.div
-                  layoutId="active-pill"
-                  className="absolute inset-0 bg-secondary/40 rounded-full -z-10 shadow-sm"
-                  transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
-                />
-              )}
               {link.label}
             </Link>
           );
@@ -76,7 +120,6 @@ export function HeaderNavigation() {
           <AnimatePresence>
             {isOpen && (
               <div className="fixed inset-0 z-[9999] flex justify-end">
-                {/* Overlay sombre plein écran */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -85,7 +128,6 @@ export function HeaderNavigation() {
                   className="absolute inset-0 bg-black/60 backdrop-blur-sm"
                 />
 
-                {/* Panneau latéral plein écran */}
                 <motion.div
                   initial={{ x: "100%" }}
                   animate={{ x: 0 }}
@@ -95,8 +137,10 @@ export function HeaderNavigation() {
                 >
                   <div className="p-6 flex items-center justify-between border-b border-primary/5">
                     <div className="flex items-center gap-3">
-                      <Logo className="w-auto h-10 text-primary" />
-                      <span className="font-spirax text-xl text-primary">Lison</span>
+                       <Link onClick={() => setIsOpen(false)} href="/" className="flex items-center gap-3 group">
+                         <Logo className="w-auto h-10 text-primary" />
+                       </Link>
+                      
                     </div>
                     <button 
                       onClick={() => setIsOpen(false)}
@@ -110,12 +154,6 @@ export function HeaderNavigation() {
                     {navLinks.map((link, idx) => {
                       const isActive = pathname === link.href || pathname.startsWith(link.href + '/');
                       
-                      const handleLinkClick = () => {
-                        setTimeout(() => {
-                          setIsOpen(false);
-                        }, 200);
-                      };
-
                       return (
                         <motion.div
                           key={link.href}
@@ -126,7 +164,7 @@ export function HeaderNavigation() {
                         >
                           <Link
                             href={link.href}
-                            onClick={handleLinkClick}
+                            onClick={() => setIsOpen(false)}
                             className={cn(
                               "flex items-center justify-center text-2xl font-spirax py-3 px-6 rounded-full transition-all text-center w-full relative z-10",
                               isActive ? "text-primary" : "text-foreground/70"
@@ -135,7 +173,7 @@ export function HeaderNavigation() {
                             {isActive && (
                               <motion.div
                                 layoutId="active-pill-mobile"
-                                className="absolute inset-0 bg-secondary/40 rounded-full shadow-sm"
+                                className="absolute inset-0 bg-secondary/40 rounded-full shadow-sm -z-10"
                                 transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                               />
                             )}

@@ -75,7 +75,7 @@ export default async function BlogPostPage({ params }: Props) {
                </span>
             </div>
             
-            <h1 className="text-4xl md:text-6xl font-serif italic text-primary leading-tight">
+            <h1 className="text-4xl md:text-6xl font-spirax italic text-primary leading-tight">
               {post.title}
             </h1>
           </div>

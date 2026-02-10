@@ -42,15 +42,16 @@ export default async function BlogPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {posts.map((post, idx) => {
               const coverImage = post.coverImage as any;
+              const imageUrl = coverImage?.sizes?.card?.url || coverImage?.url;
               
               return (
                 <FadeIn key={post.id} delay={idx * 0.1}>
                   <Link href={`/blog/${post.id}`}>
                     <Card className="group h-full border-none shadow-sm hover:shadow-md transition-all overflow-hidden bg-card/50 backdrop-blur-sm">
                       <div className="relative aspect-video overflow-hidden bg-muted">
-                        {coverImage && coverImage.url ? (
+                        {imageUrl ? (
                           <Image 
-                            src={coverImage.url} 
+                            src={imageUrl} 
                             alt={coverImage.alt || post.title}
                             fill
                             className="object-cover group-hover:scale-105 transition-transform duration-700"

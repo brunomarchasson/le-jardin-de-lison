@@ -49,8 +49,9 @@ export default async function FleursPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {flowers.map((flower, idx) => {
               const mainImageObj = flower.images && flower.images.length > 0 ? flower.images[0].image : null;
-              const imageUrl = mainImageObj && typeof mainImageObj === 'object' && 'url' in mainImageObj ? mainImageObj.url : null;
-              const imageAlt = mainImageObj && typeof mainImageObj === 'object' && 'alt' in mainImageObj ? mainImageObj.alt : flower.name;
+              const imageData = mainImageObj && typeof mainImageObj === 'object' ? mainImageObj as any : null;
+              const imageUrl = imageData?.sizes?.card?.url || imageData?.url;
+              const imageAlt = imageData?.alt || flower.name;
               const linkHref = flower.slug ? `/fleurs/${flower.slug}` : `/fleurs/${flower.id}`;
 
               return (
