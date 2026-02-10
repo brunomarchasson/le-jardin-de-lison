@@ -1,11 +1,11 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { $convertFromMarkdownString, TRANSFORMERS } from '@lexical/markdown'
 import { $getRoot } from 'lexical'
 import { useFormFields, Button, useField } from '@payloadcms/ui'
-import { Sparkles, Loader2, Wand2, ChevronDown } from 'lucide-react'
+import { Sparkles, Loader2, Wand2 } from 'lucide-react'
 
 export const AiToolbarButton: React.FC = () => {
   const [editor] = useLexicalComposerContext()
@@ -57,9 +57,10 @@ export const AiToolbarButton: React.FC = () => {
         setIsModalOpen(false)
         setPrompt('')
       }
-    } catch (err: any) {
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Erreur lors de la génération."
       console.error("AI Feature Error:", err)
-      alert(err.message || "Erreur lors de la génération.")
+      alert(message)
     } finally {
       setLoading(false)
     }

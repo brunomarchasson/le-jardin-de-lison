@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from 'next/link'
 import Image from 'next/image'
 import { FadeIn, FadeInStagger } from '@/components/FadeIn'
+import type { Media } from '@/payload-types'
 
 export const dynamic = 'force-dynamic'
 
@@ -41,7 +42,7 @@ export default async function BlogPage() {
         <FadeInStagger>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {posts.map((post, idx) => {
-              const coverImage = post.coverImage as any;
+              const coverImage = post.coverImage as Media;
               const imageUrl = coverImage?.sizes?.card?.url || coverImage?.url;
               
               return (

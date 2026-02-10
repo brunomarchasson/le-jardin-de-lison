@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import { RichText } from '@/components/RichText'
 import { Badge } from "@/components/ui/badge"
+import type { Post, Media, Category } from '@/payload-types'
 
 export const dynamic = 'force-dynamic'
 
@@ -18,14 +19,14 @@ export default async function BlogPostPage({ params }: Props) {
   const { id } = await params
   const payload = await getPayload({ config })
   
-  let post;
+  let post: Post;
   
   try {
     post = await payload.findByID({
       collection: 'posts',
       id,
     })
-  } catch (e) {
+  } catch (_e) {
     notFound()
   }
 
@@ -34,7 +35,7 @@ export default async function BlogPostPage({ params }: Props) {
     // notFound()
   }
 
-  const coverImage = post.coverImage as any
+  const coverImage = post.coverImage as Media
 
   return (
     <article className="min-h-screen pb-24">
@@ -63,7 +64,7 @@ export default async function BlogPostPage({ params }: Props) {
             <div className="flex items-center justify-center gap-4">
                {post.category && (
                  <Badge variant="secondary" className="font-serif">
-                   {(post.category as any).title}
+                   {(post.category as Category).title}
                  </Badge>
                )}
                <span className="text-sm text-muted-foreground uppercase tracking-widest">

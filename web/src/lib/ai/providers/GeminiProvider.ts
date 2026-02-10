@@ -67,7 +67,7 @@ export class GeminiProvider implements TextProvider {
           title: parsed.title || 'Génération Automatique',
           content: parsed.content || cleaned
         };
-      } catch (parseErr) {
+      } catch (_parseErr) {
         console.error("Erreur parsing JSON IA. Texte brut:", rawText);
         // Fallback : si le JSON est cassé mais qu'on a du texte, on essaie de sauver les meubles
         return {
@@ -75,8 +75,9 @@ export class GeminiProvider implements TextProvider {
           content: rawText
         };
       }
-    } catch (err: any) {
-      throw new Error(`Gemini Error: ${err.message}`);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Unknown error"
+      throw new Error(`Gemini Error: ${message}`);
     }
   }
 }

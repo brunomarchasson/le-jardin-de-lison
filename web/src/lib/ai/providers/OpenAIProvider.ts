@@ -53,8 +53,9 @@ ${options.examples}` : ''}
         title: parsed.title || 'Génération OpenAI',
         content: parsed.content || rawText
       };
-    } catch (err: any) {
-      throw new Error(`OpenAI Error: ${err.message}`);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Unknown error"
+      throw new Error(`OpenAI Error: ${message}`);
     }
   }
 }

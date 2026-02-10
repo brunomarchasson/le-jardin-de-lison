@@ -49,7 +49,7 @@ export const Posts: CollectionConfig = {
       editor: lexicalEditor({
         features: ({ defaultFeatures }) => [
           ...defaultFeatures,
-          HeadingFeature({ enabledHeadingTypes: ['h2', 'h3', 'h4'] }),
+          HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
           FixedToolbarFeature(),
           AiFeature(), // Appel de la fonction pour initialiser la feature
         ],

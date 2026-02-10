@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { ArrowLeft, ShoppingBasket } from 'lucide-react'
 import Link from 'next/link'
 import { FlowerGallery } from '@/components/FlowerGallery'
+import type { Media } from '@/payload-types'
 
 export const dynamic = 'force-dynamic'
 
@@ -33,8 +34,8 @@ export default async function FlowerDetailPage({ params }: Props) {
 
   if (!flower) {
      try {
-       flower = await payload.findByID({ collection: 'flowers', id: slug })
-     } catch (e) {
+       flower = await payload.findByID({ collection: 'flowers', id: slug as any })
+     } catch (_e) {
        notFound()
      }
   }
@@ -52,9 +53,9 @@ export default async function FlowerDetailPage({ params }: Props) {
   const galleryImages = (flower.images || [])
     .filter(imgObj => imgObj.image && typeof imgObj.image === 'object' && 'url' in imgObj.image)
     .map(imgObj => {
-       const img = imgObj.image as any;
+       const img = imgObj.image as Media;
        return {
-         url: img.url,
+         url: img.url || '',
          alt: typeof img.alt === 'string' ? img.alt : flower.name
        }
     });

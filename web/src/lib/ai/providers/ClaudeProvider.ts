@@ -63,14 +63,15 @@ export class ClaudeProvider implements TextProvider {
           title: parsed.title || 'Génération Claude',
           content: parsed.content || cleaned
         };
-      } catch (parseErr) {
+      } catch (_parseErr) {
         return {
           title: "Nouvel article (Claude)",
           content: rawText
         };
       }
-    } catch (err: any) {
-      throw new Error(`Claude Error: ${err.message}`);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Unknown error"
+      throw new Error(`Claude Error: ${message}`);
     }
   }
 }

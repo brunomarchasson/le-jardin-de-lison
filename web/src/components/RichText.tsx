@@ -10,6 +10,19 @@ const escapeHTML = (str: string) =>
     '"': '&quot;'
   }[tag] || tag))
 
+interface LexicalNode {
+  type: string;
+  children?: LexicalNode[];
+  tag?: string;
+  text?: string;
+  format?: number;
+  fields?: {
+    url?: string;
+    newTab?: boolean;
+  };
+  [key: string]: any;
+}
+
 export const RichText = ({ content, className }: { content: any, className?: string }) => {
   if (!content || !content.root || !content.root.children) {
     return null
@@ -17,12 +30,12 @@ export const RichText = ({ content, className }: { content: any, className?: str
 
   return (
     <div className={cn("rich-text max-w-none font-lora text-lg leading-relaxed text-foreground/80", className)}>
-      {serialize(content.root.children)}
+      {serialize(content.root.children as LexicalNode[])}
     </div>
   )
 }
 
-const serialize = (children: any[]): React.ReactNode[] => {
+const serialize = (children: LexicalNode[]): React.ReactNode[] => {
   if (!Array.isArray(children)) {
     return []
   }

@@ -62,8 +62,9 @@ export default buildConfig({
             title: result.title,
             markdown: result.content 
           })
-        } catch (err: any) {
-          return Response.json({ error: err.message }, { status: 500 })
+        } catch (err) {
+          const message = err instanceof Error ? err.message : "Erreur inconnue"
+          return Response.json({ error: message }, { status: 500 })
         }
       }
     }

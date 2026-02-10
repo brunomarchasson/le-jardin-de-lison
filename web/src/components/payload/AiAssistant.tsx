@@ -10,7 +10,7 @@ export const AiAssistant: React.FC = () => {
   const titleField = useField<string>({ path: 'title' })
   
   const currentTitle = useFormFields(([fields]) => fields.title?.value as string)
-  const currentContent = useFormFields(([fields]) => fields.content?.value as any)
+  const currentContent = useFormFields(([fields]) => fields.content?.value as { root: { children: any[] } })
   
   const [loading, setLoading] = useState(false)
   const [briefing, setBriefing] = useState('')
@@ -26,7 +26,7 @@ export const AiAssistant: React.FC = () => {
       let existingText = ""
       if (currentContent?.root?.children) {
         existingText = currentContent.root.children
-          .map((child: any) => child.children?.map((c: any) => c.text).join('') || "")
+          .map((child: { children?: { text?: string }[] }) => child.children?.map((c: { text?: string }) => c.text).join('') || "")
           .join('\n\n')
       }
 
