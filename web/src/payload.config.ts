@@ -33,14 +33,18 @@ export default buildConfig({
       handler: async (req) => {
         if (!req.user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
         
-        const { prompt, currentTitle, currentContent } = await req.json()
+        const { prompt, currentTitle, currentContent, provider: requestedProvider } = await req.json()
         const settings = await req.payload.findGlobal({ slug: 'site-settings' })
         
         const config = {
-          googleKey: settings.aiApiKey || process.env.GOOGLE_GENERATIVE_AI_API_KEY,
+          googleKey: settings.geminiApiKey || process.env.GOOGLE_GENERATIVE_AI_API_KEY,
+          claudeKey: settings.claudeApiKey,
+          openaiKey: settings.openaiApiKey,
           systemPrompt: settings.aiSystemPrompt,
           examples: settings.aiExamples
         }
+
+        const provider = requestedProvider || settings.aiDefaultProvider || 'gemini'
 
         const enrichedPrompt = `
           ${currentTitle || currentContent ? `Voici l'article ACTUEL :
@@ -51,9 +55,9 @@ export default buildConfig({
         `
 
         try {
-          const provider = AIFactory.getTextProvider(config)
-          const result = await provider.generate(enrichedPrompt, config)
-          console.log(result)
+          const aiProvider = AIFactory.getTextProvider(provider, config)
+          const result = await aiProvider.generate(enrichedPrompt, config)
+          
           return Response.json({
             title: result.title,
             markdown: result.content 

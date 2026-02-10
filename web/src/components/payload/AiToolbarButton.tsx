@@ -1,17 +1,18 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { $convertFromMarkdownString, TRANSFORMERS } from '@lexical/markdown'
 import { $getRoot } from 'lexical'
 import { useFormFields, Button, useField } from '@payloadcms/ui'
-import { Sparkles, Loader2, Wand2 } from 'lucide-react'
+import { Sparkles, Loader2, Wand2, ChevronDown } from 'lucide-react'
 
 export const AiToolbarButton: React.FC = () => {
   const [editor] = useLexicalComposerContext()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [prompt, setPrompt] = useState('')
+  const [provider, setProvider] = useState('gemini')
   
   // Accès au setter du titre
   const { setValue: setTitle } = useField<string>({ path: 'title' })
@@ -24,7 +25,6 @@ export const AiToolbarButton: React.FC = () => {
     setLoading(true)
     
     try {
-      // On extrait le texte actuel de l'éditeur pour le contexte
       let currentText = ""
       editor.getEditorState().read(() => {
         currentText = $getRoot().getTextContent()
@@ -36,33 +36,30 @@ export const AiToolbarButton: React.FC = () => {
         body: JSON.stringify({ 
           prompt,
           currentTitle: currentTitle || '',
-          currentContent: currentText
+          currentContent: currentText,
+          provider
         }),
       })
       
       const data = await response.json()
       
-      if (data.markdown) {
-        // 1. Injection du Titre
-        if (data.title) {
-          setTitle(data.title)
-        }
+      if (data.error) throw new Error(data.error);
 
-        // 2. Injection du Contenu Lexical avec les Transformers Markdown
+      if (data.markdown) {
+        if (data.title) setTitle(data.title)
+
         editor.update(() => {
           const root = $getRoot()
-          root.clear() // On vide l'éditeur
-          
-          // Utilisation de la méthode native Lexical pour convertir le Markdown
+          root.clear()
           $convertFromMarkdownString(data.markdown, TRANSFORMERS)
         })
         
         setIsModalOpen(false)
         setPrompt('')
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("AI Feature Error:", err)
-      alert("Erreur lors de la génération.")
+      alert(err.message || "Erreur lors de la génération.")
     } finally {
       setLoading(false)
     }
@@ -113,9 +110,30 @@ export const AiToolbarButton: React.FC = () => {
             gap: '12px'
           }}
         >
-          <header style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#d97757' }}>
-            <Wand2 size={16} />
-            <span style={{ fontWeight: 'bold', fontSize: '14px' }}>Assistant de rédaction</span>
+          <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#d97757' }}>
+              <Wand2 size={16} />
+              <span style={{ fontWeight: 'bold', fontSize: '14px' }}>Assistant IA</span>
+            </div>
+            
+            <select 
+              value={provider}
+              onChange={(e) => setProvider(e.target.value)}
+              style={{
+                fontSize: '11px',
+                padding: '4px 8px',
+                borderRadius: '4px',
+                border: '1px solid var(--theme-elevation-300)',
+                backgroundColor: 'var(--theme-elevation-100)',
+                color: 'var(--theme-text)',
+                cursor: 'pointer'
+              }}
+            >
+              <option value="gemini">Google Gemini</option>
+              <option value="claude-sonnet">Claude 3.5 Sonnet</option>
+              <option value="claude-haiku">Claude 3 Haiku</option>
+              <option value="openai">OpenAI GPT-4o</option>
+            </select>
           </header>
 
           <textarea

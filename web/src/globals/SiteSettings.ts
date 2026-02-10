@@ -38,25 +38,38 @@ export const SiteSettings: GlobalConfig = {
           label: 'Assistant IA',
           fields: [
             {
-              name: 'aiProvider',
-              label: 'Fournisseur d\'Intelligence Artificielle',
+              name: 'aiDefaultProvider',
+              label: 'Fournisseur par défaut',
               type: 'select',
               defaultValue: 'gemini',
               options: [
-                { label: 'Google Gemini (Gratuit / Recommandé)', value: 'gemini' },
-                { label: 'Anthropic Claude (Qualité Plume)', value: 'anthropic' },
-                { label: 'OpenAI GPT-4 (Standard)', value: 'openai' },
+                { label: 'Google Gemini', value: 'gemini' },
+                { label: 'Anthropic Claude', value: 'claude' },
+                { label: 'OpenAI GPT-4', value: 'openai' },
               ],
-              admin: {
-                description: 'Choisissez "Gemini" pour utiliser le quota gratuit inclus, ou un autre fournisseur si vous avez votre propre clé.',
-              }
             },
             {
-              name: 'aiApiKey',
-              label: 'Clé API Personnelle (Optionnel)',
+              name: 'geminiApiKey',
+              label: 'Clé API Google Gemini',
               type: 'text',
               admin: {
-                description: 'Laissez vide pour utiliser la clé système par défaut (Gemini uniquement).',
+                placeholder: 'Laissez vide pour utiliser la clé système',
+              },
+            },
+            {
+              name: 'claudeApiKey',
+              label: 'Clé API Anthropic Claude',
+              type: 'text',
+              admin: {
+                placeholder: 'sk-ant-api...',
+              },
+            },
+            {
+              name: 'openaiApiKey',
+              label: 'Clé API OpenAI',
+              type: 'text',
+              admin: {
+                placeholder: 'sk-...',
               },
             },
             {

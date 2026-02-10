@@ -9,6 +9,8 @@ export interface TextProvider {
 
 export interface AIConfig {
   googleKey?: string;
+  claudeKey?: string;
+  openaiKey?: string;
   systemPrompt?: string;
   examples?: string;
 }
