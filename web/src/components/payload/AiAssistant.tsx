@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import { useForm, useField, useFormFields } from '@payloadcms/ui'
 import { Sparkles, Loader2, Wand2, Copy, Check } from 'lucide-react'
-import { markdownToLexical } from '../../lib/ai/utils'
+// import { markdownToLexical } from '../../lib/ai/utils'
 
 export const AiAssistant: React.FC = () => {
   const form = useForm()
@@ -61,21 +61,21 @@ export const AiAssistant: React.FC = () => {
     titleField.setValue(preview.title)
     
     // 2. Contenu Lexical
-    if (preview.markdown) {
-      const lexicalValue = markdownToLexical(preview.markdown)
+    // if (preview.markdown) {
+    //   const lexicalValue = markdownToLexical(preview.markdown)
       
-      console.log("Applying Lexical Value via dispatchFields...");
+    //   console.log("Applying Lexical Value via dispatchFields...");
       
-      // On utilise dispatchFields qui est l'API la plus directe du formulaire
-      form.dispatchFields({
-        type: 'UPDATE',
-        path: 'content',
-        value: lexicalValue,
-      })
+    //   // On utilise dispatchFields qui est l'API la plus directe du formulaire
+    //   form.dispatchFields({
+    //     type: 'UPDATE',
+    //     path: 'content',
+    //     value: lexicalValue,
+    //   })
 
-      // On marque le formulaire comme modifié
-      form.setModified(true)
-    }
+    //   // On marque le formulaire comme modifié
+    //   form.setModified(true)
+    // }
     
     setPreview(null)
     setBriefing('')
