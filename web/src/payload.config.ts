@@ -31,17 +31,17 @@ export default buildConfig({
       path: '/ai/generate-full-post',
       method: 'post',
       handler: async (req) => {
-        if (!req.user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+        if (!req.user || !req.json) return Response.json({ error: 'Unauthorized or missing body' }, { status: 401 })
         
-        const { prompt, currentTitle, currentContent, provider: requestedProvider } = await req.json()
+        const { prompt, currentTitle, currentContent, provider: requestedProvider } = await req.json() as any
         const settings = await req.payload.findGlobal({ slug: 'site-settings' })
         
         const config = {
-          googleKey: settings.geminiApiKey || process.env.GOOGLE_GENERATIVE_AI_API_KEY,
-          claudeKey: settings.claudeApiKey,
-          openaiKey: settings.openaiApiKey,
-          systemPrompt: settings.aiSystemPrompt,
-          examples: settings.aiExamples
+          googleKey: (settings.geminiApiKey || process.env.GOOGLE_GENERATIVE_AI_API_KEY) || undefined,
+          claudeKey: settings.claudeApiKey || undefined,
+          openaiKey: settings.openaiApiKey || undefined,
+          systemPrompt: settings.aiSystemPrompt || undefined,
+          examples: settings.aiExamples || undefined
         }
 
         const provider = requestedProvider || settings.aiDefaultProvider || 'gemini'

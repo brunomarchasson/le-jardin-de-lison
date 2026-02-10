@@ -161,7 +161,6 @@ export const AiToolbarButton: React.FC = () => {
               size="small" 
               onClick={(e) => { e.stopPropagation(); handleGenerate(); }} 
               disabled={loading}
-              style={{ flex: 1 }}
             >
               {loading ? <Loader2 className="animate-spin" size={14} /> : 'Générer'}
             </Button>
@@ -169,7 +168,6 @@ export const AiToolbarButton: React.FC = () => {
               size="small" 
               buttonStyle="secondary" 
               onClick={(e) => { e.stopPropagation(); setIsModalOpen(false); }}
-              style={{ flex: 1 }}
             >
               Fermer
             </Button>
