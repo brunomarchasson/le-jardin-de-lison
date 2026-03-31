@@ -69,7 +69,6 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
-    pages: Page;
     posts: Post;
     flowers: Flower;
     'cultivation-logs': CultivationLog;
@@ -83,7 +82,6 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     flowers: FlowersSelect<false> | FlowersSelect<true>;
     'cultivation-logs': CultivationLogsSelect<false> | CultivationLogsSelect<true>;
@@ -98,9 +96,11 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
+    'page-content': PageContent;
     'site-settings': SiteSetting;
   };
   globalsSelect: {
+    'page-content': PageContentSelect<false> | PageContentSelect<true>;
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: null;
@@ -198,34 +198,6 @@ export interface Media {
       filename?: string | null;
     };
   };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages".
- */
-export interface Page {
-  id: number;
-  title: string;
-  slug: string;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  status?: ('draft' | 'published') | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -352,10 +324,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
-      } | null)
-    | ({
-        relationTo: 'pages';
-        value: number | Page;
       } | null)
     | ({
         relationTo: 'posts';
@@ -491,19 +459,6 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages_select".
- */
-export interface PagesSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  content?: T;
-  status?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts_select".
  */
 export interface PostsSelect<T extends boolean = true> {
@@ -613,15 +568,65 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-content".
+ */
+export interface PageContent {
+  id: number;
+  glanage?: ('open' | 'closed' | 'soon') | null;
+  /**
+   * Ex: "Les Dahlias sont là !"
+   */
+  meteoFleurs?: string | null;
+  heroImage?: (number | null) | Media;
+  heroSubText?: string | null;
+  philosophieTitle?: string | null;
+  philosophieText?: string | null;
+  fermeTitle?: string | null;
+  fermeSubText?: string | null;
+  histoireTitre?: string | null;
+  histoireTexte?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  histoireImage?: (number | null) | Media;
+  ecologieTitre?: string | null;
+  ecologieItems?:
+    | {
+        title?: string | null;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  fleursTitle?: string | null;
+  fleursSubText?: string | null;
+  blogTitle?: string | null;
+  blogSubText?: string | null;
+  contactTitle?: string | null;
+  contactSubText?: string | null;
+  adresse?: string | null;
+  telephone?: string | null;
+  email?: string | null;
+  horaires?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings".
  */
 export interface SiteSetting {
   id: number;
-  glanage?: ('open' | 'closed' | 'soon') | null;
-  /**
-   * Phrase courte affichée sur la page d'accueil (ex: "Les Dahlias sont là !")
-   */
-  meteoFleurs?: string | null;
   aiDefaultProvider?: ('gemini' | 'claude' | 'openai') | null;
   geminiApiKey?: string | null;
   claudeApiKey?: string | null;
@@ -639,11 +644,47 @@ export interface SiteSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-content_select".
+ */
+export interface PageContentSelect<T extends boolean = true> {
+  glanage?: T;
+  meteoFleurs?: T;
+  heroImage?: T;
+  heroSubText?: T;
+  philosophieTitle?: T;
+  philosophieText?: T;
+  fermeTitle?: T;
+  fermeSubText?: T;
+  histoireTitre?: T;
+  histoireTexte?: T;
+  histoireImage?: T;
+  ecologieTitre?: T;
+  ecologieItems?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  fleursTitle?: T;
+  fleursSubText?: T;
+  blogTitle?: T;
+  blogSubText?: T;
+  contactTitle?: T;
+  contactSubText?: T;
+  adresse?: T;
+  telephone?: T;
+  email?: T;
+  horaires?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings_select".
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
-  glanage?: T;
-  meteoFleurs?: T;
   aiDefaultProvider?: T;
   geminiApiKey?: T;
   claudeApiKey?: T;

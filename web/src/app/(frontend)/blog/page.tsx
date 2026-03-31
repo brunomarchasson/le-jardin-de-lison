@@ -6,11 +6,19 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { FadeIn, FadeInStagger } from '@/components/FadeIn'
 import type { Media } from '@/payload-types'
+import { PAGE_DEFAULTS } from '@/constants/defaults'
 
 export const dynamic = 'force-dynamic'
 
 export default async function BlogPage() {
   const payload = await getPayload({ config })
+  const content = await payload.findGlobal({
+    slug: 'page-content',
+  })
+  
+  const pageTitle = content.blogTitle || PAGE_DEFAULTS.blog.title
+  const subText = content.blogSubText || PAGE_DEFAULTS.blog.subText
+
   const { docs: posts } = await payload.find({
     collection: 'posts',
     where: {
@@ -23,11 +31,11 @@ export default async function BlogPage() {
     <div className="container mx-auto px-4 py-12 flex flex-col gap-12">
       <header className="text-center">
         <FadeIn>
-          <h1 className="text-4xl md:text-5xl font-spirax mb-6 text-primary">Le Journal du Jardin</h1>
+          <h1 className="text-4xl md:text-5xl font-spirax mb-6 text-primary">{pageTitle}</h1>
         </FadeIn>
         <FadeIn delay={0.2}>
           <p className="text-xl text-muted-foreground font-light italic max-w-2xl mx-auto">
-            Nouvelles de la terre, conseils de culture et vie de la micro-ferme.
+            {subText}
           </p>
         </FadeIn>
       </header>
@@ -44,15 +52,15 @@ export default async function BlogPage() {
             {posts.map((post, idx) => {
               const coverImage = post.coverImage as Media;
               const imageUrl = coverImage?.sizes?.card?.url || coverImage?.url;
-              
+
               return (
                 <FadeIn key={post.id} delay={idx * 0.1}>
                   <Link href={`/blog/${post.id}`}>
                     <Card className="group h-full border-none shadow-sm hover:shadow-md transition-all overflow-hidden bg-card/50 backdrop-blur-sm">
                       <div className="relative aspect-video overflow-hidden bg-muted">
                         {imageUrl ? (
-                          <Image 
-                            src={imageUrl} 
+                          <Image
+                            src={imageUrl}
                             alt={coverImage.alt || post.title}
                             fill
                             className="object-cover group-hover:scale-105 transition-transform duration-700"

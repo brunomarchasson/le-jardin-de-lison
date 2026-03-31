@@ -1,14 +1,32 @@
+import { getPayload } from 'payload'
+import config from '@/payload.config'
 import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { MapPin, Phone, Mail, Clock } from 'lucide-react'
+import { PAGE_DEFAULTS } from '@/constants/defaults'
 
-export default function ContactPage() {
+export const dynamic = 'force-dynamic'
+
+export default async function ContactPage() {
+  const payload = await getPayload({ config })
+  const content = await payload.findGlobal({
+    slug: 'page-content',
+  })
+
+  // Fallbacks
+  const pageTitle = content.contactTitle || PAGE_DEFAULTS.contact.title
+  const subText = content.contactSubText || PAGE_DEFAULTS.contact.subText
+  const adresse = content.adresse || PAGE_DEFAULTS.contact.adresse
+  const email = content.email || PAGE_DEFAULTS.contact.email
+  const telephone = content.telephone || PAGE_DEFAULTS.contact.telephone
+  const horaires = content.horaires || PAGE_DEFAULTS.contact.horaires
+
   return (
     <div className="container mx-auto px-4 py-12 flex flex-col gap-12 max-w-5xl">
       <header className="text-center">
-        <h1 className="text-4xl md:text-5xl font-spirax mb-6 text-primary">Contact & Infos</h1>
+        <h1 className="text-4xl md:text-5xl font-spirax mb-6 text-primary">{pageTitle}</h1>
         <p className="text-xl text-muted-foreground font-light italic font-lora">
-          Une question ? Envie de venir nous voir ?
+          {subText}
         </p>
       </header>
 
@@ -19,9 +37,8 @@ export default function ContactPage() {
             <CardTitle className="font-spirax text-2xl text-primary/80">Adresse</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-muted-foreground">
-              Au jardin de Lison<br />
-              13610 Le puy sainte réparade
+            <p className="text-muted-foreground whitespace-pre-line">
+              {adresse}
             </p>
           </CardContent>
         </Card>
@@ -33,9 +50,7 @@ export default function ContactPage() {
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground">
-              {/* Mercredi : 14h - 18h<br />
-              Samedi : 10h - 13h<br /> */}
-              (Ouvert selon météo des fleurs)
+              {horaires}
             </p>
           </CardContent>
         </Card>
@@ -48,11 +63,11 @@ export default function ContactPage() {
           <CardContent className="space-y-2">
             <div className="flex items-center gap-2 text-muted-foreground">
               <Phone className="h-4 w-4" />
-              <span>+33 7 49 59 09 94</span>
+              <span>{telephone}</span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
               <Mail className="h-4 w-4" />
-              <span>hello@aujardindelison.fr</span>
+              <span>{email}</span>
             </div>
           </CardContent>
         </Card>
@@ -63,7 +78,7 @@ export default function ContactPage() {
           width="100%" 
           height="100%" 
           style={{ border: 0 }} 
-          src="https://maps.google.com/maps?q=Au%20jardin%20de%20Lison%2013610%20Le%20puy%20sainte%20r%C3%A9parade&t=&z=14&ie=UTF8&iwloc=&output=embed"
+          src={`https://maps.google.com/maps?q=${encodeURIComponent(adresse.replace('\n', ' '))}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
           className="grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-700"
           title="Plan d'accès au jardin"
         ></iframe>

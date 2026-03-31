@@ -7,11 +7,19 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { FadeIn, FadeInStagger } from '@/components/FadeIn'
 import type { Media } from '@/payload-types'
+import { PAGE_DEFAULTS } from '@/constants/defaults'
 
 export const dynamic = 'force-dynamic'
 
 export default async function FleursPage() {
   const payload = await getPayload({ config })
+  const content = await payload.findGlobal({
+    slug: 'page-content',
+  })
+  
+  const pageTitle = content.fleursTitle || PAGE_DEFAULTS.fleurs.title
+  const subText = content.fleursSubText || PAGE_DEFAULTS.fleurs.subText
+
   const { docs: flowers } = await payload.find({
     collection: 'flowers',
     limit: 100,
@@ -31,18 +39,18 @@ export default async function FleursPage() {
     <div className="container mx-auto px-4 py-12 flex flex-col gap-12">
       <header className="text-center">
         <FadeIn>
-          <h1 className="text-4xl md:text-5xl font-spirax mb-6 text-primary">Nos Fleurs</h1>
+          <h1 className="text-4xl md:text-5xl font-spirax mb-6 text-primary">{pageTitle}</h1>
         </FadeIn>
         <FadeIn delay={0.2}>
           <p className="text-xl text-muted-foreground font-light italic max-w-2xl mx-auto">
-            Découvrez les variétés qui s&apos;épanouissent actuellement au jardin.
+            {subText}
           </p>
         </FadeIn>
       </header>
 
       {flowers.length === 0 ? (
         <FadeIn delay={0.4}>
-          <div className="text-center py-24 bg-muted/20 rounded-3xl italic text-muted-foreground font-spirax">
+          <div className="text-center py-24 bg-muted/20 rounded-3xl italic text-muted-foreground font-spirax">  
             Le catalogue est en cours de préparation. Revenez bientôt !
           </div>
         </FadeIn>
@@ -50,7 +58,7 @@ export default async function FleursPage() {
         <FadeInStagger>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {flowers.map((flower, idx) => {
-              const mainImageObj = flower.images && flower.images.length > 0 ? flower.images[0].image : null;
+              const mainImageObj = flower.images && flower.images.length > 0 ? flower.images[0].image : null;   
               const imageData = mainImageObj && typeof mainImageObj === 'object' ? mainImageObj as Media : null;
               const imageUrl = imageData?.sizes?.card?.url || imageData?.url;
               const imageAlt = imageData?.alt || flower.name;
@@ -62,8 +70,8 @@ export default async function FleursPage() {
                   <Card className="overflow-hidden border-none shadow-sm hover:shadow-md transition-all hover:-translate-y-1 h-full bg-card/60 backdrop-blur-sm">
                     <div className="relative aspect-[4/3] bg-muted overflow-hidden">
                       {imageUrl ? (
-                        <Image 
-                          src={imageUrl} 
+                        <Image
+                          src={imageUrl}
                           alt={typeof imageAlt === 'string' ? imageAlt : flower.name}
                           fill
                           className="object-cover transition-transform duration-700 hover:scale-105"
@@ -76,8 +84,8 @@ export default async function FleursPage() {
                     </div>
                     <CardHeader>
                       <div className="flex justify-between items-start gap-2">
-                        <CardTitle className="font-spirax text-2xl text-primary">{flower.name}</CardTitle>
-                        <span className="font-bold font-sans text-lg hidden">{flower.price}€</span>
+                        <CardTitle className="font-spirax text-2xl text-primary">{flower.name}</CardTitle>      
+                        <span className="font-bold font-sans text-lg">{flower.price}€</span>
                       </div>
                       <div className="flex flex-wrap gap-2 mt-2">
                         {flower.season?.map((s) => (
