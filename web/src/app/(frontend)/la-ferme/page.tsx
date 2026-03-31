@@ -14,11 +14,33 @@ export default function LaFermePage() {
         <div className="space-y-6">
           <h2 className="text-3xl font-spirax text-primary">Notre Histoire</h2>
           <p className="text-muted-foreground leading-relaxed font-lora text-lg">
-            Au jardin de Lison est né d&apos;une envie profonde de renouer avec la terre et de proposer une alternative aux fleurs industrielles. 
-            Notre micro-ferme s&apos;étend sur moins d&apos;un hectare, où chaque mètre carré est pensé pour favoriser la vie.
+            Je m’appelle Cécile je suis fleuriste depuis quelques années et l’envie c’est imposée à moi de travailler avec mes fleurs, pas celles du bout du monde, mais celles de mon jardin. 
           </p>
           <p className="text-muted-foreground leading-relaxed font-lora text-lg">
-            Ici, nous cultivons la patience et l&apos;observation. Nos fleurs ne sont pas forcées sous serre chauffée, elles grandissent au rythme du vent et de la pluie.
+           Et si j’ai choisi ce nom, ce n’est pas un hasard.<br/>
+          Lison, c’était ma grand-mère. ( enfin son petit surnom … France Elisabeth ça fait un peu long )
+          </p>
+          <p className="text-muted-foreground leading-relaxed font-lora text-lg">
+            Quand j’étais enfant, aller dans son jardin était un vrai bonheur.<br/>
+            On y trouvait des fleurs partout, des parfums délicats, des légumes et des fruits ,des couleurs qui changeaient au fil des saisons… et surtout, une sensation de calme et de joie simple.
+          </p>
+          <p className="text-muted-foreground leading-relaxed font-lora text-lg">
+            C’est dans ce jardin que j’ai appris à aimer la nature, à observer, à prendre le temps.
+          </p>
+          <p className="text-muted-foreground leading-relaxed font-lora text-lg">
+            Aujourd’hui, avec ma microferme florale, j’ai envie de faire vivre cet héritage.<br />
+            <strong>Au jardin de Lison</strong>, je cultive des fleurs avec soin, au rythme des saisons, dans le respect de la terre. ( en agriculture biologique ) 
+          </p>
+          <p className="text-muted-foreground leading-relaxed font-lora text-lg">
+            Chaque bouquet, chaque fleur, raconte une histoire :
+            <br />
+            Celle d’un souvenir d’enfance, d’un moment de douceur, d’un petit bonheur à offrir ou à s’offrir.
+          </p>
+          <p className="text-muted-foreground leading-relaxed font-lora text-lg">
+            Le jardin évolue en fonction des saisons et surtout en fonction de nous, petit a petit vous découvrirai des surprises … parce que dans le jardin de Lison il n’y aura peut être pas que des fleurs 😉
+          </p>
+          <p className="text-muted-foreground leading-relaxed font-lora text-lg">
+            Bienvenue dans mon jardin. 🌿
           </p>
         </div>
         <div className="bg-muted aspect-square rounded-3xl overflow-hidden shadow-inner flex items-center justify-center text-muted-foreground italic font-spirax text-xl">
@@ -31,15 +53,15 @@ export default function LaFermePage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center font-lora">
           <div className="space-y-3">
             <h3 className="font-bold text-xl text-primary/80">Zéro Déchet</h3>
-            <p className="text-muted-foreground">Compostage systématique et emballages naturels.</p>
+            <p className="text-muted-foreground">Sac à bouquets et emballages naturels.</p>
           </div>
           <div className="space-y-3">
             <h3 className="font-bold text-xl text-primary/80">Biodiversité</h3>
-            <p className="text-muted-foreground">Haies mellifères et aucun pesticide chimique.</p>
+            <p className="text-muted-foreground">Variétés de fleurs milifère  et aucun pesticide chimique.</p>
           </div>
           <div className="space-y-3">
             <h3 className="font-bold text-xl text-primary/80">Local & Saison</h3>
-            <p className="text-muted-foreground">Fleurs 100% cultivées sur place en pleine terre.</p>
+            <p className="text-muted-foreground">Fleurs cultivées sur place en pleine terre.</p>
           </div>
         </div>
       </section>

@@ -21,8 +21,7 @@ export default function ContactPage() {
           <CardContent>
             <p className="text-muted-foreground">
               Au jardin de Lison<br />
-              123 Chemin des Fleurs<br />
-              33000 Bordeaux (environ)
+              13610 Le puy sainte réparade
             </p>
           </CardContent>
         </Card>
@@ -34,8 +33,8 @@ export default function ContactPage() {
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground">
-              Mercredi : 14h - 18h<br />
-              Samedi : 10h - 13h<br />
+              {/* Mercredi : 14h - 18h<br />
+              Samedi : 10h - 13h<br /> */}
               (Ouvert selon météo des fleurs)
             </p>
           </CardContent>
@@ -49,7 +48,7 @@ export default function ContactPage() {
           <CardContent className="space-y-2">
             <div className="flex items-center gap-2 text-muted-foreground">
               <Phone className="h-4 w-4" />
-              <span>06 00 00 00 00</span>
+              <span>+33 7 49 59 09 94</span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
               <Mail className="h-4 w-4" />
