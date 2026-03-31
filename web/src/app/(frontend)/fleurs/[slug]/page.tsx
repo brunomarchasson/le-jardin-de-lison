@@ -82,14 +82,14 @@ export default async function FlowerDetailPage({ params }: Props) {
                 ))}
              </div>
              <h1 className="text-4xl md:text-5xl font-spirax text-primary mb-4">{flower.name}</h1>
-             <div className="text-3xl font-sans font-bold text-foreground/80">{flower.price} € <span className="text-base font-normal text-muted-foreground font-lora">/ la botte</span></div>
+             <div className="text-3xl font-sans font-bold text-foreground/80 hidden">{flower.price} € <span className="text-base font-normal text-muted-foreground font-lora">/ la botte</span></div>
            </div>
 
            <div className="prose prose-stone max-w-none text-muted-foreground font-lora leading-relaxed">
              <p>{flower.description}</p>
            </div>
 
-           <div className="mt-auto pt-8 border-t border-border">
+           <div className="mt-auto pt-8 border-t border-border hidden">
               <div className="flex items-center gap-4 mb-4">
                  <div className={`w-3 h-3 rounded-full ${flower.stock && flower.stock > 0 ? 'bg-green-500' : 'bg-red-500'}`} />
                  <span className="font-lora text-sm">

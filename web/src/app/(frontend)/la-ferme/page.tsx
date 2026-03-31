@@ -1,6 +1,39 @@
+import { getPayload } from 'payload'
+import config from '@/payload.config'
 import React from 'react'
+import { RichText } from '@/components/RichText'
 
-export default function LaFermePage() {
+export const dynamic = 'force-dynamic'
+
+export default async function LaFermePage() {
+  const payload = await getPayload({ config })
+  
+  // Tentative de récupération de la page dans Payload
+  const { docs: pages } = await payload.find({
+    collection: 'pages',
+    where: {
+      slug: { equals: 'la-ferme' },
+      status: { equals: 'published' }
+    }
+  })
+
+  const cmsPage = pages[0]
+
+  // Si une page est définie dans le CMS, on l'affiche
+  if (cmsPage) {
+    return (
+      <div className="container mx-auto px-4 py-12 max-w-4xl">
+         <header className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-spirax mb-6 text-primary">{cmsPage.title}</h1>
+         </header>
+         <div className="prose prose-lg max-w-none font-lora">
+            <RichText content={cmsPage.content} />
+         </div>
+      </div>
+    )
+  }
+
+  // FALLBACK : Design actuel en dur
   return (
     <div className="container mx-auto px-4 py-12 flex flex-col gap-12 max-w-4xl">
       <header className="text-center">

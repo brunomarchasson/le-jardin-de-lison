@@ -58,8 +58,15 @@ export default function ContactPage() {
         </Card>
       </div>
 
-      <div className="bg-muted aspect-video rounded-3xl flex items-center justify-center text-muted-foreground italic font-spirax text-xl shadow-inner">
-        [Carte Interactive / Google Maps Placeholder]
+      <div className="bg-muted aspect-video rounded-3xl overflow-hidden shadow-inner border border-muted-foreground/10 h-[400px]">
+        <iframe 
+          width="100%" 
+          height="100%" 
+          style={{ border: 0 }} 
+          src="https://maps.google.com/maps?q=Au%20jardin%20de%20Lison%2013610%20Le%20puy%20sainte%20r%C3%A9parade&t=&z=14&ie=UTF8&iwloc=&output=embed"
+          className="grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-700"
+          title="Plan d'accès au jardin"
+        ></iframe>
       </div>
     </div>
   )
