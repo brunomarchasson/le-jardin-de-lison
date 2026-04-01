@@ -12,6 +12,7 @@ import { Logo } from "./Logo";
 const navLinks = [
   { href: "/la-ferme", label: "La Ferme" },
   { href: "/fleurs", label: "Nos Fleurs" },
+  { href: "/le-marche", label: "Le Marché" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
 ];

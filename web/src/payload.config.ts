@@ -12,9 +12,12 @@ import { Posts } from './collections/Posts'
 import { Flowers } from './collections/Flowers'
 import { CultivationLogs } from './collections/CultivationLogs'
 import { Categories } from './collections/Categories'
+import { Products } from './collections/Products'
 import { SiteSettings } from './globals/SiteSettings'
 import { PageContent } from './globals/PageContent'
 import { AIFactory } from './lib/ai/AIFactory'
+
+import fs from 'fs'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -27,6 +30,71 @@ export default buildConfig({
     },
   },
   endpoints: [
+    {
+      path: '/ai/analyze-media',
+      method: 'post',
+      handler: async (req) => {
+        if (!req.user || !req.json) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+        
+        const { filename, mimeType } = await req.json() as any
+        const settings = await req.payload.findGlobal({ slug: 'site-settings' })
+        const apiKey = (settings.geminiApiKey || process.env.GOOGLE_GENERATIVE_AI_API_KEY)
+        
+        if (!apiKey) return Response.json({ error: 'Clé API manquante' }, { status: 500 })
+
+        // Lecture de l'image sur le disque
+        const mediaDir = process.env.PAYLOAD_MEDIA_DIR || path.resolve(dirname, '../media')
+        const filePath = path.join(mediaDir, filename)
+        
+        if (!fs.existsSync(filePath)) return Response.json({ error: 'Fichier non trouvé' }, { status: 404 })
+        
+        const imageBuffer = fs.readFileSync(filePath)
+        const base64Image = imageBuffer.toString('base64')
+
+        const prompt = `
+          Analyse cette image pour une micro-ferme florale bio.
+          1. Génère un texte ALT (SEO) descriptif et poétique en français.
+          2. Génère une légende (caption) courte.
+          3. Détection de Copyright : 
+             - Cherche des filigranes (watermarks) comme "Adobe Stock", "Getty", "Shutterstock".
+             - Regarde le style : est-ce une photo professionnelle de studio ou une photo amateur de jardin ?
+             - Si tu vois un nom d'auteur ou un logo, indique-le.
+          4. Conseil de Licence : Choisis la valeur la plus probable. Si c'est une fleur dans un jardin sans logo, privilégie "public_domain". Si c'est très pro, mets "copyright" ou "purchased".
+
+          Réponds UNIQUEMENT au format JSON suivant :
+          {
+            "alt": "Texte alt SEO",
+            "caption": "Légende",
+            "licenseType": "public_domain | cc_by | purchased | copyright | unknown",
+            "licenseNotes": "Analyse visuelle : [ton analyse ici]. Conseil : [ton conseil]"
+          }
+        `
+
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-001:generateContent?key=${apiKey}`
+        
+        try {
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{
+                parts: [
+                  { text: prompt },
+                  { inline_data: { mime_type: mimeType, data: base64Image } }
+                ]
+              }],
+              generationConfig: { responseMimeType: "application/json" }
+            })
+          })
+
+          const data = await response.json()
+          const rawResult = data.candidates?.[0]?.content?.parts?.[0]?.text
+          return Response.json(JSON.parse(rawResult))
+        } catch (err) {
+          return Response.json({ error: 'Erreur analyse IA' }, { status: 500 })
+        }
+      }
+    },
     {
       path: '/ai/generate-full-post',
       method: 'post',
@@ -80,6 +148,7 @@ export default buildConfig({
     Flowers,
     CultivationLogs,
     Categories,
+    Products,
   ],
   globals: [
     PageContent,

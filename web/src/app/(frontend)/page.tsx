@@ -25,16 +25,18 @@ export default async function HomePage() {
     soon: { label: 'Bientôt', color: 'bg-amber-500' },
   }
 
-  const currentGlanage = glanageStatus[content.glanage as keyof typeof glanageStatus] || glanageStatus.closed  
+  // Accès aux champs groupés
+  const p = content.accueil || {}
+  const currentGlanage = glanageStatus[p.glanage as keyof typeof glanageStatus] || glanageStatus.closed  
   
   // Fallbacks Hero
-  const heroImage = content.heroImage as Media | null
+  const heroImage = p.heroImage as Media | null
   const heroImageUrl = heroImage?.url || '/hero-accueil.png'
-  const heroSubText = content.heroSubText || PAGE_DEFAULTS.accueil.heroSubText
+  const heroSubText = p.heroSubText || PAGE_DEFAULTS.accueil.heroSubText
   
   // Fallbacks Philosophie
-  const philosophieTitle = content.philosophieTitle || PAGE_DEFAULTS.accueil.philosophieTitle
-  const philosophieText = content.philosophieText || PAGE_DEFAULTS.accueil.philosophieText
+  const philosophieTitle = p.philosophieTitle || PAGE_DEFAULTS.accueil.philosophieTitle
+  const philosophieText = p.philosophieText || PAGE_DEFAULTS.accueil.philosophieText
 
   return (
     <div className="flex flex-col min-h-screen grainy">
@@ -96,7 +98,7 @@ export default async function HomePage() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-lg text-muted-foreground italic leading-relaxed">
-                      &quot;{content.meteoFleurs || "La nature se repose..."}&quot;
+                      &quot;{p.meteoFleurs || "La nature se repose..."}&quot;
                     </p>
                   </CardContent>
                 </Card>

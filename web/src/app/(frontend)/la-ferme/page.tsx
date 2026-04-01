@@ -8,27 +8,34 @@ import { PAGE_DEFAULTS } from '@/constants/defaults'
 
 export const dynamic = 'force-dynamic'
 
+// Fonction utilitaire pour vérifier si le RichText Lexical est réellement vide
+const isRichTextEmpty = (content: any) => {
+  if (!content) return true;
+  const root = content.root;
+  if (!root || !root.children) return true;
+  if (root.children.length === 0) return true;
+  if (root.children.length === 1 && root.children[0].type === 'paragraph' && (!root.children[0].children || root.children[0].children.length === 0)) return true;
+  return false;
+}
+
 export default async function LaFermePage() {
   const payload = await getPayload({ config })
   
-  // Récupération du contenu global
   const content = await payload.findGlobal({
     slug: 'page-content',
   })
 
-  // Fallbacks pour les textes
-  const pageTitle = content.fermeTitle || PAGE_DEFAULTS.laFerme.title
-  const subText = content.fermeSubText || PAGE_DEFAULTS.laFerme.subText
-  const histoireTitre = content.histoireTitre || PAGE_DEFAULTS.laFerme.histoireTitre
-  const ecologieTitre = content.ecologieTitre || PAGE_DEFAULTS.laFerme.ecologieTitre
-  
-  // Gestion de l'image de la ferme
-  const histoireImage = content.histoireImage as Media | null
+  const p = content.laFerme || {}
+
+  const pageTitle = p.title || PAGE_DEFAULTS.laFerme.title
+  const subText = p.subText || PAGE_DEFAULTS.laFerme.subText
+  const histoireTitre = p.histoireTitre || PAGE_DEFAULTS.laFerme.histoireTitre
+  const ecologieTitre = p.ecologieTitre || PAGE_DEFAULTS.laFerme.ecologieTitre
+  const histoireImage = p.histoireImage as Media | null
   const imageUrl = histoireImage?.url || null
 
-  // Éléments Écologie
-  const ecologieItems = content.ecologieItems && content.ecologieItems.length > 0 
-    ? content.ecologieItems 
+  const ecologieItems = p.ecologieItems && p.ecologieItems.length > 0 
+    ? p.ecologieItems 
     : PAGE_DEFAULTS.laFerme.ecologieItems
 
   return (
@@ -44,9 +51,9 @@ export default async function LaFermePage() {
         <div className="space-y-6">
           <h2 className="text-3xl font-spirax text-primary">{histoireTitre}</h2>
           
-          {content.histoireTexte ? (
+          {!isRichTextEmpty(p.histoireTexte) ? (
             <div className="prose prose-lg max-w-none font-lora text-muted-foreground leading-relaxed">
-               <RichText content={content.histoireTexte} />
+               <RichText content={p.histoireTexte} />
             </div>
           ) : (
             <div className="space-y-4 text-muted-foreground leading-relaxed font-lora text-lg">
@@ -62,16 +69,23 @@ export default async function LaFermePage() {
           )}
         </div>
         
-        <div className="bg-muted aspect-square rounded-3xl overflow-hidden shadow-inner relative flex items-center justify-center text-muted-foreground italic font-spirax text-xl text-center p-8">
-          {imageUrl ? (
-            <Image 
-              src={imageUrl} 
-              alt={histoireImage?.alt || histoireTitre} 
-              fill 
-              className="object-cover"
-            />
-          ) : (
-            "[Photo de la ferme]"
+        <div className="flex flex-col gap-2">
+          <div className="bg-muted aspect-square rounded-3xl overflow-hidden shadow-inner relative flex items-center justify-center text-muted-foreground italic font-spirax text-xl text-center p-8">
+            {imageUrl ? (
+              <Image 
+                src={imageUrl} 
+                alt={histoireImage?.alt || histoireTitre} 
+                fill 
+                className="object-cover"
+              />
+            ) : (
+              "[Photo de la ferme]"
+            )}
+          </div>
+          {histoireImage?.attribution && (
+            <span className="text-[10px] text-muted-foreground/60 text-right italic px-2">
+              {histoireImage.attribution}
+            </span>
           )}
         </div>
       </section>

@@ -13,13 +13,15 @@ export default async function ContactPage() {
     slug: 'page-content',
   })
 
+  const p = content.contact || {}
+
   // Fallbacks
-  const pageTitle = content.contactTitle || PAGE_DEFAULTS.contact.title
-  const subText = content.contactSubText || PAGE_DEFAULTS.contact.subText
-  const adresse = content.adresse || PAGE_DEFAULTS.contact.adresse
-  const email = content.email || PAGE_DEFAULTS.contact.email
-  const telephone = content.telephone || PAGE_DEFAULTS.contact.telephone
-  const horaires = content.horaires || PAGE_DEFAULTS.contact.horaires
+  const pageTitle = p.title || PAGE_DEFAULTS.contact.title
+  const subText = p.subText || PAGE_DEFAULTS.contact.subText
+  const adresse = p.adresse || PAGE_DEFAULTS.contact.adresse
+  const email = p.email || PAGE_DEFAULTS.contact.email
+  const telephone = p.telephone || PAGE_DEFAULTS.contact.telephone
+  const horaires = p.horaires || PAGE_DEFAULTS.contact.horaires
 
   return (
     <div className="container mx-auto px-4 py-12 flex flex-col gap-12 max-w-5xl">

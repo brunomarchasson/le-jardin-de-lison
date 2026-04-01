@@ -7,11 +7,15 @@ export const PageContent: GlobalConfig = {
   access: {
     read: () => true,
   },
+  admin: {
+    group: 'Configuration',
+  },
   fields: [
     {
       type: 'tabs',
       tabs: [
         {
+          name: 'accueil',
           label: 'Accueil',
           fields: [
             {
@@ -27,9 +31,7 @@ export const PageContent: GlobalConfig = {
                     { label: 'Bientôt', value: 'soon' },
                   ],
                   defaultValue: 'closed',
-                  admin: {
-                    width: '50%',
-                  },
+                  admin: { width: '50%' },
                 },
                 {
                   name: 'meteoFleurs',
@@ -37,6 +39,7 @@ export const PageContent: GlobalConfig = {
                   type: 'text',
                   admin: { 
                     width: '50%',
+                    placeholder: 'La nature se repose...',
                     description: 'Ex: "Les Dahlias sont là !"',
                   },
                 },
@@ -47,52 +50,74 @@ export const PageContent: GlobalConfig = {
               label: 'Image de fond (Hero)',
               type: 'upload',
               relationTo: 'media',
+              admin: {
+                description: 'Par défaut : hero-accueil.png',
+              }
             },
             {
               name: 'heroSubText',
               label: 'Slogan sous le titre',
               type: 'text',
-              defaultValue: PAGE_DEFAULTS.accueil.heroSubText,
+              admin: {
+                placeholder: PAGE_DEFAULTS.accueil.heroSubText,
+                description: 'Laissez vide pour utiliser la valeur par défaut.',
+              }
             },
             {
               name: 'philosophieTitle',
               label: 'Titre Philosophie',
               type: 'text',
-              defaultValue: PAGE_DEFAULTS.accueil.philosophieTitle,
+              admin: {
+                placeholder: PAGE_DEFAULTS.accueil.philosophieTitle,
+                description: 'Laissez vide pour utiliser la valeur par défaut.',
+              }
             },
             {
               name: 'philosophieText',
               label: 'Texte Philosophie',
               type: 'textarea',
-              defaultValue: PAGE_DEFAULTS.accueil.philosophieText,
+              admin: {
+                placeholder: PAGE_DEFAULTS.accueil.philosophieText,
+                description: 'Laissez vide pour utiliser la valeur par défaut.',
+              }
             },
           ]
         },
         {
+          name: 'laFerme',
           label: 'La Ferme',
           fields: [
             {
-              name: 'fermeTitle',
+              name: 'title',
               label: 'Titre de la page',
               type: 'text',
-              defaultValue: PAGE_DEFAULTS.laFerme.title,
+              admin: {
+                placeholder: PAGE_DEFAULTS.laFerme.title,
+              }
             },
             {
-              name: 'fermeSubText',
+              name: 'subText',
               label: 'Sous-titre Header',
               type: 'text',
-              defaultValue: PAGE_DEFAULTS.laFerme.subText,
+              admin: {
+                placeholder: PAGE_DEFAULTS.laFerme.subText,
+              }
             },
             {
               name: 'histoireTitre',
               label: 'Titre de l\'histoire',
               type: 'text',
-              defaultValue: PAGE_DEFAULTS.laFerme.histoireTitre,
+              admin: {
+                placeholder: PAGE_DEFAULTS.laFerme.histoireTitre,
+              }
             },
             {
               name: 'histoireTexte',
               label: 'Texte de l\'histoire',
               type: 'richText',
+              admin: {
+                description: 'Si vide, affiche l\'histoire par défaut (Cécile & Lison).',
+              }
             },
             {
               name: 'histoireImage',
@@ -104,95 +129,141 @@ export const PageContent: GlobalConfig = {
               name: 'ecologieTitre',
               label: 'Titre Section Écologie',
               type: 'text',
-              defaultValue: PAGE_DEFAULTS.laFerme.ecologieTitre,
+              admin: {
+                placeholder: PAGE_DEFAULTS.laFerme.ecologieTitre,
+              }
             },
             {
               name: 'ecologieItems',
               label: 'Points Forts Écologie',
               type: 'array',
-              // On retire temporairement le defaultValue de l'array pour tester
+              admin: {
+                description: 'Si vide, affiche les 3 points par défaut (Zéro Déchet, Biodiversité, Local).',
+              },
               fields: [
-                {
-                  name: 'title',
-                  type: 'text',
-                  label: 'Titre',
-                },
-                {
-                  name: 'description',
-                  type: 'text',
-                  label: 'Description',
-                },
-              ],
+                { name: 'title', type: 'text', label: 'Titre' },
+                { name: 'description', type: 'text', label: 'Description' },
+              ]
             }
           ]
         },
         {
-          label: 'Fleurs & Blog',
+          name: 'fleurs',
+          label: 'Fleurs',
           fields: [
             {
-              name: 'fleursTitle',
+              name: 'title',
               label: 'Titre page Fleurs',
               type: 'text',
-              defaultValue: PAGE_DEFAULTS.fleurs.title,
+              admin: {
+                placeholder: PAGE_DEFAULTS.fleurs.title,
+              }
             },
             {
-              name: 'fleursSubText',
+              name: 'subText',
               label: 'Sous-titre page Fleurs',
               type: 'text',
-              defaultValue: PAGE_DEFAULTS.fleurs.subText,
-            },
-            {
-              name: 'blogTitle',
-              label: 'Titre page Blog',
-              type: 'text',
-              defaultValue: PAGE_DEFAULTS.blog.title,
-            },
-            {
-              name: 'blogSubText',
-              label: 'Sous-titre page Blog',
-              type: 'text',
-              defaultValue: PAGE_DEFAULTS.blog.subText,
+              admin: {
+                placeholder: PAGE_DEFAULTS.fleurs.subText,
+              }
             }
           ]
         },
         {
+          name: 'leMarche',
+          label: 'Le Marché',
+          fields: [
+            {
+              name: 'title',
+              label: 'Titre page Le Marché',
+              type: 'text',
+              admin: {
+                placeholder: PAGE_DEFAULTS.leMarche.title,
+              }
+            },
+            {
+              name: 'subText',
+              label: 'Sous-titre page Le Marché',
+              type: 'text',
+              admin: {
+                placeholder: PAGE_DEFAULTS.leMarche.subText,
+              }
+            }
+          ]
+        },
+        {
+          name: 'blog',
+          label: 'Blog',
+          fields: [
+            {
+              name: 'title',
+              label: 'Titre page Blog',
+              type: 'text',
+              admin: {
+                placeholder: PAGE_DEFAULTS.blog.title,
+              }
+            },
+            {
+              name: 'subText',
+              label: 'Sous-titre page Blog',
+              type: 'text',
+              admin: {
+                placeholder: PAGE_DEFAULTS.blog.subText,
+              }
+            }
+          ]
+        },
+        {
+          name: 'contact',
           label: 'Contact',
           fields: [
             {
-              name: 'contactTitle',
+              name: 'title',
               label: 'Titre page Contact',
               type: 'text',
-              defaultValue: PAGE_DEFAULTS.contact.title,
+              admin: {
+                placeholder: PAGE_DEFAULTS.contact.title,
+              }
             },
             {
-              name: 'contactSubText',
+              name: 'subText',
               label: 'Sous-titre page Contact',
               type: 'text',
-              defaultValue: PAGE_DEFAULTS.contact.subText,
+              admin: {
+                placeholder: PAGE_DEFAULTS.contact.subText,
+              }
             },
             {
               name: 'adresse',
               label: 'Adresse',
               type: 'textarea',
-              defaultValue: PAGE_DEFAULTS.contact.adresse,
+              admin: {
+                placeholder: PAGE_DEFAULTS.contact.adresse,
+              }
             },
             {
               name: 'telephone',
               label: 'Téléphone',
               type: 'text',
-              defaultValue: PAGE_DEFAULTS.contact.telephone,
+              admin: {
+                placeholder: PAGE_DEFAULTS.contact.telephone,
+              }
             },
             {
               name: 'email',
               label: 'Email',
               type: 'text',
-              defaultValue: PAGE_DEFAULTS.contact.email,
+              admin: {
+                placeholder: PAGE_DEFAULTS.contact.email,
+              }
             },
             {
               name: 'horaires',
               label: 'Horaires',
               type: 'text',
-              defaultValue: PAGE_DEFAULTS.contact.horaires,
+              admin: {
+                placeholder: PAGE_DEFAULTS.contact.horaires,
+              }
             }
           ]
         }

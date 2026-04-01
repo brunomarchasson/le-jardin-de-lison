@@ -19,6 +19,10 @@ export const PAGE_DEFAULTS = {
     title: "Nos Fleurs",
     subText: "Découvrez les variétés qui s'épanouissent actuellement au jardin."
   },
+  leMarche: {
+    title: "Le Marché du Jardin",
+    subText: "Nos bouquets de saison et trésors artisanaux."
+  },
   blog: {
     title: "Le Journal du Jardin",
     subText: "Nouvelles de la terre, conseils de culture et vie de la micro-ferme."

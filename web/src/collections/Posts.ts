@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { lexicalEditor, HeadingFeature, FixedToolbarFeature } from '@payloadcms/richtext-lexical'
 import { AiFeature } from '@/lib/ai/aiFeature/feature.server'
+import { formatSlug } from '../hooks/formatSlug'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -24,6 +25,19 @@ export const Posts: CollectionConfig = {
       label: 'Titre',
       type: 'text',
       required: true,
+    },
+    {
+      name: 'slug',
+      label: 'Slug',
+      type: 'text',
+      index: true,
+      hooks: {
+        beforeValidate: [formatSlug('title')],
+      },
+      admin: {
+        position: 'sidebar',
+        description: 'Généré automatiquement à partir du titre',
+      },
     },
     {
       name: 'publishedDate',

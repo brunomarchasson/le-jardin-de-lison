@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { formatSlug } from '../hooks/formatSlug'
 
 export const Flowers: CollectionConfig = {
   slug: 'flowers',
@@ -9,9 +10,10 @@ export const Flowers: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'price', 'stock', 'status'],
+    group: 'Boutique',
   },
   access: {
-    read: () => true, // Tout le monde peut lire (on filtrera les champs privés en front)
+    read: () => true,
   },
   versions: {
     drafts: true,
@@ -20,7 +22,6 @@ export const Flowers: CollectionConfig = {
     {
       type: 'tabs',
       tabs: [
-        // --- ONGLET 1 : VITRINE (PUBLIC) ---
         {
           label: 'Vitrine (Public)',
           fields: [
@@ -34,19 +35,14 @@ export const Flowers: CollectionConfig = {
               name: 'slug',
               label: 'Slug (URL)',
               type: 'text',
+              index: true,
               admin: {
                 position: 'sidebar',
-                description: 'Identifiant unique pour l\'URL (ex: dahlia-cafe)',
+                description: 'Généré automatiquement à partir du nom',
               },
               hooks: {
-                beforeValidate: [
-                  ({ value, data }) => {
-                    if (value) return value.toLowerCase().replace(/ /g, '-') .replace(/[^\w-]+/g, '')
-                    if (data?.name) return data.name.toLowerCase().replace(/ /g, '-') .replace(/[^\w-]+/g, '')
-                    return value
-                  }
-                ]
-              }
+                beforeValidate: [formatSlug('name')],
+              },
             },
             {
               name: 'description',
@@ -101,8 +97,6 @@ export const Flowers: CollectionConfig = {
             },
           ],
         },
-        
-        // --- ONGLET 2 : ITINÉRAIRE TECHNIQUE (PRIVÉ) ---
         {
           label: 'Culture (Interne)',
           fields: [

@@ -16,8 +16,9 @@ export default async function BlogPage() {
     slug: 'page-content',
   })
   
-  const pageTitle = content.blogTitle || PAGE_DEFAULTS.blog.title
-  const subText = content.blogSubText || PAGE_DEFAULTS.blog.subText
+  const p = content.blog || {}
+  const pageTitle = p.title || PAGE_DEFAULTS.blog.title
+  const subText = p.subText || PAGE_DEFAULTS.blog.subText
 
   const { docs: posts } = await payload.find({
     collection: 'posts',
@@ -59,12 +60,19 @@ export default async function BlogPage() {
                     <Card className="group h-full border-none shadow-sm hover:shadow-md transition-all overflow-hidden bg-card/50 backdrop-blur-sm">
                       <div className="relative aspect-video overflow-hidden bg-muted">
                         {imageUrl ? (
-                          <Image
-                            src={imageUrl}
-                            alt={coverImage.alt || post.title}
-                            fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-700"
-                          />
+                          <>
+                            <Image
+                              src={imageUrl}
+                              alt={coverImage.alt || post.title}
+                              fill
+                              className="object-cover group-hover:scale-105 transition-transform duration-700"
+                            />
+                            {coverImage.attribution && (
+                              <div className="absolute bottom-0 right-0 bg-black/40 backdrop-blur-sm text-[8px] text-white px-1.5 py-0.5 rounded-tl-md italic">
+                                {coverImage.attribution}
+                              </div>
+                            )}
+                          </>
                         ) : (
                           <div className="flex items-center justify-center h-full text-muted-foreground italic font-spirax">
                             [Sans image]

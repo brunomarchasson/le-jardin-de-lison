@@ -1,3 +1,5 @@
+import { AiMediaTools as AiMediaTools_0ca350dd10564931bb27838a1e745460 } from '@/components/payload/AiMediaTools.tsx'
+import { ImageLicenseGuide as ImageLicenseGuide_240c9e152ac7a2be88c228ff955feff9 } from '@/components/payload/ImageLicenseGuide.tsx'
 import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
 import { LexicalDiffComponent as LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
@@ -26,6 +28,8 @@ import { InlineToolbarFeatureClient as InlineToolbarFeatureClient_e70f5e05f09f93
 import { CollectionCards as CollectionCards_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
 
 export const importMap = {
+  "@/components/payload/AiMediaTools.tsx#AiMediaTools": AiMediaTools_0ca350dd10564931bb27838a1e745460,
+  "@/components/payload/ImageLicenseGuide.tsx#ImageLicenseGuide": ImageLicenseGuide_240c9e152ac7a2be88c228ff955feff9,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalField": RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
   "@payloadcms/richtext-lexical/rsc#LexicalDiffComponent": LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e,

@@ -17,8 +17,9 @@ export default async function FleursPage() {
     slug: 'page-content',
   })
   
-  const pageTitle = content.fleursTitle || PAGE_DEFAULTS.fleurs.title
-  const subText = content.fleursSubText || PAGE_DEFAULTS.fleurs.subText
+  const p = content.fleurs || {}
+  const pageTitle = p.title || PAGE_DEFAULTS.fleurs.title
+  const subText = p.subText || PAGE_DEFAULTS.fleurs.subText
 
   const { docs: flowers } = await payload.find({
     collection: 'flowers',
@@ -70,12 +71,19 @@ export default async function FleursPage() {
                   <Card className="overflow-hidden border-none shadow-sm hover:shadow-md transition-all hover:-translate-y-1 h-full bg-card/60 backdrop-blur-sm">
                     <div className="relative aspect-[4/3] bg-muted overflow-hidden">
                       {imageUrl ? (
-                        <Image
-                          src={imageUrl}
-                          alt={typeof imageAlt === 'string' ? imageAlt : flower.name}
-                          fill
-                          className="object-cover transition-transform duration-700 hover:scale-105"
-                        />
+                        <>
+                          <Image
+                            src={imageUrl}
+                            alt={typeof imageAlt === 'string' ? imageAlt : flower.name}
+                            fill
+                            className="object-cover transition-transform duration-700 hover:scale-105"
+                          />
+                          {imageData?.attribution && (
+                            <div className="absolute bottom-0 right-0 bg-black/40 backdrop-blur-sm text-[8px] text-white px-1.5 py-0.5 rounded-tl-md italic">
+                              {imageData.attribution}
+                            </div>
+                          )}
+                        </>
                       ) : (
                         <div className="flex items-center justify-center h-full text-muted-foreground italic font-spirax">
                           [Photo à venir]

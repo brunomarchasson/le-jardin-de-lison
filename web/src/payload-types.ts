@@ -73,6 +73,7 @@ export interface Config {
     flowers: Flower;
     'cultivation-logs': CultivationLog;
     categories: Category;
+    products: Product;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -86,6 +87,7 @@ export interface Config {
     flowers: FlowersSelect<false> | FlowersSelect<true>;
     'cultivation-logs': CultivationLogsSelect<false> | CultivationLogsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -161,6 +163,23 @@ export interface User {
 export interface Media {
   id: number;
   alt: string;
+  /**
+   * S'affiche sous l'image si nécessaire.
+   */
+  caption?: string | null;
+  /**
+   * Ex: © Photographe Nom / Unsplash. S'affichera sur le site.
+   */
+  attribution?: string | null;
+  /**
+   * Collez l'adresse web où vous avez trouvé l'image.
+   */
+  sourceUrl?: string | null;
+  licenseType?: ('public_domain' | 'cc_by' | 'purchased' | 'copyright' | 'unknown') | null;
+  /**
+   * Utilisez l'Assistant IA pour analyser si l'image est libre de droit.
+   */
+  licenseNotes?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -206,6 +225,10 @@ export interface Media {
 export interface Post {
   id: number;
   title: string;
+  /**
+   * Généré automatiquement à partir du titre
+   */
+  slug?: string | null;
   publishedDate?: string | null;
   category?: (number | null) | Category;
   coverImage?: (number | null) | Media;
@@ -236,6 +259,10 @@ export interface Post {
 export interface Category {
   id: number;
   title: string;
+  /**
+   * Généré automatiquement à partir du titre
+   */
+  slug?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -247,7 +274,7 @@ export interface Flower {
   id: number;
   name: string;
   /**
-   * Identifiant unique pour l'URL (ex: dahlia-cafe)
+   * Généré automatiquement à partir du nom
    */
   slug?: string | null;
   description?: string | null;
@@ -290,6 +317,49 @@ export interface CultivationLog {
         id?: string | null;
       }[]
     | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: number;
+  name: string;
+  /**
+   * Généré automatiquement à partir du nom
+   */
+  slug?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  categories?: (number | Category)[] | null;
+  images?:
+    | {
+        image: number | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Si ce produit (ex: un bouquet) contient des fleurs spécifiques de votre catalogue.
+   */
+  relatedFlowers?: (number | Flower)[] | null;
+  price?: number | null;
+  stock?: number | null;
+  status?: ('draft' | 'published') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -340,6 +410,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'categories';
         value: number | Category;
+      } | null)
+    | ({
+        relationTo: 'products';
+        value: number | Product;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -411,6 +485,11 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  caption?: T;
+  attribution?: T;
+  sourceUrl?: T;
+  licenseType?: T;
+  licenseNotes?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -463,6 +542,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
+  slug?: T;
   publishedDate?: T;
   category?: T;
   coverImage?: T;
@@ -523,6 +603,29 @@ export interface CultivationLogsSelect<T extends boolean = true> {
  */
 export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  description?: T;
+  categories?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  relatedFlowers?: T;
+  price?: T;
+  stock?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -572,52 +675,84 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface PageContent {
   id: number;
-  glanage?: ('open' | 'closed' | 'soon') | null;
-  /**
-   * Ex: "Les Dahlias sont là !"
-   */
-  meteoFleurs?: string | null;
-  heroImage?: (number | null) | Media;
-  heroSubText?: string | null;
-  philosophieTitle?: string | null;
-  philosophieText?: string | null;
-  fermeTitle?: string | null;
-  fermeSubText?: string | null;
-  histoireTitre?: string | null;
-  histoireTexte?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
+  accueil?: {
+    glanage?: ('open' | 'closed' | 'soon') | null;
+    /**
+     * Ex: "Les Dahlias sont là !"
+     */
+    meteoFleurs?: string | null;
+    /**
+     * Par défaut : hero-accueil.png
+     */
+    heroImage?: (number | null) | Media;
+    /**
+     * Laissez vide pour utiliser la valeur par défaut.
+     */
+    heroSubText?: string | null;
+    /**
+     * Laissez vide pour utiliser la valeur par défaut.
+     */
+    philosophieTitle?: string | null;
+    /**
+     * Laissez vide pour utiliser la valeur par défaut.
+     */
+    philosophieText?: string | null;
+  };
+  laFerme?: {
+    title?: string | null;
+    subText?: string | null;
+    histoireTitre?: string | null;
+    /**
+     * Si vide, affiche l'histoire par défaut (Cécile & Lison).
+     */
+    histoireTexte?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
         version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  histoireImage?: (number | null) | Media;
-  ecologieTitre?: string | null;
-  ecologieItems?:
-    | {
-        title?: string | null;
-        description?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  fleursTitle?: string | null;
-  fleursSubText?: string | null;
-  blogTitle?: string | null;
-  blogSubText?: string | null;
-  contactTitle?: string | null;
-  contactSubText?: string | null;
-  adresse?: string | null;
-  telephone?: string | null;
-  email?: string | null;
-  horaires?: string | null;
+      };
+      [k: string]: unknown;
+    } | null;
+    histoireImage?: (number | null) | Media;
+    ecologieTitre?: string | null;
+    /**
+     * Si vide, affiche les 3 points par défaut (Zéro Déchet, Biodiversité, Local).
+     */
+    ecologieItems?:
+      | {
+          title?: string | null;
+          description?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  fleurs?: {
+    title?: string | null;
+    subText?: string | null;
+  };
+  leMarche?: {
+    title?: string | null;
+    subText?: string | null;
+  };
+  blog?: {
+    title?: string | null;
+    subText?: string | null;
+  };
+  contact?: {
+    title?: string | null;
+    subText?: string | null;
+    adresse?: string | null;
+    telephone?: string | null;
+    email?: string | null;
+    horaires?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -647,35 +782,61 @@ export interface SiteSetting {
  * via the `definition` "page-content_select".
  */
 export interface PageContentSelect<T extends boolean = true> {
-  glanage?: T;
-  meteoFleurs?: T;
-  heroImage?: T;
-  heroSubText?: T;
-  philosophieTitle?: T;
-  philosophieText?: T;
-  fermeTitle?: T;
-  fermeSubText?: T;
-  histoireTitre?: T;
-  histoireTexte?: T;
-  histoireImage?: T;
-  ecologieTitre?: T;
-  ecologieItems?:
+  accueil?:
+    | T
+    | {
+        glanage?: T;
+        meteoFleurs?: T;
+        heroImage?: T;
+        heroSubText?: T;
+        philosophieTitle?: T;
+        philosophieText?: T;
+      };
+  laFerme?:
     | T
     | {
         title?: T;
-        description?: T;
-        id?: T;
+        subText?: T;
+        histoireTitre?: T;
+        histoireTexte?: T;
+        histoireImage?: T;
+        ecologieTitre?: T;
+        ecologieItems?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              id?: T;
+            };
       };
-  fleursTitle?: T;
-  fleursSubText?: T;
-  blogTitle?: T;
-  blogSubText?: T;
-  contactTitle?: T;
-  contactSubText?: T;
-  adresse?: T;
-  telephone?: T;
-  email?: T;
-  horaires?: T;
+  fleurs?:
+    | T
+    | {
+        title?: T;
+        subText?: T;
+      };
+  leMarche?:
+    | T
+    | {
+        title?: T;
+        subText?: T;
+      };
+  blog?:
+    | T
+    | {
+        title?: T;
+        subText?: T;
+      };
+  contact?:
+    | T
+    | {
+        title?: T;
+        subText?: T;
+        adresse?: T;
+        telephone?: T;
+        email?: T;
+        horaires?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
