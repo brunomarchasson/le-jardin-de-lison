@@ -31,15 +31,9 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
-# IMPORTANT: Necessary files for migrations to run in the container
-COPY --from=builder --chown=nextjs:nodejs /app/src ./src
-COPY --from=builder --chown=nextjs:nodejs /app/tsconfig.json ./tsconfig.json
-COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
-
 USER nextjs
 
 EXPOSE 3000
 
-# Script de démarrage qui lance les migrations PUIS le serveur
-# On utilise 'node_modules/.bin/payload' pour être sûr d'utiliser la version locale
-CMD ["sh", "-c", "./node_modules/.bin/payload migrate && node server.js"]
+# Commande de démarrage simple pour arrêter le crash loop
+CMD ["node", "server.js"]
