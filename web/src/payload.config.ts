@@ -28,7 +28,6 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
-    css: path.resolve(dirname, 'app/(payload)/custom.scss'),
     components: {
       graphics: {
         Logo: '/components/payload/AdminLogo#AdminLogo',
@@ -38,7 +37,6 @@ export default buildConfig({
     theme: 'light',
     meta: {
       titleSuffix: '- Au jardin de Lison',
-      ogImage: '/logo_square.svg',
     },
   },
   endpoints: [
