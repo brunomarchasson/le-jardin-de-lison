@@ -48,7 +48,7 @@ export const ImageLicenseGuide: React.FC = () => {
               <h4 className="font-bold text-amber-700 flex items-center gap-2 text-xs uppercase tracking-widest border-b border-amber-700/10 pb-2">
                 <AlertTriangle className="w-4 h-4" /> 2. Risques Copyright
               </h4>
-              <p className="text-muted-foreground">Évitez absolument d'utiliser des images provenant de :</p>
+              <p className="text-muted-foreground">Évitez absolument d&apos;utiliser des images provenant de :</p>
               <ul className="space-y-2 text-muted-foreground">
                 <li className="flex items-start gap-2">
                   <span className="text-amber-600 font-bold">•</span>
@@ -65,7 +65,7 @@ export const ImageLicenseGuide: React.FC = () => {
           <div className="bg-primary/5 p-5 rounded-xl border border-primary/10 space-y-2">
             <p className="font-bold text-primary uppercase text-[10px] tracking-widest">Le bon réflexe :</p>
             <p className="text-muted-foreground italic">
-              Si vous avez un doute, renseignez l'<strong>URL d'origine</strong> et cliquez sur <strong>Magie IA</strong> dans la colonne de droite. L'IA analysera les droits pour vous.
+              Si vous avez un doute, renseignez l&apos;<strong>URL d&apos;origine</strong> et cliquez sur <strong>Magie IA</strong> dans la colonne de droite. L&apos;IA analysera les droits pour vous.
             </p>
           </div>
         </div>

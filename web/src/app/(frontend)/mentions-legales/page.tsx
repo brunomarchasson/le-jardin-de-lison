@@ -17,7 +17,7 @@ export default function MentionsLegalesPage() {
         <section>
           <h2 className="text-2xl font-spirax text-primary mb-4">Éditeur du site</h2>
           <p>
-            Le site <strong>Au jardin de Lison</strong> (ci-après « le Site »), accessible à l'adresse <a href="https://aujardindelison.fr">https://aujardindelison.fr</a>, est édité par :<br />
+            Le site <strong>Au jardin de Lison</strong> (ci-après « le Site »), accessible à l&apos;adresse <a href="https://aujardindelison.fr">https://aujardindelison.fr</a>, est édité par :<br />
             <strong>Cécile Luzel</strong><br />
             Domiciliée à : 13610 Le Puy-Sainte-Réparade<br />
             Téléphone : +33 7 49 59 09 94<br />
@@ -25,10 +25,10 @@ export default function MentionsLegalesPage() {
           </p>
           
           <div className="bg-primary/5 p-6 rounded-lg border border-primary/10 my-6">
-            <h3 className="text-xl font-spirax text-primary mb-2">Statut CAPE (Contrat d'Appui au Projet d'Entreprise)</h3>
+            <h3 className="text-xl font-spirax text-primary mb-2">Statut CAPE (Contrat d&apos;Appui au Projet d&apos;Entreprise)</h3>
             <p className="text-sm">
-              Cécile Luzel est titulaire d’un Contrat d'Appui au Projet d'Entreprise (CAPE) avec la couveuse d’activités <strong>COSENS</strong>.<br />
-              Conformément à l'article L127-1 du Code de commerce, l'identification de la structure d'appui est obligatoire :
+              Cécile Luzel est titulaire d’un Contrat d&apos;Appui au Projet d&apos;Entreprise (CAPE) avec la couveuse d’activités <strong>COSENS</strong>.<br />
+              Conformément à l&apos;article L127-1 du Code de commerce, l&apos;identification de la structure d&apos;appui est obligatoire :
             </p>
             <ul className="text-sm list-none pl-0 mt-2">
               <li><strong>Raison sociale :</strong> COSENS (association loi 1901)</li>
@@ -63,17 +63,17 @@ export default function MentionsLegalesPage() {
         <section>
           <h2 className="text-2xl font-spirax text-primary mb-4">Propriété Intellectuelle</h2>
           <p>
-            L'ensemble des éléments constituant ce Site (textes, graphismes, logiciels, photographies, images, vidéos, sons, plans, noms, logos, marques, créations et œuvres protégeables diverses, bases de données, etc.) ainsi que le Site lui-même, sont la propriété exclusive de <strong>Au jardin de Lison</strong>.
+            L&apos;ensemble des éléments constituant ce Site (textes, graphismes, logiciels, photographies, images, vidéos, sons, plans, noms, logos, marques, créations et œuvres protégeables diverses, bases de données, etc.) ainsi que le Site lui-même, sont la propriété exclusive de <strong>Au jardin de Lison</strong>.
           </p>
           <p>
-            Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de l'Éditeur.
+            Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable de l&apos;Éditeur.
           </p>
         </section>
 
         <section>
           <h2 className="text-2xl font-spirax text-primary mb-4">Crédits Photos</h2>
           <p>
-            Les photographies présentes sur ce site sont soumises au droit d'auteur. Les crédits respectifs sont mentionnés directement sur ou à proximité des images utilisées.
+            Les photographies présentes sur ce site sont soumises au droit d&apos;auteur. Les crédits respectifs sont mentionnés directement sur ou à proximité des images utilisées.
           </p>
         </section>
 
@@ -87,7 +87,7 @@ export default function MentionsLegalesPage() {
         <section>
           <h2 className="text-2xl font-spirax text-primary mb-4">Contact</h2>
           <p>
-            Pour toute question ou demande d'information concernant le Site, ou tout signalement de contenu ou d'activités illicites, l'utilisateur peut contacter l'Éditeur à l'adresse suivante : <strong>hello@aujardindelison.fr</strong> ou par courrier recommandé avec accusé de réception adressé à l'Éditeur aux coordonnées précisées plus haut.
+            Pour toute question ou demande d&apos;information concernant le Site, ou tout signalement de contenu ou d&apos;activités illicites, l&apos;utilisateur peut contacter l&apos;Éditeur à l&apos;adresse suivante : <strong>hello@aujardindelison.fr</strong> ou par courrier recommandé avec accusé de réception adressé à l&apos;Éditeur aux coordonnées précisées plus haut.
           </p>
         </section>
       </div>

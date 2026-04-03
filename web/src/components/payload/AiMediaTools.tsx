@@ -59,7 +59,7 @@ export const AiMediaTools: React.FC = () => {
         ) : (
           <Sparkles className="w-4 h-4" />
         )}
-        <span>Optimiser via l'IA</span>
+        <span>Optimiser via l&apos;IA</span>
       </button>
 
       <div className="mt-6 space-y-2 text-center">

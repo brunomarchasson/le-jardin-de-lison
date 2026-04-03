@@ -37,14 +37,14 @@ export default function PolitiqueConfidentialitePage() {
             </li>
             <li className="flex items-center gap-3">
               <span className="w-2 h-2 bg-primary rounded-full" />
-              <span>Pas d'analyse d'audience intrusive.</span>
+              <span>Pas d&apos;analyse d&apos;audience intrusive.</span>
             </li>
           </ul>
         </section>
 
         <section className="bg-primary/5 p-8 rounded-2xl border border-primary/10 mt-12">
           <p className="text-sm italic">
-            Votre navigation est totalement anonyme. Si vous nous contactez par email à l'adresse <strong>hello@aujardindelison.fr</strong>, votre adresse email ne sera utilisée que pour vous répondre et ne sera jamais cédée à des tiers.
+            Votre navigation est totalement anonyme. Si vous nous contactez par email à l&apos;adresse <strong>hello@aujardindelison.fr</strong>, votre adresse email ne sera utilisée que pour vous répondre et ne sera jamais cédée à des tiers.
           </p>
         </section>
       </div>
