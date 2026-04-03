@@ -38,7 +38,6 @@ export default buildConfig({
     theme: 'light',
     meta: {
       titleSuffix: '- Au jardin de Lison',
-      favicon: '/logo_square.svg',
       ogImage: '/logo_square.svg',
     },
   },
