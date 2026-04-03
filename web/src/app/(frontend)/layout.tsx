@@ -1,42 +1,26 @@
 import React from 'react'
 import './styles.css'
 import Link from 'next/link'
-import { Spirax, Lato, Lora, Open_Sans, Nanum_Gothic, Corben } from 'next/font/google'
+import { fontVariables } from '@/styles/fonts'
 import { cn } from '@/lib/utils'
 import { MotionProvider } from '@/components/MotionProvider'
 import { Logo } from '@/components/Logo'
 import { HeaderNavigation } from '@/components/HeaderNavigation'
 import { ThemeSwitcher } from '@/components/ThemeSwitcher'
 
-const spirax = Spirax({ 
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-spirax',
-  display: 'swap',
-})
-
-const lora = Lora({ subsets: ['latin'], variable: '--font-lora', display: 'swap' })
-const openSans = Open_Sans({ subsets: ['latin'], variable: '--font-opensans', display: 'swap' })
-const nanumGothic = Nanum_Gothic({ subsets: ['latin'], weight: ['400', '700'], variable: '--font-nanum', display: 'swap' })
-const corben = Corben({ subsets: ['latin'], weight: ['400', '700'], variable: '--font-corben', display: 'swap' })
-
-const lato = Lato({ 
-  subsets: ['latin'],
-  weight: ['300', '400', '700'],
-  variable: '--font-sans',
-  display: 'swap',
-})
-
 export const metadata = {
   description: 'Micro-ferme florale bio, locale et de saison - Au jardin de Lison',
   title: 'Au jardin de Lison',
+  icons: {
+    icon: '/logo_square.svg',
+  },
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="fr" className={cn(spirax.variable, lora.variable, openSans.variable, nanumGothic.variable, corben.variable, lato.variable)}>
+    <html lang="fr" className={cn(fontVariables)}>
       <body className="min-h-screen bg-background font-serif antialiased text-foreground selection:bg-primary/20">
         <MotionProvider>
           <header className="sticky top-0 z-50 w-full border-b border-primary/10 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
@@ -55,6 +39,14 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
              
               </div>
               <p className="font-lora text-xs">© {new Date().getFullYear()} - Micro-ferme florale bio & locale</p>
+              <div className="flex flex-wrap justify-center gap-6 mt-4 font-lora text-[10px] uppercase tracking-widest opacity-60 hover:opacity-100 transition-opacity">
+                <Link href="/mentions-legales" className="hover:text-primary transition-colors">Mentions Légales</Link>
+                <Link href="/politique-de-confidentialite" className="hover:text-primary transition-colors">Confidentialité</Link>
+                <Link href="/cgu" className="hover:text-primary transition-colors">CGU</Link>
+              </div>
+              <p className="font-lora text-[9px] mt-8 opacity-40 uppercase tracking-tighter">
+                Site créé par Bruno Marchasson
+              </p>
             </div>
           </footer>
           <ThemeSwitcher />

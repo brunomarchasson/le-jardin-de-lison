@@ -93,7 +93,7 @@ export default async function FleursPage() {
                     <CardHeader>
                       <div className="flex justify-between items-start gap-2">
                         <CardTitle className="font-spirax text-2xl text-primary">{flower.name}</CardTitle>      
-                        <span className="font-bold font-sans text-lg">{flower.price}€</span>
+                        <span className="font-bold font-sans text-lg hidden">{flower.price}€</span>
                       </div>
                       <div className="flex flex-wrap gap-2 mt-2">
                         {flower.season?.map((s) => (

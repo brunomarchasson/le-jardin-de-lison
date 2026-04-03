@@ -23,11 +23,15 @@ export const Media: CollectionConfig = {
       label: 'Texte alternatif (SEO)',
       type: 'text',
       required: true,
+      admin: {
+        description: 'Décrivez l\'image pour les personnes malvoyantes et le SEO.',
+      }
     },
     {
       name: 'aiTools',
       type: 'ui',
       admin: {
+        position: 'sidebar',
         components: {
           Field: '@/components/payload/AiMediaTools.tsx#AiMediaTools',
         },
@@ -44,7 +48,7 @@ export const Media: CollectionConfig = {
               label: 'Légende',
               type: 'text',
               admin: {
-                description: 'S\'affiche sous l\'image si nécessaire.',
+                description: 'S\'affiche sous l\'image.',
               },
             },
             {
@@ -52,7 +56,7 @@ export const Media: CollectionConfig = {
               label: 'Crédits / Copyright',
               type: 'text',
               admin: {
-                description: 'Ex: © Photographe Nom / Unsplash. S\'affichera sur le site.',
+                description: 'Ex: © Photographe / Unsplash.',
               },
             },
           ],
@@ -60,23 +64,6 @@ export const Media: CollectionConfig = {
         {
           label: 'Licence & Origine',
           fields: [
-            {
-              name: 'licenseGuide',
-              type: 'ui',
-              admin: {
-                components: {
-                  Field: '@/components/payload/ImageLicenseGuide.tsx#ImageLicenseGuide',
-                },
-              },
-            },
-            {
-              name: 'sourceUrl',
-              label: 'URL d\'origine',
-              type: 'text',
-              admin: {
-                description: 'Collez l\'adresse web où vous avez trouvé l\'image.',
-              },
-            },
             {
               name: 'licenseType',
               label: 'Type de Licence',
@@ -91,13 +78,30 @@ export const Media: CollectionConfig = {
               defaultValue: 'unknown',
             },
             {
+              name: 'sourceUrl',
+              label: 'URL d\'origine',
+              type: 'text',
+              admin: {
+                description: 'Lien vers la source de l\'image.',
+              },
+            },
+            {
               name: 'licenseNotes',
               label: 'Notes de vérification',
               type: 'textarea',
               admin: {
-                description: 'Utilisez l\'Assistant IA pour analyser si l\'image est libre de droit.',
+                description: 'Analyse de l\'IA ou vos remarques.',
               }
-            }
+            },
+            {
+              name: 'licenseGuide',
+              type: 'ui',
+              admin: {
+                components: {
+                  Field: '@/components/payload/ImageLicenseGuide.tsx#ImageLicenseGuide',
+                },
+              },
+            },
           ],
         },
       ],

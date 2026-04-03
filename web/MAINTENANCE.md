@@ -72,7 +72,11 @@ web/
 │   │   ├── (frontend)/      # Le Site Web (Next.js)
 │   │   │   ├── layout.tsx   # Structure globale (Header, Footer, Fontes)
 │   │   │   ├── theme.css    # LE FICHIER DE CONFIGURATION DESIGN
-│   │   │   └── page.tsx     # Page d'accueil
+│   │   │   ├── page.tsx     # Page d'accueil
+│   │   │   ├── mentions-legales/ # Mentions Légales
+│   │   │   ├── politique-de-confidentialite/ # Politique de Confidentialité (RGPD)
+│   │   │   ├── cgu/         # Conditions Générales d'Utilisation
+│   │   │   └── cgv/         # Conditions Générales de Vente (E-shop)
 │   │   └── (payload)/       # L'Admin Panel (CMS)
 │   ├── collections/         # Définition des types de contenu (Schema DB)
 │   ├── components/          # Composants React réutilisables

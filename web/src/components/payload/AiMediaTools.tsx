@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useState } from 'react'
-import { useField, Button } from '@payloadcms/ui'
-import { Sparkles, Loader2 } from 'lucide-react'
+import { useField } from '@payloadcms/ui'
+import { Sparkles, Loader2, Wand2 } from 'lucide-react'
 
 export const AiMediaTools: React.FC = () => {
   const { value: filename } = useField<string>({ path: 'filename' })
@@ -16,7 +16,6 @@ export const AiMediaTools: React.FC = () => {
 
   const handleAiAction = async () => {
     if (!filename) return
-    
     setLoading(true)
     try {
       const response = await fetch('/api/ai/analyze-media', {
@@ -24,14 +23,11 @@ export const AiMediaTools: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ filename, mimeType }),
       })
-
       const data = await response.json()
-      
       if (data.alt) setAlt(data.alt)
       if (data.caption) setCaption(data.caption)
       if (data.licenseNotes) setLicenseNotes(data.licenseNotes)
       if (data.licenseType) setLicenseType(data.licenseType)
-      
     } catch (err) {
       console.error("Erreur IA Media:", err)
     } finally {
@@ -40,16 +36,21 @@ export const AiMediaTools: React.FC = () => {
   }
 
   return (
-    <div className="my-6">
+    <div className="sidebar-ai-tools mb-12 p-6 bg-primary/5 rounded-2xl border border-primary/10">
+      <div className="flex items-center gap-3 mb-6 text-primary font-bold text-[11px] uppercase tracking-[0.2em]">
+        <Wand2 className="w-4 h-4" />
+        <span>Assistant IA</span>
+      </div>
+
       <button
         onClick={(e) => { e.preventDefault(); handleAiAction(); }}
         disabled={loading || !filename}
         className={`
-          flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl
-          transition-all duration-300 font-medium text-sm shadow-sm
+          flex items-center justify-center gap-3 w-full py-3.5 px-4 rounded-xl border
+          transition-all duration-300 font-bold text-[11px] uppercase tracking-widest shadow-sm
           ${loading || !filename 
-            ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-            : 'bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white hover:shadow-md active:scale-[0.98]'
+            ? 'bg-transparent text-gray-300 border-gray-200 cursor-not-allowed shadow-none' 
+            : 'bg-primary text-white border-primary hover:bg-primary/90 hover:shadow-md active:scale-[0.98]'
           }
         `}
       >
@@ -58,13 +59,20 @@ export const AiMediaTools: React.FC = () => {
         ) : (
           <Sparkles className="w-4 h-4" />
         )}
-        <span>Optimiser avec la Magie IA</span>
+        <span>Optimiser via l'IA</span>
       </button>
-      {!filename && (
-        <p className="text-[10px] text-gray-400 mt-2 text-center italic">
-          Uploadez une image pour activer l'IA
+
+      <div className="mt-6 space-y-2 text-center">
+        <p className="text-[10px] text-muted-foreground font-medium">
+          {!filename 
+            ? "En attente d'une image..." 
+            : "Analyse des droits & SEO"
+          }
         </p>
-      )}
+        <p className="text-[9px] text-muted-foreground/60 leading-relaxed italic">
+          Génère automatiquement vos textes SEO et détecte les risques de copyright.
+        </p>
+      </div>
     </div>
   )
 }

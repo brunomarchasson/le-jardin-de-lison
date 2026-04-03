@@ -28,6 +28,19 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    css: path.resolve(dirname, 'app/(payload)/custom.scss'),
+    components: {
+      graphics: {
+        Logo: '/components/payload/AdminLogo#AdminLogo',
+        Icon: '/components/payload/AdminLogo#AdminLogo',
+      },
+    },
+    theme: 'light',
+    meta: {
+      titleSuffix: '- Au jardin de Lison',
+      favicon: '/logo_square.svg',
+      ogImage: '/logo_square.svg',
+    },
   },
   endpoints: [
     {

@@ -162,22 +162,25 @@ export interface User {
  */
 export interface Media {
   id: number;
+  /**
+   * Décrivez l'image pour les personnes malvoyantes et le SEO.
+   */
   alt: string;
   /**
-   * S'affiche sous l'image si nécessaire.
+   * S'affiche sous l'image.
    */
   caption?: string | null;
   /**
-   * Ex: © Photographe Nom / Unsplash. S'affichera sur le site.
+   * Ex: © Photographe / Unsplash.
    */
   attribution?: string | null;
-  /**
-   * Collez l'adresse web où vous avez trouvé l'image.
-   */
-  sourceUrl?: string | null;
   licenseType?: ('public_domain' | 'cc_by' | 'purchased' | 'copyright' | 'unknown') | null;
   /**
-   * Utilisez l'Assistant IA pour analyser si l'image est libre de droit.
+   * Lien vers la source de l'image.
+   */
+  sourceUrl?: string | null;
+  /**
+   * Analyse de l'IA ou vos remarques.
    */
   licenseNotes?: string | null;
   updatedAt: string;
@@ -487,8 +490,8 @@ export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   caption?: T;
   attribution?: T;
-  sourceUrl?: T;
   licenseType?: T;
+  sourceUrl?: T;
   licenseNotes?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -748,9 +751,17 @@ export interface PageContent {
   contact?: {
     title?: string | null;
     subText?: string | null;
+    /**
+     * Nom qui apparaîtra lors de l'enregistrement du contact.
+     */
+    nomOrganisation?: string | null;
     adresse?: string | null;
+    codePostal?: string | null;
+    ville?: string | null;
     telephone?: string | null;
     email?: string | null;
+    instagram?: string | null;
+    facebook?: string | null;
     horaires?: string | null;
   };
   updatedAt?: string | null;
@@ -832,9 +843,14 @@ export interface PageContentSelect<T extends boolean = true> {
     | {
         title?: T;
         subText?: T;
+        nomOrganisation?: T;
         adresse?: T;
+        codePostal?: T;
+        ville?: T;
         telephone?: T;
         email?: T;
+        instagram?: T;
+        facebook?: T;
         horaires?: T;
       };
   updatedAt?: T;

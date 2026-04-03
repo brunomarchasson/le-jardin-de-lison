@@ -45,11 +45,13 @@
     "marked": "^17.0.1",
     "next": "15.4.10",
     "payload": "3.71.1",
+    "qrcode.react": "^4.2.0",
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "sharp": "0.34.2",
     "tailwind-merge": "^3.4.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "vcard-creator": "^0.7.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",

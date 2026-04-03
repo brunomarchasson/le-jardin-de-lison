@@ -234,11 +234,38 @@ export const PageContent: GlobalConfig = {
               }
             },
             {
+              name: 'nomOrganisation',
+              label: 'Nom de l\'organisation (pour le QR Code)',
+              type: 'text',
+              admin: {
+                placeholder: 'Au jardin de Lison',
+                description: 'Nom qui apparaîtra lors de l\'enregistrement du contact.',
+              }
+            },
+            {
               name: 'adresse',
               label: 'Adresse',
               type: 'textarea',
               admin: {
                 placeholder: PAGE_DEFAULTS.contact.adresse,
+              }
+            },
+            {
+              name: 'codePostal',
+              label: 'Code Postal',
+              type: 'text',
+              admin: {
+                placeholder: '13610',
+                width: '50%',
+              }
+            },
+            {
+              name: 'ville',
+              label: 'Ville',
+              type: 'text',
+              admin: {
+                placeholder: 'Le Puy-Sainte-Réparade',
+                width: '50%',
               }
             },
             {
@@ -256,6 +283,23 @@ export const PageContent: GlobalConfig = {
               admin: {
                 placeholder: PAGE_DEFAULTS.contact.email,
               }
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'instagram',
+                  label: 'Lien Instagram',
+                  type: 'text',
+                  admin: { placeholder: 'https://instagram.com/aujardindelison' },
+                },
+                {
+                  name: 'facebook',
+                  label: 'Lien Facebook',
+                  type: 'text',
+                  admin: { placeholder: 'https://facebook.com/aujardindelison' },
+                },
+              ],
             },
             {
               name: 'horaires',
