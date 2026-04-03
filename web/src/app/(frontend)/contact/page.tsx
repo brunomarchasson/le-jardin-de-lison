@@ -24,15 +24,16 @@ export default async function ContactPage() {
   const telephone = p.telephone || PAGE_DEFAULTS.contact.telephone
   const horaires = p.horaires || PAGE_DEFAULTS.contact.horaires
   
-  const nomOrganisation = p.nomOrganisation || 'Au jardin de Lison'
-  const ville = p.ville || 'Le Puy-Sainte-Réparade'
-  const codePostal = p.codePostal || '13610'
-  const instagram = p.instagram
-  const facebook = p.facebook
+  const nomOrganisation = p.nomOrganisation || undefined
+  const ville = p.ville || undefined
+  const codePostal = p.codePostal || undefined
+  const instagram = p.instagram || undefined
+  const facebook = p.facebook || undefined
   
   const contactPhotoUrl = 'https://aujardindelison.fr/logo.svg'
 
-  const fullAdresse = `${adresse}\n${codePostal} ${ville}`
+  const displayAdresse = adresse || ''
+  const fullAdresse = `${displayAdresse}${codePostal || ville ? '\n' : ''}${codePostal || ''} ${ville || ''}`.trim()
 
   return (
     <div className="container mx-auto px-4 py-12 flex flex-col gap-12 max-w-5xl">
@@ -51,7 +52,7 @@ export default async function ContactPage() {
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground whitespace-pre-line">
-              {fullAdresse}
+              {fullAdresse || 'Adresse non renseignée'}
             </p>
           </CardContent>
         </Card>
@@ -92,7 +93,7 @@ export default async function ContactPage() {
             organization={nomOrganisation}
             email={email}
             phone={telephone}
-            address={adresse}
+            address={displayAdresse}
             city={ville}
             zipCode={codePostal}
             instagram={instagram}
