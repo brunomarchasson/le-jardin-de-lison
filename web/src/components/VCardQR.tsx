@@ -3,6 +3,8 @@
 import React, { useMemo, useRef, useState, useEffect } from 'react'
 import VCard from 'vcard-creator'
 import { QRCodeSVG } from 'qrcode.react'
+import { Download } from 'lucide-react'
+import { Button } from './ui/button'
 
 interface VCardQRProps {
   email: string
@@ -63,6 +65,18 @@ export const VCardQR: React.FC<VCardQRProps> = ({
     return myVCard.toString()
   }, [email, phone, orgName, address, city, zipCode, instagram, facebook])
 
+  const handleDownload = () => {
+    const blob = new Blob([vCardString], { type: 'text/vcard;charset=utf-8' })
+    const url = window.URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.setAttribute('download', `${orgName.replace(/\s+/g, '_')}.vcf`)
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    window.URL.revokeObjectURL(url)
+  }
+
   // Generate the final image for display & right-click
   useEffect(() => {
     if (!svgRef.current || !logoDataUrl) return
@@ -81,7 +95,7 @@ export const VCardQR: React.FC<VCardQRProps> = ({
   }, [vCardString, logoDataUrl])
 
   return (
-    <div className="flex flex-col items-center gap-4 p-6 rounded-xl border-none shadow-sm bg-muted/30 w-full max-w-[240px]">
+    <div className="flex flex-col items-center gap-4 p-6 rounded-xl border-none shadow-sm bg-muted/30 w-full">
       <div className="hidden">
         <QRCodeSVG 
           ref={svgRef}
@@ -98,13 +112,21 @@ export const VCardQR: React.FC<VCardQRProps> = ({
         />
       </div>
 
-      <div className="p-2 border-4 border-primary/5 rounded-lg bg-transparent flex items-center justify-center">
+      <div 
+        onClick={handleDownload}
+        className="cursor-pointer group relative p-2 border-4 border-primary/5 rounded-lg bg-transparent flex items-center justify-center transition-all hover:border-primary/20"
+      >
         {qrDataUrl ? (
-          <img 
-            src={qrDataUrl} 
-            alt="QR Code Au jardin de Lison" 
-            className="w-40 h-40"
-          />
+          <>
+            <img 
+              src={qrDataUrl} 
+              alt="QR Code Au jardin de Lison" 
+              className="w-40 h-40 group-hover:opacity-40 transition-opacity"
+            />
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <Download className="w-12 h-12 text-primary" />
+            </div>
+          </>
         ) : (
           <div className="w-40 h-40 animate-pulse bg-primary/10 rounded flex items-center justify-center text-[8px] text-primary/40 uppercase font-lora">
             Génération...
@@ -112,9 +134,18 @@ export const VCardQR: React.FC<VCardQRProps> = ({
         )}
       </div>
       
-      <div className="flex flex-col gap-1 w-full text-center font-lora">
-        <p className="text-[10px] text-primary/70 leading-tight uppercase tracking-tighter">
+      <div className="flex flex-col gap-2 w-full text-center font-lora">
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={handleDownload}
+          className="text-[10px] text-primary leading-tight uppercase tracking-tighter hover:bg-primary/5 h-auto py-2 flex items-center gap-2 border-primary/10 font-spirax"
+        >
+          <Download className="w-3 h-3" />
           Ajouter le contact
+        </Button>
+        <p className="text-[8px] text-muted-foreground italic">
+          (Cliquez ou scannez)
         </p>
       </div>
     </div>

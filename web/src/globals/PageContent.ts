@@ -31,19 +31,35 @@ export const PageContent: GlobalConfig = {
                     { label: 'Bientôt', value: 'soon' },
                   ],
                   defaultValue: 'closed',
-                  admin: { width: '50%' },
+                  admin: { width: '33%' },
                 },
                 {
                   name: 'meteoFleurs',
                   label: 'Météo des Fleurs',
                   type: 'text',
                   admin: { 
-                    width: '50%',
+                    width: '33%',
                     placeholder: 'La nature se repose...',
                     description: 'Ex: "Les Dahlias sont là !"',
                   },
                 },
+                {
+                  name: 'whereIsCecile',
+                  label: 'Où est Cécile aujourd\'hui ?',
+                  type: 'text',
+                  admin: { 
+                    width: '33%',
+                    placeholder: 'Au marché de...',
+                    description: 'S\'affiche sur la page d\'accueil.',
+                  },
+                },
               ],
+            },
+            {
+              name: 'whereIsCecileEnabled',
+              label: 'Afficher "Où est Cécile"',
+              type: 'checkbox',
+              defaultValue: false,
             },
             {
               name: 'heroImage',
@@ -188,6 +204,14 @@ export const PageContent: GlobalConfig = {
               admin: {
                 placeholder: PAGE_DEFAULTS.leMarche.subText,
               }
+            },
+            {
+              name: 'infoVenteEnLigne',
+              label: 'Texte Info Vente (Pas de vente en ligne)',
+              type: 'richText',
+              admin: {
+                description: 'Texte expliquant qu\'il n\'y a pas de vente en ligne et qu\'il faut contacter Cécile.',
+              }
             }
           ]
         },
@@ -231,6 +255,22 @@ export const PageContent: GlobalConfig = {
               type: 'text',
               admin: {
                 placeholder: PAGE_DEFAULTS.contact.subText,
+              }
+            },
+            {
+              name: 'prosSection',
+              label: 'Section Professionnels',
+              type: 'richText',
+              admin: {
+                description: 'Texte dédié aux fleuristes, magasins, etc.',
+              }
+            },
+            {
+              name: 'particuliersSection',
+              label: 'Section Particuliers',
+              type: 'richText',
+              admin: {
+                description: 'Texte dédié aux particuliers.',
               }
             },
             {
@@ -298,6 +338,12 @@ export const PageContent: GlobalConfig = {
                   label: 'Lien Facebook',
                   type: 'text',
                   admin: { placeholder: 'https://facebook.com/aujardindelison' },
+                },
+                {
+                  name: 'whatsapp',
+                  label: 'Numéro WhatsApp',
+                  type: 'text',
+                  admin: { placeholder: '+33600000000', description: 'Sans espaces ni caractères spéciaux pour le lien direct.' },
                 },
               ],
             },

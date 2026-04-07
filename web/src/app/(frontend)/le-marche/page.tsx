@@ -8,8 +8,16 @@ import Link from 'next/link'
 import { FadeIn, FadeInStagger } from '@/components/FadeIn'
 import type { Media, Category, Product } from '@/payload-types'
 import { PAGE_DEFAULTS } from '@/constants/defaults'
+import { RichText } from '@/components/RichText'
+import { ShoppingBag } from 'lucide-react'
+import { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = {
+  title: 'Le Marché',
+  description: 'Découvrez nos bouquets de saison, nos créations artisanales et les produits de notre micro-ferme florale bio.',
+}
 
 interface Props {
   searchParams: Promise<{ category?: string }>
@@ -62,6 +70,30 @@ export default async function MarchePage({ searchParams }: Props) {
         </FadeIn>
       </header>
 
+      {/* Message sur la vente en ligne */}
+      <FadeIn delay={0.25}>
+        <div className="max-w-3xl mx-auto bg-primary/5 border border-primary/10 rounded-3xl p-8 text-center shadow-sm">
+          <div className="flex justify-center mb-4">
+            <div className="p-3 bg-primary/10 rounded-full">
+              <ShoppingBag className="w-6 h-6 text-primary" />
+            </div>
+          </div>
+          {p.infoVenteEnLigne ? (
+            <RichText content={p.infoVenteEnLigne} className="text-base text-muted-foreground" />
+          ) : (
+            <>
+              <p className="text-lg text-primary font-spirax mb-2">Pas de vente en ligne pour le moment</p>
+              <p className="text-muted-foreground font-lora">
+                Pour toute commande ou information sur nos produits, n'hésitez pas à nous contacter directement. 
+                <Link href="/contact" className="text-primary underline underline-offset-4 ml-1 hover:text-primary/80 transition-colors">
+                  Page de contact
+                </Link>
+              </p>
+            </>
+          )}
+        </div>
+      </FadeIn>
+
       {/* Filtres par catégorie */}
       <FadeIn delay={0.3}>
         <div className="flex flex-wrap justify-center gap-2 mb-8">
@@ -103,50 +135,52 @@ export default async function MarchePage({ searchParams }: Props) {
 
               return (
               <FadeIn key={product.id} delay={idx * 0.05}>
-                <Card className="overflow-hidden border-none shadow-sm hover:shadow-md transition-all hover:-translate-y-1 h-full bg-card/60 backdrop-blur-sm">
-                  <div className="relative aspect-[4/3] bg-muted overflow-hidden">
-                    {imageUrl ? (
-                      <>
-                        <Image
-                          src={imageUrl}
-                          alt={typeof imageAlt === 'string' ? imageAlt : product.name}
-                          fill
-                          className="object-cover transition-transform duration-700 hover:scale-105"
-                        />
-                        {imageData?.attribution && (
-                          <div className="absolute bottom-0 right-0 bg-black/40 backdrop-blur-sm text-[8px] text-white px-1.5 py-0.5 rounded-tl-md italic">
-                            {imageData.attribution}
-                          </div>
-                        )}
-                      </>
-                    ) : (
-                      <div className="flex items-center justify-center h-full text-muted-foreground italic font-spirax">
-                        [Photo à venir]
+                <Link href={`/le-marche/${product.slug}`}>
+                  <Card className="overflow-hidden border-none shadow-sm hover:shadow-md transition-all hover:-translate-y-1 h-full bg-card/60 backdrop-blur-sm group">
+                    <div className="relative aspect-[4/3] bg-muted overflow-hidden">
+                      {imageUrl ? (
+                        <>
+                          <Image
+                            src={imageUrl}
+                            alt={typeof imageAlt === 'string' ? imageAlt : product.name}
+                            fill
+                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                          {imageData?.attribution && (
+                            <div className="absolute bottom-0 right-0 bg-black/40 backdrop-blur-sm text-[8px] text-white px-1.5 py-0.5 rounded-tl-md italic">
+                              {imageData.attribution}
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <div className="flex items-center justify-center h-full text-muted-foreground italic font-spirax">
+                          [Photo à venir]
+                        </div>
+                      )}
+                    </div>
+                    <CardHeader>
+                      <div className="flex justify-between items-start gap-2">
+                        <CardTitle className="font-spirax text-2xl text-primary group-hover:text-primary/80 transition-colors">{product.name}</CardTitle>      
+                        {product.price && <span className="font-bold font-sans text-lg">{product.price}€</span>}
                       </div>
-                    )}
-                  </div>
-                  <CardHeader>
-                    <div className="flex justify-between items-start gap-2">
-                      <CardTitle className="font-spirax text-2xl text-primary">{product.name}</CardTitle>      
-                      {product.price && <span className="font-bold font-sans text-lg">{product.price}€</span>}
-                    </div>
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {product.categories?.map((cat) => {
-                        const catData = cat as Category;
-                        return (
-                          <Badge key={catData.id} variant="secondary" className="font-normal font-sans bg-secondary/20 text-secondary-foreground text-[10px] uppercase tracking-wider">
-                            {catData.title}
-                          </Badge>
-                        );
-                      })}
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground line-clamp-3 font-sans">
-                      {product.name} disponible au jardin.
-                    </p>
-                  </CardContent>
-                </Card>
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {product.categories?.map((cat) => {
+                          const catData = cat as Category;
+                          return (
+                            <Badge key={catData.id} variant="secondary" className="font-normal font-sans bg-secondary/20 text-secondary-foreground text-[10px] uppercase tracking-wider">
+                              {catData.title}
+                            </Badge>
+                          );
+                        })}
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground line-clamp-3 font-sans">
+                        {product.name}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </Link>
               </FadeIn>
             )})}
           </div>

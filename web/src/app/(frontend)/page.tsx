@@ -3,13 +3,19 @@ import React from 'react'
 import config from '@/payload.config'
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Flower, Info, Leaf } from 'lucide-react'
+import { Flower, Info, Leaf, MapPin } from 'lucide-react'
 import { WaveSeparator, FloralPattern } from '@/components/ui/decorative'
 import { FadeIn, FadeInStagger } from '@/components/FadeIn'
 import type { Media } from '@/payload-types'
 import { PAGE_DEFAULTS } from '@/constants/defaults'
+import { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = {
+  title: 'Accueil | Fleurs bio, locales et de saison',
+  description: 'Micro-ferme florale bio au Puy-Sainte-Réparade. Découvrez nos fleurs paysannes, nos bouquets de saison et notre démarche de slow floriculture.',
+}
 
 export default async function HomePage() {
   const payload = await getPayload({ config })
@@ -18,6 +24,39 @@ export default async function HomePage() {
   const content = await payload.findGlobal({
     slug: 'page-content',
   })
+
+  const contact = content.contact || {}
+  const fullAdresse = `${contact.adresse || ''} ${contact.codePostal || ''} ${contact.ville || ''}`.trim()
+
+  // JSON-LD pour le SEO Local
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'Au jardin de Lison',
+    description: 'Micro-ferme florale bio, locale et de saison.',
+    url: process.env.NEXT_PUBLIC_SERVER_URL || 'https://aujardindelison.fr',
+    telephone: contact.telephone || PAGE_DEFAULTS.contact.telephone,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: contact.adresse || PAGE_DEFAULTS.contact.adresse,
+      addressLocality: contact.ville || 'Le Puy-Sainte-Réparade',
+      postalCode: contact.codePostal || '13610',
+      addressCountry: 'FR',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 43.6631, // Approximation Le Puy-Sainte-Réparade
+      longitude: 5.4326,
+    },
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        opens: '09:00',
+        closes: '18:00',
+      },
+    ],
+  }
 
   const glanageStatus = {
     open: { label: 'Ouvert', color: 'bg-green-600' },
@@ -40,6 +79,11 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen grainy">
+      {/* Script JSON-LD pour le SEO Local */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
       {/* Hero Section */}
       <section className="relative h-[75vh] flex items-center justify-center overflow-hidden">
@@ -84,11 +128,11 @@ export default async function HomePage() {
         <div className="container mx-auto px-4 relative z-10">
 
           <FadeInStagger>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
+            <div className={`grid grid-cols-1 ${p.whereIsCecileEnabled ? 'lg:grid-cols-3 md:grid-cols-2' : 'md:grid-cols-2'} gap-8 md:gap-16 items-stretch`}>
 
               {/* Météo des Fleurs */}
               <FadeIn direction="right">
-                <Card className="border-none shadow-lg bg-white/60 backdrop-blur-sm overflow-hidden h-full">    
+                <Card className="border-none shadow-lg bg-white/60 backdrop-blur-sm overflow-hidden h-full flex flex-col">    
                   <div className="h-2 bg-secondary w-full" />
                   <CardHeader className="flex flex-row items-center gap-4 pb-2">
                     <div className="p-3 bg-secondary/10 rounded-full">
@@ -96,7 +140,7 @@ export default async function HomePage() {
                     </div>
                     <CardTitle className="font-spirax text-3xl text-primary">Au jardin en ce moment</CardTitle> 
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="flex-grow">
                     <p className="text-lg text-muted-foreground italic leading-relaxed">
                       &quot;{p.meteoFleurs || "La nature se repose..."}&quot;
                     </p>
@@ -106,7 +150,7 @@ export default async function HomePage() {
 
               {/* Statut Glanage */}
               <FadeIn direction="left">
-                <Card className="border-none shadow-lg bg-white/60 backdrop-blur-sm overflow-hidden h-full">    
+                <Card className="border-none shadow-lg bg-white/60 backdrop-blur-sm overflow-hidden h-full flex flex-col">    
                   <div className="h-2 bg-primary w-full" />
                   <CardHeader className="flex flex-row items-center gap-4 pb-2">
                     <div className="p-3 bg-primary/10 rounded-full">
@@ -114,7 +158,7 @@ export default async function HomePage() {
                     </div>
                     <CardTitle className="font-spirax text-3xl text-primary">Cueillette & Glanage</CardTitle>   
                   </CardHeader>
-                  <CardContent className="flex flex-col gap-6">
+                  <CardContent className="flex flex-col gap-6 flex-grow">
                     <div className="flex items-center justify-between p-4 bg-background/50 rounded-xl border border-border/50">
                       <span className="text-muted-foreground font-medium">Statut du champ</span>
                       <Badge className={`${currentGlanage.color} hover:${currentGlanage.color} text-white px-6 py-1 text-base border-none rounded-full font-spirax tracking-wide`}>
@@ -128,6 +172,29 @@ export default async function HomePage() {
                   </CardContent>
                 </Card>
               </FadeIn>
+
+              {/* Où trouver Cécile ? (Optionnel) */}
+              {p.whereIsCecileEnabled && (
+                <FadeIn direction="up">
+                  <Card className="border-none shadow-lg bg-white/60 backdrop-blur-sm overflow-hidden h-full flex flex-col">    
+                    <div className="h-2 bg-accent w-full bg-amber-400" />
+                    <CardHeader className="flex flex-row items-center gap-4 pb-2">
+                      <div className="p-3 bg-amber-100 rounded-full">
+                        <MapPin className="h-6 w-6 text-amber-600" />
+                      </div>
+                      <CardTitle className="font-spirax text-3xl text-primary">Où me trouver aujourd'hui ?</CardTitle>   
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                      <div className="p-6 bg-amber-50/50 rounded-2xl border border-amber-100/50 text-center">
+                        <p className="text-2xl font-spirax text-primary leading-relaxed">
+                          {p.whereIsCecile || "Je suis au jardin !"}
+                        </p>
+                      </div>
+                      
+                    </CardContent>
+                  </Card>
+                </FadeIn>
+              )}
 
             </div>
           </FadeInStagger>

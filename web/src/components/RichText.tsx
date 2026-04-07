@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react'
 import { cn } from '@/lib/utils'
+import Image from 'next/image'
+import type { Media } from '@/payload-types'
 
 const escapeHTML = (str: string) =>
   str.replace(
@@ -155,6 +157,44 @@ const serialize = (children: LexicalNode[]): React.ReactNode[] => {
           >
             {serialize(node.children ?? [])}
           </blockquote>
+        )
+
+      case 'upload':
+        const uploadData = node.value as Media
+        if (!uploadData || !uploadData.url) return null
+
+        const size = node.fields?.size || 'large'
+        const sizeClasses = {
+          small: 'max-w-md',
+          medium: 'max-w-2xl',
+          large: 'max-w-4xl',
+          full: 'max-w-full',
+        }
+
+        return (
+          <div key={i} className="my-12 flex flex-col items-center gap-4">
+            <div
+              className={cn(
+                'relative w-full aspect-video md:aspect-[21/9] rounded-[2rem] overflow-hidden shadow-sm border border-border/50',
+                sizeClasses[size as keyof typeof sizeClasses],
+              )}
+            >
+              <Image
+                src={uploadData.url}
+                alt={uploadData.alt || ''}
+                fill
+                className="object-cover transition-transform duration-700 hover:scale-105"
+              />
+            </div>
+            {node.fields?.caption && (
+              <div className="text-sm text-muted-foreground italic text-center max-w-2xl px-4 font-lora">
+                <RichText
+                  content={node.fields.caption}
+                  className="text-sm italic text-muted-foreground"
+                />
+              </div>
+            )}
+          </div>
         )
 
       default:

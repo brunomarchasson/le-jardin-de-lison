@@ -8,6 +8,7 @@ import { ArrowLeft, ShoppingBasket } from 'lucide-react'
 import Link from 'next/link'
 import { FlowerGallery } from '@/components/FlowerGallery'
 import type { Media } from '@/payload-types'
+import { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
 
@@ -17,11 +18,8 @@ type Props = {
   }>
 }
 
-export default async function FlowerDetailPage({ params }: Props) {
-  const { slug } = await params
+async function getFlower(slug: string) {
   const payload = await getPayload({ config })
-  
-  // Try to find by Slug first
   const flowers = await payload.find({
     collection: 'flowers',
     where: {
@@ -29,16 +27,40 @@ export default async function FlowerDetailPage({ params }: Props) {
     },
     limit: 1,
   })
-
   let flower = flowers.docs[0];
-
   if (!flower) {
-     try {
-       flower = await payload.findByID({ collection: 'flowers', id: slug as any })
-     } catch (_e) {
-       notFound()
-     }
+    try {
+      flower = await payload.findByID({ collection: 'flowers', id: slug as any })
+    } catch (_e) {
+      return null
+    }
   }
+  return flower
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const flower = await getFlower(slug)
+
+  if (!flower) return {}
+
+  return {
+    title: flower.name,
+    description: flower.description || `Découvrez ${flower.name}, une fleur de saison cultivée bio au jardin de Lison.`,
+    openGraph: {
+      title: `${flower.name} | Au jardin de Lison`,
+      description: flower.description || `Fleur de saison bio : ${flower.name}`,
+      images: (flower.images || []).map(img => {
+        const i = img.image as Media
+        return { url: i.url || '' }
+      }),
+    }
+  }
+}
+
+export default async function FlowerDetailPage({ params }: Props) {
+  const { slug } = await params
+  const flower = await getFlower(slug)
 
   if (!flower) return notFound()
 

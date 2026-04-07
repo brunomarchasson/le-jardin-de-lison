@@ -5,8 +5,14 @@ import { RichText } from '@/components/RichText'
 import Image from 'next/image'
 import type { Media } from '@/payload-types'
 import { PAGE_DEFAULTS } from '@/constants/defaults'
+import { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = {
+  title: 'La Ferme',
+  description: 'Découvrez l\'histoire du jardin de Lison, notre démarche écologique et notre passion pour la slow floriculture bio.',
+}
 
 // Fonction utilitaire pour vérifier si le RichText Lexical est réellement vide
 const isRichTextEmpty = (content: any) => {

@@ -8,12 +8,36 @@ import { Logo } from '@/components/Logo'
 import { HeaderNavigation } from '@/components/HeaderNavigation'
 import { ThemeSwitcher } from '@/components/ThemeSwitcher'
 
+const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://aujardindelison.fr'
+
 export const metadata = {
-  description: 'Micro-ferme florale bio, locale et de saison - Au jardin de Lison',
-  title: 'Au jardin de Lison',
+  metadataBase: new URL(baseUrl),
+  description: 'Micro-ferme florale bio, locale et de saison à Le Puy-Sainte-Réparade. Bouquets de fleurs paysannes, glanage et slow floriculture.',
+  title: {
+    default: 'Au jardin de Lison | Fleurs bio et locales',
+    template: '%s | Au jardin de Lison',
+  },
   icons: {
     icon: '/logo_square.svg',
+    apple: '/logo_square.svg',
   },
+  openGraph: {
+    title: 'Au jardin de Lison',
+    description: 'Micro-ferme florale bio, locale et de saison. Cultiver la beauté sauvage au rythme des saisons.',
+    url: baseUrl,
+    siteName: 'Au jardin de Lison',
+    locale: 'fr_FR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Au jardin de Lison',
+    description: 'Micro-ferme florale bio, locale et de saison.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  }
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
@@ -49,7 +73,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
               </p>
             </div>
           </footer>
-          <ThemeSwitcher />
+          {/* <ThemeSwitcher /> */}
         </MotionProvider>
       </body>
     </html>

@@ -2,11 +2,19 @@ import { getPayload } from 'payload'
 import config from '@/payload.config'
 import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { MapPin, Phone, Mail, Clock } from 'lucide-react'
+import { MapPin, Phone, Mail, Clock, Users, Briefcase, MessageCircle } from 'lucide-react'
 import { PAGE_DEFAULTS } from '@/constants/defaults'
 import { VCardQR } from '@/components/VCardQR'
+import { RichText } from '@/components/RichText'
+import { Button } from '@/components/ui/button'
+import { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = {
+  title: 'Contact',
+  description: 'Une question ? Envie de commander des fleurs ? Contactez Cécile au jardin de Lison, micro-ferme florale au Puy-Sainte-Réparade.',
+}
 
 export default async function ContactPage() {
   const payload = await getPayload({ config })
@@ -29,6 +37,7 @@ export default async function ContactPage() {
   const codePostal = p.codePostal || undefined
   const instagram = p.instagram || undefined
   const facebook = p.facebook || undefined
+  const whatsapp = p.whatsapp || telephone?.replace(/\s/g, '') || ''
   
   const contactPhotoUrl = 'https://aujardindelison.fr/logo.svg'
 
@@ -44,7 +53,7 @@ export default async function ContactPage() {
         </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 font-lora">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 font-lora">
         <Card className="border-none shadow-sm bg-muted/30">
           <CardHeader>
             <MapPin className="h-6 w-6 text-primary mb-2" />
@@ -57,33 +66,35 @@ export default async function ContactPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-none shadow-sm bg-muted/30">
-          <CardHeader>
-            <Clock className="h-6 w-6 text-primary mb-2" />
-            <CardTitle className="font-spirax text-2xl text-primary/80">Horaires</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground">
-              {horaires}
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card className="border-none shadow-sm bg-muted/30">
+        <Card className="border-none shadow-sm bg-muted/30 ">
           <CardHeader>
             <Mail className="h-6 w-6 text-primary mb-2" />
             <CardTitle className="font-spirax text-2xl text-primary/80">Contact</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="space-y-2 text-sm">
-              <div className="flex items-center gap-2 text-muted-foreground">
+            <div className="space-y-3 text-sm">
+              <a href={`tel:${telephone?.replace(/\s/g, '')}`} className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
                 <Phone className="h-4 w-4" />
                 <span>{telephone}</span>
-              </div>
-              <div className="flex items-center gap-2 text-muted-foreground">
+              </a>
+              <a href={`mailto:${email}`} className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
                 <Mail className="h-4 w-4" />
-                <span>{email}</span>
-              </div>
+                <span className="break-all">{email}</span>
+              </a>
+              {whatsapp && (
+                <div className="pt-2">
+                  <a 
+                    href={`https://wa.me/${whatsapp.replace('+', '')}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="outline" size="sm" className="w-full bg-green-500/10 border-green-500/20 text-green-700 hover:bg-green-500 hover:text-white transition-all gap-2 font-spirax">
+                      <MessageCircle className="h-4 w-4" />
+                      WhatsApp
+                    </Button>
+                  </a>
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>
@@ -101,6 +112,40 @@ export default async function ContactPage() {
             photoUrl={contactPhotoUrl}
           />
         </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mt-4">
+        <section className="bg-primary/5 rounded-3xl p-8 border border-primary/10 shadow-sm flex flex-col gap-6">
+          <div className="flex items-center gap-4">
+            <div className="p-3 bg-primary/10 rounded-full text-primary">
+              <Briefcase className="h-6 w-6" />
+            </div>
+            <h2 className="text-3xl font-spirax text-primary">Professionnels</h2>
+          </div>
+          <div className="prose prose-stone font-lora text-muted-foreground flex-grow">
+            {p.prosSection ? (
+              <RichText content={p.prosSection} />
+            ) : (
+              <p>Vous êtes fleuriste ou commerçant et souhaitez proposer nos fleurs ? Nous envoyons nos disponibilités chaque lundi et mercredi. Contactez-nous pour rejoindre notre liste de diffusion.</p>
+            )}
+          </div>
+        </section>
+
+        <section className="bg-secondary/5 rounded-3xl p-8 border border-secondary/10 shadow-sm flex flex-col gap-6">
+          <div className="flex items-center gap-4">
+            <div className="p-3 bg-secondary/10 rounded-full text-secondary-foreground">
+              <Users className="h-6 w-6" />
+            </div>
+            <h2 className="text-3xl font-spirax text-primary">Particuliers</h2>
+          </div>
+          <div className="prose prose-stone font-lora text-muted-foreground flex-grow">
+            {p.particuliersSection ? (
+              <RichText content={p.particuliersSection} />
+            ) : (
+              <p>Envie d'un bouquet pour un événement ou simplement pour le plaisir ? Contactez-nous par message ou venez nous voir directement au jardin pendant les heures d'ouverture.</p>
+            )}
+          </div>
+        </section>
       </div>
 
       <div className="bg-muted aspect-video rounded-3xl overflow-hidden shadow-inner border border-muted-foreground/10 h-[400px]">

@@ -8,8 +8,14 @@ import Link from 'next/link'
 import { FadeIn, FadeInStagger } from '@/components/FadeIn'
 import type { Media } from '@/payload-types'
 import { PAGE_DEFAULTS } from '@/constants/defaults'
+import { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = {
+  title: 'Nos Fleurs',
+  description: 'Découvrez les variétés de fleurs bio et locales cultivées au jardin de Lison. Tulipes, Dahlias, Cosmos et bien d\'autres fleurs de saison.',
+}
 
 export default async function FleursPage() {
   const payload = await getPayload({ config })

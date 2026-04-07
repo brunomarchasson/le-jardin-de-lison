@@ -685,6 +685,11 @@ export interface PageContent {
      */
     meteoFleurs?: string | null;
     /**
+     * S'affiche sur la page d'accueil.
+     */
+    whereIsCecile?: string | null;
+    whereIsCecileEnabled?: boolean | null;
+    /**
      * Par défaut : hero-accueil.png
      */
     heroImage?: (number | null) | Media;
@@ -743,6 +748,24 @@ export interface PageContent {
   leMarche?: {
     title?: string | null;
     subText?: string | null;
+    /**
+     * Texte expliquant qu'il n'y a pas de vente en ligne et qu'il faut contacter Cécile.
+     */
+    infoVenteEnLigne?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
   };
   blog?: {
     title?: string | null;
@@ -751,6 +774,42 @@ export interface PageContent {
   contact?: {
     title?: string | null;
     subText?: string | null;
+    /**
+     * Texte dédié aux fleuristes, magasins, etc.
+     */
+    prosSection?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    /**
+     * Texte dédié aux particuliers.
+     */
+    particuliersSection?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
     /**
      * Nom qui apparaîtra lors de l'enregistrement du contact.
      */
@@ -762,6 +821,10 @@ export interface PageContent {
     email?: string | null;
     instagram?: string | null;
     facebook?: string | null;
+    /**
+     * Sans espaces ni caractères spéciaux pour le lien direct.
+     */
+    whatsapp?: string | null;
     horaires?: string | null;
   };
   updatedAt?: string | null;
@@ -798,6 +861,8 @@ export interface PageContentSelect<T extends boolean = true> {
     | {
         glanage?: T;
         meteoFleurs?: T;
+        whereIsCecile?: T;
+        whereIsCecileEnabled?: T;
         heroImage?: T;
         heroSubText?: T;
         philosophieTitle?: T;
@@ -831,6 +896,7 @@ export interface PageContentSelect<T extends boolean = true> {
     | {
         title?: T;
         subText?: T;
+        infoVenteEnLigne?: T;
       };
   blog?:
     | T
@@ -843,6 +909,8 @@ export interface PageContentSelect<T extends boolean = true> {
     | {
         title?: T;
         subText?: T;
+        prosSection?: T;
+        particuliersSection?: T;
         nomOrganisation?: T;
         adresse?: T;
         codePostal?: T;
@@ -851,6 +919,7 @@ export interface PageContentSelect<T extends boolean = true> {
         email?: T;
         instagram?: T;
         facebook?: T;
+        whatsapp?: T;
         horaires?: T;
       };
   updatedAt?: T;
