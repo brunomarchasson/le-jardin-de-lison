@@ -30,7 +30,6 @@ async function getFlower(slug: string) {
   let flower = flowers.docs[0];
   if (!flower) {
     try {
-      // @ts-expect-error - Payload findByID expects a valid ID type, but slug might be an ID string
       flower = await payload.findByID({ collection: 'flowers', id: slug })
     } catch (_e) {
       return null
