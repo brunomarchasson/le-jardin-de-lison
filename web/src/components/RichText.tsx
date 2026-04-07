@@ -25,11 +25,19 @@ interface LexicalNode {
   fields?: {
     url?: string
     newTab?: boolean
+    size?: 'small' | 'medium' | 'large' | 'full'
+    caption?: Record<string, any>
   }
   [key: string]: any
 }
 
-export const RichText = ({ content, className }: { content: Record<string, any>; className?: string }) => {
+export const RichText = ({
+  content,
+  className,
+}: {
+  content?: Record<string, any> | null
+  className?: string
+}) => {
   if (!content || !content.root || !content.root.children) {
     return null
   }
@@ -41,7 +49,7 @@ export const RichText = ({ content, className }: { content: Record<string, any>;
         className,
       )}
     >
-      {serialize(content.root.children as LexicalNode[])}
+      {serialize((content.root.children as LexicalNode[]) || [])}
     </div>
   )
 }
@@ -91,7 +99,7 @@ const serialize = (children: LexicalNode[]): React.ReactNode[] => {
 
     switch (node.type) {
       case 'heading':
-        const Tag = node.tag as keyof React.JSX.IntrinsicElements
+        const Tag = (node.tag as keyof React.JSX.IntrinsicElements) || 'h2'
         const headingStyles = {
           h1: 'text-4xl md:text-5xl font-spirax text-primary mt-12 mb-6',
           h2: 'text-3xl md:text-4xl font-spirax text-primary mt-10 mb-4 italic',
@@ -189,7 +197,7 @@ const serialize = (children: LexicalNode[]): React.ReactNode[] => {
             {node.fields?.caption && (
               <div className="text-sm text-muted-foreground italic text-center max-w-2xl px-4 font-lora">
                 <RichText
-                  content={node.fields.caption}
+                  content={node.fields.caption as Record<string, any>}
                   className="text-sm italic text-muted-foreground"
                 />
               </div>
