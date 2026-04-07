@@ -26,7 +26,6 @@ export default async function HomePage() {
   })
 
   const contact = content.contact || {}
-  const fullAdresse = `${contact.adresse || ''} ${contact.codePostal || ''} ${contact.ville || ''}`.trim()
 
   // JSON-LD pour le SEO Local
   const jsonLd = {
@@ -182,7 +181,7 @@ export default async function HomePage() {
                       <div className="p-3 bg-amber-100 rounded-full">
                         <MapPin className="h-6 w-6 text-amber-600" />
                       </div>
-                      <CardTitle className="font-spirax text-3xl text-primary">Où me trouver aujourd'hui ?</CardTitle>   
+                      <CardTitle className="font-spirax text-3xl text-primary">Où me trouver aujourd&apos;hui ?</CardTitle>   
                     </CardHeader>
                     <CardContent className="flex-grow">
                       <div className="p-6 bg-amber-50/50 rounded-2xl border border-amber-100/50 text-center">

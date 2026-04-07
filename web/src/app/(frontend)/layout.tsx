@@ -6,7 +6,6 @@ import { cn } from '@/lib/utils'
 import { MotionProvider } from '@/components/MotionProvider'
 import { Logo } from '@/components/Logo'
 import { HeaderNavigation } from '@/components/HeaderNavigation'
-import { ThemeSwitcher } from '@/components/ThemeSwitcher'
 
 const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://aujardindelison.fr'
 

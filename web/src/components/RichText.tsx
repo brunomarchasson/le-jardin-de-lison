@@ -29,7 +29,7 @@ interface LexicalNode {
   [key: string]: any
 }
 
-export const RichText = ({ content, className }: { content: any; className?: string }) => {
+export const RichText = ({ content, className }: { content: Record<string, any>; className?: string }) => {
   if (!content || !content.root || !content.root.children) {
     return null
   }

@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import Image from 'next/image'
 import Link from 'next/link'
 import { FadeIn, FadeInStagger } from '@/components/FadeIn'
-import type { Media, Category, Product } from '@/payload-types'
+import type { Media, Category } from '@/payload-types'
 import { PAGE_DEFAULTS } from '@/constants/defaults'
 import { RichText } from '@/components/RichText'
 import { ShoppingBag } from 'lucide-react'
@@ -84,7 +84,7 @@ export default async function MarchePage({ searchParams }: Props) {
             <>
               <p className="text-lg text-primary font-spirax mb-2">Pas de vente en ligne pour le moment</p>
               <p className="text-muted-foreground font-lora">
-                Pour toute commande ou information sur nos produits, n'hésitez pas à nous contacter directement. 
+                Pour toute commande ou information sur nos produits, n&apos;hésitez pas à nous contacter directement. 
                 <Link href="/contact" className="text-primary underline underline-offset-4 ml-1 hover:text-primary/80 transition-colors">
                   Page de contact
                 </Link>

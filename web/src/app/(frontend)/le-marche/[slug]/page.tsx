@@ -31,7 +31,8 @@ async function getProduct(slug: string) {
   let product = products.docs[0];
   if (!product) {
     try {
-      product = await payload.findByID({ collection: 'products', id: slug as any })
+      // @ts-expect-error - Payload findByID expects a valid ID type, but slug might be an ID string
+      product = await payload.findByID({ collection: 'products', id: slug })
     } catch (_e) {
       return null
     }

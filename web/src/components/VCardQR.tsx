@@ -5,6 +5,7 @@ import VCard from 'vcard-creator'
 import { QRCodeSVG } from 'qrcode.react'
 import { Download } from 'lucide-react'
 import { Button } from './ui/button'
+import Image from 'next/image'
 
 interface VCardQRProps {
   email: string
@@ -118,9 +119,12 @@ export const VCardQR: React.FC<VCardQRProps> = ({
       >
         {qrDataUrl ? (
           <>
-            <img 
+            <Image 
               src={qrDataUrl} 
               alt="QR Code Au jardin de Lison" 
+              width={160}
+              height={160}
+              unoptimized
               className="w-40 h-40 group-hover:opacity-40 transition-opacity"
             />
             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">

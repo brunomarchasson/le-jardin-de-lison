@@ -2,7 +2,7 @@ import { getPayload } from 'payload'
 import config from '@/payload.config'
 import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { MapPin, Phone, Mail, Clock, Users, Briefcase, MessageCircle } from 'lucide-react'
+import { MapPin, Phone, Mail, Users, Briefcase, MessageCircle } from 'lucide-react'
 import { PAGE_DEFAULTS } from '@/constants/defaults'
 import { VCardQR } from '@/components/VCardQR'
 import { RichText } from '@/components/RichText'
@@ -30,7 +30,6 @@ export default async function ContactPage() {
   const adresse = p.adresse || PAGE_DEFAULTS.contact.adresse
   const email = p.email || PAGE_DEFAULTS.contact.email
   const telephone = p.telephone || PAGE_DEFAULTS.contact.telephone
-  const horaires = p.horaires || PAGE_DEFAULTS.contact.horaires
   
   const nomOrganisation = p.nomOrganisation || undefined
   const ville = p.ville || undefined
@@ -142,7 +141,7 @@ export default async function ContactPage() {
             {p.particuliersSection ? (
               <RichText content={p.particuliersSection} />
             ) : (
-              <p>Envie d'un bouquet pour un événement ou simplement pour le plaisir ? Contactez-nous par message ou venez nous voir directement au jardin pendant les heures d'ouverture.</p>
+              <p>Envie d&apos;un bouquet pour un événement ou simplement pour le plaisir ? Contactez-nous par message ou venez nous voir directement au jardin pendant les heures d&apos;ouverture.</p>
             )}
           </div>
         </section>

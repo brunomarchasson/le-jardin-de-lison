@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import { RichText } from '@/components/RichText'
 import { Badge } from "@/components/ui/badge"
-import type { Post, Media, Category } from '@/payload-types'
+import type { Media, Category } from '@/payload-types'
 import { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
