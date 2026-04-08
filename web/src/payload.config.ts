@@ -216,6 +216,8 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
+    // On désactive le push automatique pour éviter les questions interactives
+    push: false,
     // On ne lance les migrations auto que si on n'est pas en train de build
     // et que la variable d'environnement est présente.
     prodMigrations: process.env.PAYLOAD_MIGRATE === 'true' ? migrations : undefined,
