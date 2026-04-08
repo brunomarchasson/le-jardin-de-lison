@@ -182,6 +182,14 @@ export const PageContent: GlobalConfig = {
               admin: {
                 placeholder: PAGE_DEFAULTS.fleurs.subText,
               }
+            },
+            {
+              name: 'catalogueTitle',
+              label: 'Titre de la section Catalogue (H2 SEO)',
+              type: 'text',
+              admin: {
+                placeholder: PAGE_DEFAULTS.fleurs.catalogueTitle,
+              }
             }
           ]
         },
@@ -203,6 +211,14 @@ export const PageContent: GlobalConfig = {
               type: 'text',
               admin: {
                 placeholder: PAGE_DEFAULTS.leMarche.subText,
+              }
+            },
+            {
+              name: 'catalogueTitle',
+              label: 'Titre de la section Produits (H2 SEO)',
+              type: 'text',
+              admin: {
+                placeholder: PAGE_DEFAULTS.leMarche.catalogueTitle,
               }
             },
             {

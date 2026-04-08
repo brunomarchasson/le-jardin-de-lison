@@ -17,11 +17,13 @@ export const PAGE_DEFAULTS = {
   },
   fleurs: {
     title: "Nos Fleurs",
-    subText: "Découvrez les variétés qui s'épanouissent actuellement au jardin."
+    subText: "Découvrez les variétés qui s'épanouissent actuellement au jardin.",
+    catalogueTitle: "Notre Catalogue de Saison"
   },
   leMarche: {
     title: "Le Marché du Jardin",
-    subText: "Nos bouquets de saison et trésors artisanaux."
+    subText: "Nos bouquets de saison et trésors artisanaux.",
+    catalogueTitle: "Nos Produits Artisanaux"
   },
   blog: {
     title: "Le Journal du Jardin",

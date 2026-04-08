@@ -71,14 +71,18 @@ export default async function ContactPage() {
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-3 text-sm">
-              <a href={`tel:${telephone?.replace(/\s/g, '')}`} className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-                <Phone className="h-4 w-4 text-primary/60" />
-                <span>{telephone}</span>
-              </a>
-              <a href={`mailto:${email}`} className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-                <Mail className="h-4 w-4 text-primary/60" />
-                <span className="break-all">{email}</span>
-              </a>
+              {telephone && (
+                <a href={`tel:${telephone.replace(/\s/g, '')}`} className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+                  <Phone className="h-4 w-4 text-primary/60" />
+                  <span>{telephone}</span>
+                </a>
+              )}
+              {email && (
+                <a href={`mailto:${email}`} className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
+                  <Mail className="h-4 w-4 text-primary/60" />
+                  <span className="break-all">{email}</span>
+                </a>
+              )}
             </div>
 
             <div className="pt-4 border-t border-primary/5">

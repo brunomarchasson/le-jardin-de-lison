@@ -744,10 +744,12 @@ export interface PageContent {
   fleurs?: {
     title?: string | null;
     subText?: string | null;
+    catalogueTitle?: string | null;
   };
   leMarche?: {
     title?: string | null;
     subText?: string | null;
+    catalogueTitle?: string | null;
     /**
      * Texte expliquant qu'il n'y a pas de vente en ligne et qu'il faut contacter Cécile.
      */
@@ -890,12 +892,14 @@ export interface PageContentSelect<T extends boolean = true> {
     | {
         title?: T;
         subText?: T;
+        catalogueTitle?: T;
       };
   leMarche?:
     | T
     | {
         title?: T;
         subText?: T;
+        catalogueTitle?: T;
         infoVenteEnLigne?: T;
       };
   blog?:

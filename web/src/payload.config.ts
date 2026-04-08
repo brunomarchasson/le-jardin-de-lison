@@ -216,8 +216,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
-    // @ts-expect-error - migrations property exists at runtime but may not be in the Args type
-    migrations: migrations,
+    prodMigrations: migrations,
   }),
   sharp,
   plugins: [],

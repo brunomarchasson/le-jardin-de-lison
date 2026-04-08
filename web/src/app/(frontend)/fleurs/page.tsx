@@ -26,6 +26,7 @@ export default async function FleursPage() {
   const p = content.fleurs || {}
   const pageTitle = p.title || PAGE_DEFAULTS.fleurs.title
   const subText = p.subText || PAGE_DEFAULTS.fleurs.subText
+  const catalogueTitle = p.catalogueTitle || PAGE_DEFAULTS.fleurs.catalogueTitle
 
   const { docs: flowers } = await payload.find({
     collection: 'flowers',
@@ -63,8 +64,12 @@ export default async function FleursPage() {
         </FadeIn>
       ) : (
         <FadeInStagger>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {flowers.map((flower, idx) => {
+          <div className="space-y-8">
+            <h2 className="text-3xl font-spirax text-primary text-center md:text-left border-b border-primary/10 pb-4">
+              {catalogueTitle}
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {flowers.map((flower, idx) => {
               const mainImageObj = flower.images && flower.images.length > 0 ? flower.images[0].image : null;   
               const imageData = mainImageObj && typeof mainImageObj === 'object' ? mainImageObj as Media : null;
               const imageUrl = imageData?.sizes?.card?.url || imageData?.url;
@@ -118,6 +123,7 @@ export default async function FleursPage() {
                 </Link>
               </FadeIn>
             )})}
+            </div>
           </div>
         </FadeInStagger>
       )}

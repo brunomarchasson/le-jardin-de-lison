@@ -35,6 +35,7 @@ export default async function MarchePage({ searchParams }: Props) {
   const p = content.leMarche || {}
   const pageTitle = p.title || PAGE_DEFAULTS.leMarche.title
   const subText = p.subText || PAGE_DEFAULTS.leMarche.subText
+  const catalogueTitle = p.catalogueTitle || PAGE_DEFAULTS.leMarche.catalogueTitle
 
   // Récupération des catégories pour le filtre
   const { docs: categories } = await payload.find({
@@ -125,9 +126,15 @@ export default async function MarchePage({ searchParams }: Props) {
           </div>
         </FadeIn>
       ) : (
-        <FadeInStagger>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product, idx) => {
+        <FadeIn delay={0.3}>
+          <div className="space-y-8">
+            <h2 className="text-3xl font-spirax text-primary text-center md:text-left border-b border-primary/10 pb-4">
+              {catalogueTitle}
+            </h2>
+            <FadeInStagger>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {products.map((product, idx) => {
+
               const mainImageObj = product.images && product.images.length > 0 ? product.images[0].image : null;   
               const imageData = mainImageObj && typeof mainImageObj === 'object' ? mainImageObj as Media : null;
               const imageUrl = imageData?.sizes?.card?.url || imageData?.url;
@@ -183,8 +190,10 @@ export default async function MarchePage({ searchParams }: Props) {
                 </Link>
               </FadeIn>
             )})}
-          </div>
-        </FadeInStagger>
+            </div>
+          </FadeInStagger>
+        </div>
+      </FadeIn>
       )}
     </div>
   )
