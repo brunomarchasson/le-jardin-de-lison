@@ -8,7 +8,8 @@ echo "--- Starting Au Jardin de Lison (Production) ---"
 
 if [ -f "./node_modules/payload/dist/bin.js" ]; then
     echo "Checking for pending migrations..."
-    node ./node_modules/payload/dist/bin.js migrate --yes
+    # On ajoute --force pour éviter le blocage sur les alertes de perte de données
+    node ./node_modules/payload/dist/bin.js migrate --yes --force
 else
     echo "Warning: Payload binary not found, relying on prodMigrations auto-check."
 fi

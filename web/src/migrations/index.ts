@@ -5,6 +5,7 @@ import * as migration_20260331_102008_move_glanage_to_page_content from './20260
 import * as migration_20260331_115431_nest_page_content_fields from './20260331_115431_nest_page_content_fields';
 import * as migration_20260403_145739_add_contact_fields_and_socials from './20260403_145739_add_contact_fields_and_socials';
 import * as migration_20260407_063022_add_contact_and_cecile_fields from './20260407_063022_add_contact_and_cecile_fields';
+import * as migration_20260408_075012_add_catalogue_titles from './20260408_075012_add_catalogue_titles';
 
 export const migrations = [
   {
@@ -40,6 +41,11 @@ export const migrations = [
   {
     up: migration_20260407_063022_add_contact_and_cecile_fields.up,
     down: migration_20260407_063022_add_contact_and_cecile_fields.down,
-    name: '20260407_063022_add_contact_and_cecile_fields'
+    name: '20260407_063022_add_contact_and_cecile_fields',
+  },
+  {
+    up: migration_20260408_075012_add_catalogue_titles.up,
+    down: migration_20260408_075012_add_catalogue_titles.down,
+    name: '20260408_075012_add_catalogue_titles'
   },
 ];
