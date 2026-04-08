@@ -81,40 +81,46 @@ export default async function ContactPage() {
               </a>
             </div>
 
-            <div className="pt-4 border-t border-primary/5 space-y-3 grid grid-cols-3 gap-4 place-items-center">
-              
-              {whatsapp && (
-                <a 
-                  href={`https://wa.me/${whatsapp.replace('+', '').replace(/\s/g, '')}`} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-green-600 transition-colors text-sm"
-                >
-                  <MessageCircle className="h-4 w-4" />
-                </a>
-              )}
+            <div className="pt-4 border-t border-primary/5">
+              <p className="text-[10px] uppercase tracking-widest text-primary/40 font-bold mb-4">Suivez-nous</p>
 
-              {instagram && (
-                <a 
-                  href={instagram} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-pink-600 transition-colors text-sm"
-                >
-                  <Instagram className="h-4 w-4" />
-                </a>
-              )}
+              <div className="flex items-center gap-6">
+                {whatsapp && (
+                  <a 
+                    href={`https://wa.me/${whatsapp.replace('+', '').replace(/\s/g, '')}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-green-600 transition-colors"
+                    title="WhatsApp"
+                  >
+                    <MessageCircle className="h-5 w-5" />
+                  </a>
+                )}
 
-              {facebook && (
-                <a 
-                  href={facebook} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-blue-600 transition-colors text-sm"
-                >
-                  <Facebook className="h-4 w-4" />
-                </a>
-              )}
+                {instagram && (
+                  <a 
+                    href={instagram} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-pink-600 transition-colors"
+                    title="Instagram"
+                  >
+                    <Instagram className="h-5 w-5" />
+                  </a>
+                )}
+
+                {facebook && (
+                  <a 
+                    href={facebook} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-blue-600 transition-colors"
+                    title="Facebook"
+                  >
+                    <Facebook className="h-5 w-5" />
+                  </a>
+                )}
+              </div>
             </div>
           </CardContent>
         </Card>

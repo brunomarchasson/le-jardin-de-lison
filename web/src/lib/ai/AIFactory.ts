@@ -3,11 +3,12 @@ import { GeminiProvider } from './providers/GeminiProvider';
 import { ClaudeProvider } from './providers/ClaudeProvider';
 import { OpenAIProvider } from './providers/OpenAIProvider';
 
-export type ProviderType = 'gemini' | 'claude-sonnet' | 'claude-haiku' | 'openai';
+export type ProviderType = 'gemini' | 'claude' | 'claude-sonnet' | 'claude-haiku' | 'openai';
 
 export class AIFactory {
   static getTextProvider(type: ProviderType, config: AIConfig): TextProvider {
     switch (type) {
+      case 'claude':
       case 'claude-sonnet':
         if (!config.claudeKey) throw new Error("Clé API Claude manquante.");
         return new ClaudeProvider(config.claudeKey, 'claude-3-5-sonnet-latest');

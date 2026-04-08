@@ -100,14 +100,13 @@ export default async function LaFermePage() {
       <section className="bg-secondary/20 p-8 md:p-12 rounded-[2rem] border border-secondary/20">
         <h2 className="text-3xl font-spirax mb-8 text-center text-primary">{ecologieTitre}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center font-lora">
-          {ecologieItems.map((item: { title: string; description: string }, idx: number) => (
-            <div key={idx} className="space-y-3">
-              <h3 className="font-bold text-xl text-primary/80">{item.title}</h3>
-              <p className="text-muted-foreground">{item.description}</p>
+          {ecologieItems.map((item: { title?: string | null; description?: string | null; id?: string | null }, idx: number) => (
+            <div key={item.id || idx} className="space-y-3">
+              <h3 className="font-bold text-xl text-primary/80">{item.title || ''}</h3>
+              <p className="text-muted-foreground">{item.description || ''}</p>
             </div>
           ))}
         </div>
-
       </section>
     </div>
   )

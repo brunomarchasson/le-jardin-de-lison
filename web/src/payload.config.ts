@@ -15,7 +15,7 @@ import { Categories } from './collections/Categories'
 import { Products } from './collections/Products'
 import { SiteSettings } from './globals/SiteSettings'
 import { PageContent } from './globals/PageContent'
-import { AIFactory } from './lib/ai/AIFactory'
+import { AIFactory, ProviderType } from './lib/ai/AIFactory'
 import { migrations } from './migrations'
 
 import fs from 'fs'
@@ -129,7 +129,7 @@ export default buildConfig({
           examples: settings.aiExamples || undefined
         }
 
-        const provider = (requestedProvider || settings.aiDefaultProvider || 'gemini') as 'gemini' | 'claude' | 'openai'
+        const provider = (requestedProvider || settings.aiDefaultProvider || 'gemini') as ProviderType
 
         const enrichedPrompt = `
           ${currentTitle || currentContent ? `Voici l'article ACTUEL :
@@ -216,6 +216,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
+    // @ts-expect-error - migrations property exists at runtime but may not be in the Args type
     migrations: migrations,
   }),
   sharp,
