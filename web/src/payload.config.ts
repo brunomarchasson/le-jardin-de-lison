@@ -218,9 +218,8 @@ export default buildConfig({
     },
     // On désactive le push automatique pour éviter les questions interactives
     push: false,
-    // Les migrations sont gérées par le script de démarrage (npx payload migrate)
-    // pour éviter que le serveur Next.js ne reste bloqué sur une question (y/N)
-    prodMigrations: undefined,
+    // Les migrations s'exécutent automatiquement au démarrage du serveur
+    prodMigrations: migrations,
   }),
   sharp,
   plugins: [],
