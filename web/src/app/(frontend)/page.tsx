@@ -20,14 +20,12 @@ export const metadata: Metadata = {
 export default async function HomePage() {
   const payload = await getPayload({ config })
   
-  // Récupération du contenu global
   const content = await payload.findGlobal({
     slug: 'page-content',
   })
 
   const contact = content.contact || {}
 
-  // JSON-LD pour le SEO Local
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
@@ -44,7 +42,7 @@ export default async function HomePage() {
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 43.6631, // Approximation Le Puy-Sainte-Réparade
+      latitude: 43.6631,
       longitude: 5.4326,
     },
     openingHoursSpecification: [
@@ -63,16 +61,11 @@ export default async function HomePage() {
     soon: { label: 'Bientôt', color: 'bg-amber-500' },
   }
 
-  // Accès aux champs groupés
   const p = content.accueil || {}
   const currentGlanage = glanageStatus[p.glanage as keyof typeof glanageStatus] || glanageStatus.closed  
-  
-  // Fallbacks Hero
   const heroImage = p.heroImage as Media | null
   const heroImageUrl = heroImage?.url || '/hero-accueil.png'
   const heroSubText = p.heroSubText || PAGE_DEFAULTS.accueil.heroSubText
-  
-  // Fallbacks Philosophie
   const philosophieTitle = p.philosophieTitle || PAGE_DEFAULTS.accueil.philosophieTitle
   const philosophieText = p.philosophieText || PAGE_DEFAULTS.accueil.philosophieText
 
@@ -119,7 +112,6 @@ export default async function HomePage() {
         <FloralPattern opacity={0.03} />
 
         <div className="container mx-auto px-4 relative z-10">
-
           <FadeInStagger>
             <div className={`grid grid-cols-1 ${p.whereIsCecileEnabled ? 'lg:grid-cols-3 md:grid-cols-2' : 'md:grid-cols-2'} gap-8 md:gap-16 items-stretch`}>
 
@@ -183,12 +175,10 @@ export default async function HomePage() {
                           {p.whereIsCecile || "Je suis au jardin !"}
                         </p>
                       </div>
-                      
                     </CardContent>
                   </Card>
                 </FadeIn>
               )}
-
             </div>
           </FadeInStagger>
 
@@ -203,11 +193,10 @@ export default async function HomePage() {
               </p>
             </section>
           </FadeIn>
-
         </div>
       </div>
 
-      {/* Script JSON-LD pour le SEO Local - Placé à la fin pour éviter les conflits dans le <head> */}
+      {/* Script JSON-LD pour le SEO Local */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
