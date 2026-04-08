@@ -43,7 +43,7 @@ export default async function MarchePage({ searchParams }: Props) {
   })
 
   // Construction de la requête
-  const whereQuery: any = {
+  const whereQuery: Record<string, any> = {
     status: { equals: 'published' }
   }
 

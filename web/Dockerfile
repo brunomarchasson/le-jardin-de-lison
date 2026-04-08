@@ -31,9 +31,13 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
+# Copy migration script
+COPY --chown=nextjs:nodejs migrate-and-start.sh ./
+RUN chmod +x migrate-and-start.sh
+
 USER nextjs
 
 EXPOSE 3000
 
-# Commande de démarrage simple pour arrêter le crash loop
-CMD ["node", "server.js"]
+# Utiliser le script de migration au démarrage
+CMD ["./migrate-and-start.sh"]

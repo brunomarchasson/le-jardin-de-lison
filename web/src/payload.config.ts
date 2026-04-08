@@ -16,6 +16,7 @@ import { Products } from './collections/Products'
 import { SiteSettings } from './globals/SiteSettings'
 import { PageContent } from './globals/PageContent'
 import { AIFactory } from './lib/ai/AIFactory'
+import { migrations } from './migrations'
 
 import fs from 'fs'
 
@@ -46,7 +47,7 @@ export default buildConfig({
       handler: async (req) => {
         if (!req.user || !req.json) return Response.json({ error: 'Unauthorized' }, { status: 401 })
         
-        const { filename, mimeType } = await req.json() as any
+        const { filename, mimeType } = await req.json() as { filename: string; mimeType: string }
         const settings = await req.payload.findGlobal({ slug: 'site-settings' })
         const apiKey = (settings.geminiApiKey || process.env.GOOGLE_GENERATIVE_AI_API_KEY)
         
@@ -97,10 +98,11 @@ export default buildConfig({
             })
           })
 
-          const data = await response.json()
+          const data = await response.json() as { candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }> }
           const rawResult = data.candidates?.[0]?.content?.parts?.[0]?.text
+          if (!rawResult) throw new Error('No analysis result')
           return Response.json(JSON.parse(rawResult))
-        } catch (err) {
+        } catch (_err) {
           return Response.json({ error: 'Erreur analyse IA' }, { status: 500 })
         }
       }
@@ -111,7 +113,12 @@ export default buildConfig({
       handler: async (req) => {
         if (!req.user || !req.json) return Response.json({ error: 'Unauthorized or missing body' }, { status: 401 })
         
-        const { prompt, currentTitle, currentContent, provider: requestedProvider } = await req.json() as any
+        const { prompt, currentTitle, currentContent, provider: requestedProvider } = await req.json() as { 
+          prompt: string; 
+          currentTitle?: string; 
+          currentContent?: string; 
+          provider?: string 
+        }
         const settings = await req.payload.findGlobal({ slug: 'site-settings' })
         
         const config = {
@@ -122,7 +129,7 @@ export default buildConfig({
           examples: settings.aiExamples || undefined
         }
 
-        const provider = requestedProvider || settings.aiDefaultProvider || 'gemini'
+        const provider = (requestedProvider || settings.aiDefaultProvider || 'gemini') as 'gemini' | 'claude' | 'openai'
 
         const enrichedPrompt = `
           ${currentTitle || currentContent ? `Voici l'article ACTUEL :
@@ -209,6 +216,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
+    migrations: migrations,
   }),
   sharp,
   plugins: [],
