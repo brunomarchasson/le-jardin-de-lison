@@ -2,11 +2,10 @@ import { getPayload } from 'payload'
 import config from '@/payload.config'
 import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { MapPin, Phone, Mail, Users, Briefcase, MessageCircle } from 'lucide-react'
+import { MapPin, Phone, Mail, Users, Briefcase, MessageCircle, Facebook, Instagram } from 'lucide-react'
 import { PAGE_DEFAULTS } from '@/constants/defaults'
 import { VCardQR } from '@/components/VCardQR'
 import { RichText } from '@/components/RichText'
-import { Button } from '@/components/ui/button'
 import { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
@@ -70,29 +69,51 @@ export default async function ContactPage() {
             <Mail className="h-6 w-6 text-primary mb-2" />
             <CardTitle className="font-spirax text-2xl text-primary/80">Contact</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-6">
             <div className="space-y-3 text-sm">
               <a href={`tel:${telephone?.replace(/\s/g, '')}`} className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-                <Phone className="h-4 w-4" />
+                <Phone className="h-4 w-4 text-primary/60" />
                 <span>{telephone}</span>
               </a>
               <a href={`mailto:${email}`} className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors">
-                <Mail className="h-4 w-4" />
+                <Mail className="h-4 w-4 text-primary/60" />
                 <span className="break-all">{email}</span>
               </a>
+            </div>
+
+            <div className="pt-4 border-t border-primary/5 space-y-3 grid grid-cols-3 gap-4 place-items-center">
+              
               {whatsapp && (
-                <div className="pt-2">
-                  <a 
-                    href={`https://wa.me/${whatsapp.replace('+', '')}`} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  >
-                    <Button variant="outline" size="sm" className="w-full bg-green-500/10 border-green-500/20 text-green-700 hover:bg-green-500 hover:text-white transition-all gap-2 font-spirax">
-                      <MessageCircle className="h-4 w-4" />
-                      WhatsApp
-                    </Button>
-                  </a>
-                </div>
+                <a 
+                  href={`https://wa.me/${whatsapp.replace('+', '').replace(/\s/g, '')}`} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-muted-foreground hover:text-green-600 transition-colors text-sm"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                </a>
+              )}
+
+              {instagram && (
+                <a 
+                  href={instagram} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-muted-foreground hover:text-pink-600 transition-colors text-sm"
+                >
+                  <Instagram className="h-4 w-4" />
+                </a>
+              )}
+
+              {facebook && (
+                <a 
+                  href={facebook} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-muted-foreground hover:text-blue-600 transition-colors text-sm"
+                >
+                  <Facebook className="h-4 w-4" />
+                </a>
               )}
             </div>
           </CardContent>

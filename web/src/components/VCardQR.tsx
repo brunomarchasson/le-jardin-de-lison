@@ -148,9 +148,7 @@ export const VCardQR: React.FC<VCardQRProps> = ({
           <Download className="w-3 h-3" />
           Ajouter le contact
         </Button>
-        <p className="text-[8px] text-muted-foreground italic">
-          (Cliquez ou scannez)
-        </p>
+        
       </div>
     </div>
   )
