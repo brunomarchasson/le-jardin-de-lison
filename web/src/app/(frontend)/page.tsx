@@ -78,12 +78,6 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen grainy">
-      {/* Script JSON-LD pour le SEO Local */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
       {/* Hero Section */}
       <section className="relative h-[75vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -212,6 +206,12 @@ export default async function HomePage() {
 
         </div>
       </div>
+
+      {/* Script JSON-LD pour le SEO Local - Placé à la fin pour éviter les conflits dans le <head> */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
     </div>
   )
 }

@@ -11,10 +11,13 @@ const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://aujardindelison.f
 
 export const metadata = {
   metadataBase: new URL(baseUrl),
+  alternates: {
+    canonical: './',
+  },
   description: 'Micro-ferme florale bio, locale et de saison à Le Puy-Sainte-Réparade. Bouquets de fleurs paysannes, glanage et slow floriculture.',
   title: {
     default: 'Au jardin de Lison | Fleurs bio et locales',
-    template: '%s | Au jardin de Lison',
+    template: '%s | Jardin de Lison',
   },
   icons: {
     icon: [
