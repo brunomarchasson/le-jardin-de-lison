@@ -218,9 +218,9 @@ export default buildConfig({
     },
     // On désactive le push automatique pour éviter les questions interactives
     push: false,
-    // On ne lance les migrations auto que si on n'est pas en train de build
-    // et que la variable d'environnement est présente.
-    prodMigrations: process.env.PAYLOAD_MIGRATE === 'true' ? migrations : undefined,
+    // Les migrations sont gérées par le script de démarrage (npx payload migrate)
+    // pour éviter que le serveur Next.js ne reste bloqué sur une question (y/N)
+    prodMigrations: undefined,
   }),
   sharp,
   plugins: [],

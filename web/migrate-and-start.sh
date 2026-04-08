@@ -2,16 +2,12 @@
 
 echo "--- Starting Au Jardin de Lison (Production) ---"
 
-# On active l'autorisation de migration pour cette session
-export PAYLOAD_MIGRATE=true
-
-if [ -f "./node_modules/payload/dist/bin.js" ]; then
-    echo "Checking for pending migrations..."
-    # On force la migration même en cas de changement destructif (pour le CI/CD)
-    node ./node_modules/payload/dist/bin.js migrate --yes --force
-else
-    echo "Warning: Payload binary not found, relying on prodMigrations auto-check."
-fi
+# On tente la migration via la CLI avec force avant de lancer le serveur
+# Cela permet de répondre "Oui" automatiquement à toutes les questions de perte de données
+echo "Checking for pending migrations..."
+npx payload migrate --yes --force
 
 echo "Starting Next.js server..."
+# On lance le serveur SANS la variable PAYLOAD_MIGRATE 
+# pour que le serveur lui-même ne tente rien et ne bloque pas
 node server.js
