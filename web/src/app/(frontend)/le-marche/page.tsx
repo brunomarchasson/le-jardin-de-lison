@@ -143,6 +143,7 @@ export default async function MarchePage({ searchParams }: Props) {
               return (
               <FadeIn key={product.id} delay={idx * 0.05}>
                 <Link href={`/le-marche/${product.slug}`} aria-label={`Détails du produit ${product.name}`}>
+                  <span className="sr-only">{product.name} - Voir le produit</span>
                   <Card className="overflow-hidden border-none shadow-sm hover:shadow-md transition-all hover:-translate-y-1 h-full bg-card/60 backdrop-blur-sm group">
                     <div className="relative aspect-[4/3] bg-muted overflow-hidden">
                       {imageUrl ? (

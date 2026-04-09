@@ -1,5 +1,6 @@
 import { getPayload } from 'payload'
 import React from 'react'
+import Image from 'next/image'
 import config from '@/payload.config'
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -71,12 +72,21 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen grainy">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Hero Section */}
       <section className="relative h-[75vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-             <div 
-                className="absolute inset-0 bg-cover bg-center" 
-                style={{ backgroundImage: `url('${heroImageUrl}')` }}
+             <Image
+                src={heroImageUrl}
+                alt="Au jardin de Lison - Micro-ferme florale bio"
+                fill
+                priority
+                className="object-cover object-center"
+                sizes="100vw"
+                quality={85}
              />
              <div className="absolute inset-0 bg-black/20" />
              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90" />
@@ -93,6 +103,7 @@ export default async function HomePage() {
             <h1 className="text-6xl md:text-9xl font-spirax mb-6 drop-shadow-lg tracking-wide">
               Au jardin de Lison
             </h1>
+            <h2 className="sr-only">Micro-ferme florale bio au Puy-Sainte-Réparade</h2>
           </FadeIn>
 
           <FadeIn delay={0.4}>
@@ -195,12 +206,6 @@ export default async function HomePage() {
           </FadeIn>
         </div>
       </div>
-
-      {/* Script JSON-LD pour le SEO Local */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
     </div>
   )
 }

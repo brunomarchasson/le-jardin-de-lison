@@ -6,10 +6,11 @@ import { cn } from '@/lib/utils'
 import { MotionProvider } from '@/components/MotionProvider'
 import { Logo } from '@/components/Logo'
 import { HeaderNavigation } from '@/components/HeaderNavigation'
+import { Metadata } from 'next'
 
 const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://aujardindelison.fr'
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   description: 'Micro-ferme florale bio, locale et de saison à Le Puy-Sainte-Réparade. Bouquets de fleurs paysannes, glanage et slow floriculture.',
   title: {
@@ -53,7 +54,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         <MotionProvider>
           <header className="sticky top-0 z-50 w-full border-b border-primary/10 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
             <div className="container mx-auto flex h-24 items-center justify-between px-4">
-              <Link href="/" className="flex items-center gap-3 group">
+              <Link href="/" className="flex items-center gap-3 group" aria-label="Retour à l'accueil">
                 <Logo className="w-auto h-16 md:h-20 text-primary transition-transform duration-500 group-hover:scale-105" />
               </Link>
               <HeaderNavigation />
@@ -64,20 +65,18 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
             <div className="container mx-auto py-12 px-4 text-center text-sm text-muted-foreground font-spirax">
               <div className="flex flex-col items-center gap-4 mb-6">
                 <Logo className="w-auto h-16 opacity-80 text-primary/60 hover:text-primary transition-all grayscale hover:grayscale-0" />
-             
               </div>
-              <p className="font-lora text-xs">© {new Date().getFullYear()} - Micro-ferme florale bio & locale</p>
-              <div className="flex flex-wrap justify-center gap-6 mt-4 font-lora text-[10px] uppercase tracking-widest opacity-60 hover:opacity-100 transition-opacity">
-                <Link href="/mentions-legales" className="hover:text-primary transition-colors">Mentions Légales</Link>
-                <Link href="/politique-de-confidentialite" className="hover:text-primary transition-colors">Confidentialité</Link>
-                <Link href="/cgu" className="hover:text-primary transition-colors">CGU</Link>
+              <p className="font-lora text-xs text-foreground/70">© {new Date().getFullYear()} - Micro-ferme florale bio & locale</p>
+              <div className="flex flex-wrap justify-center gap-6 mt-4 font-lora text-[10px] uppercase tracking-widest text-foreground/60">
+                <Link href="/mentions-legales" className="hover:text-primary transition-colors underline decoration-primary/20 underline-offset-4">Mentions Légales</Link>
+                <Link href="/politique-de-confidentialite" className="hover:text-primary transition-colors underline decoration-primary/20 underline-offset-4">Confidentialité</Link>
+                <Link href="/cgu" className="hover:text-primary transition-colors underline decoration-primary/20 underline-offset-4">CGU</Link>
               </div>
-              <p className="font-lora text-[9px] mt-8 opacity-40 uppercase tracking-tighter">
+              <p className="font-lora text-[10px] mt-8 opacity-50 uppercase tracking-tighter text-foreground/50">
                 Site créé par Bruno Marchasson
               </p>
             </div>
           </footer>
-          {/* <ThemeSwitcher /> */}
         </MotionProvider>
       </body>
     </html>
