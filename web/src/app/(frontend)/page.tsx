@@ -91,6 +91,7 @@ export default async function HomePage() {
                 alt="Au jardin de Lison - Micro-ferme florale bio"
                 fill
                 priority
+                fetchPriority="high"
                 className="object-cover object-center"
                 sizes="(max-width: 768px) 100vw, 100vw"
                 quality={75}
@@ -100,24 +101,22 @@ export default async function HomePage() {
         </div>
 
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto mt-12">
-          <FadeIn direction="down">
-            <div className="inline-block p-3 border border-white/30 rounded-full mb-6 backdrop-blur-sm">        
-               <Leaf className="w-8 h-8 text-white/90" />
-            </div>
-          </FadeIn>
+          <div className="inline-block p-3 border border-white/30 rounded-full mb-6 backdrop-blur-sm animate-in fade-in zoom-in duration-1000">        
+             <Leaf className="w-8 h-8 text-white/90" />
+          </div>
 
-          <FadeIn delay={0.2}>
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-150 fill-mode-both">
             <h1 className="text-6xl md:text-9xl font-spirax mb-6 drop-shadow-lg tracking-wide">
               Au jardin de Lison
             </h1>
             <h2 className="sr-only">Micro-ferme florale bio au Puy-Sainte-Réparade</h2>
-          </FadeIn>
+          </div>
 
-          <FadeIn delay={0.4}>
+          <div className="animate-in fade-in slide-in-from-bottom-2 duration-1000 delay-300 fill-mode-both">
             <p className="text-xl md:text-2xl font-light max-w-2xl mx-auto drop-shadow-md text-white/90 leading-relaxed">
               {heroSubText}
             </p>
-          </FadeIn>
+          </div>
         </div>
 
         <div className="absolute bottom-0 left-0 w-full z-20 text-background">

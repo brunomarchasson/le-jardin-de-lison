@@ -3,6 +3,7 @@ import React from 'react'
 export function Logo({ className }: { className?: string }) {
   return (
     <svg 
+      className={className}
       width="326" 
       height="137" 
       viewBox="0 0 326 137" 

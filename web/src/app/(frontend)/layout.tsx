@@ -64,7 +64,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           <footer className="border-t border-primary/10 bg-primary/5 mt-12 relative overflow-hidden">
             <div className="container mx-auto py-12 px-4 text-center text-sm text-muted-foreground font-spirax">
               <div className="flex flex-col items-center gap-4 mb-6">
-                <Logo className="w-auto h-16 opacity-80 text-primary/60 hover:text-primary transition-all grayscale hover:grayscale-0" />
+                <Logo className="w-40 h-16 opacity-80 text-primary/60 hover:text-primary transition-all grayscale hover:grayscale-0" />
               </div>
               <p className="font-lora text-xs text-foreground/70">© {new Date().getFullYear()} - Micro-ferme florale bio & locale</p>
               <div className="flex flex-wrap justify-center gap-6 mt-4 font-lora text-[10px] uppercase tracking-widest text-foreground/60">
