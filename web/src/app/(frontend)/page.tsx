@@ -11,7 +11,8 @@ import type { Media } from '@/payload-types'
 import { PAGE_DEFAULTS } from '@/constants/defaults'
 import { Metadata } from 'next'
 
-export const dynamic = 'force-dynamic'
+// On retire force-dynamic pour permettre la génération statique avec revalidation
+export const revalidate = 3600 // La page sera régénérée au maximum toutes les heures
 
 export const metadata: Metadata = {
   title: 'Accueil | Fleurs bio, locales et de saison',

@@ -1,9 +1,22 @@
 import type { GlobalConfig } from 'payload'
 import { PAGE_DEFAULTS } from '../constants/defaults'
+import { revalidatePath } from 'next/cache'
 
 export const PageContent: GlobalConfig = {
   slug: 'page-content',
   label: 'Contenu des Pages',
+  hooks: {
+    afterChange: [
+      () => {
+        revalidatePath('/')
+        revalidatePath('/la-ferme')
+        revalidatePath('/fleurs')
+        revalidatePath('/le-marche')
+        revalidatePath('/contact')
+        console.log('✅ Cache Next.js vidé pour les pages statiques')
+      },
+    ],
+  },
   access: {
     read: () => true,
   },
