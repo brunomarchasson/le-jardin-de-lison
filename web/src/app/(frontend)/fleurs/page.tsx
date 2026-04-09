@@ -15,6 +15,9 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: 'Nos Fleurs',
   description: 'Découvrez les variétés de fleurs bio et locales cultivées au jardin de Lison. Tulipes, Dahlias, Cosmos et bien d\'autres fleurs de saison.',
+  alternates: {
+    canonical: '/fleurs',
+  },
 }
 
 export default async function FleursPage() {

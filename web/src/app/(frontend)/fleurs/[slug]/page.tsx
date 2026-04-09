@@ -47,6 +47,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: flower.name,
     description: flower.description || `Découvrez ${flower.name}, une fleur de saison cultivée bio au jardin de Lison.`,
+    alternates: {
+      canonical: `/fleurs/${flower.slug}`,
+    },
     openGraph: {
       title: `${flower.name} | Au jardin de Lison`,
       description: flower.description || `Fleur de saison bio : ${flower.name}`,

@@ -1,8 +1,13 @@
 import React from 'react'
 
-export const metadata = {
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
   title: 'Mentions Légales - Au jardin de Lison',
   description: 'Informations légales concernant l\'éditeur et l\'hébergeur du site Au jardin de Lison.',
+  alternates: {
+    canonical: '/mentions-legales',
+  },
 }
 
 export default function MentionsLegalesPage() {

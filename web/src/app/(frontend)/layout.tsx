@@ -71,6 +71,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
                 <Link href="/mentions-legales" className="hover:text-primary transition-colors underline decoration-primary/20 underline-offset-4">Mentions Légales</Link>
                 <Link href="/politique-de-confidentialite" className="hover:text-primary transition-colors underline decoration-primary/20 underline-offset-4">Confidentialité</Link>
                 <Link href="/cgu" className="hover:text-primary transition-colors underline decoration-primary/20 underline-offset-4">CGU</Link>
+                <Link href="/cgv" className="hover:text-primary transition-colors underline decoration-primary/20 underline-offset-4">CGV</Link>
               </div>
               <p className="font-lora text-[10px] mt-8 opacity-50 uppercase tracking-tighter text-foreground/50">
                 Site créé par Bruno Marchasson

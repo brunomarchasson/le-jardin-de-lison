@@ -1,8 +1,13 @@
 import React from 'react'
 
-export const metadata = {
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
   title: 'Conditions Générales de Vente (CGV) - Au jardin de Lison',
   description: 'Conditions générales de vente pour les fleurs et ateliers du jardin de Lison.',
+  alternates: {
+    canonical: '/cgv',
+  },
 }
 
 export default function CGVPage() {

@@ -1,9 +1,14 @@
 import React from 'react'
 import Link from 'next/link'
 
-export const metadata = {
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
   title: "Conditions Générales d'Utilisation (CGU) - Au jardin de Lison",
   description: "Conditions générales d'utilisation du site Au jardin de Lison.",
+  alternates: {
+    canonical: '/cgu',
+  },
 }
 
 export default function CGUPage() {

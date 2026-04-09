@@ -12,6 +12,9 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: 'La Ferme',
   description: 'Découvrez l\'histoire du jardin de Lison, notre démarche écologique et notre passion pour la slow floriculture bio.',
+  alternates: {
+    canonical: '/la-ferme',
+  },
 }
 
 // Fonction utilitaire pour vérifier si le RichText Lexical est réellement vide

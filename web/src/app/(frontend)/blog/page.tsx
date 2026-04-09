@@ -8,7 +8,17 @@ import { FadeIn, FadeInStagger } from '@/components/FadeIn'
 import type { Media } from '@/payload-types'
 import { PAGE_DEFAULTS } from '@/constants/defaults'
 
+import { Metadata } from 'next'
+
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = {
+  title: 'Le Journal du Jardin',
+  description: 'Suivez nos aventures au fil des saisons, nos conseils de culture et l\'actualité de la micro-ferme florale Au jardin de Lison.',
+  alternates: {
+    canonical: '/blog',
+  },
+}
 
 export default async function BlogPage() {
   const payload = await getPayload({ config })

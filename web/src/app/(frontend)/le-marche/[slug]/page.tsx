@@ -48,6 +48,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: product.name,
     description: (product.name) + " - Disponible au jardin de Lison.",
+    alternates: {
+      canonical: `/le-marche/${product.slug}`,
+    },
     openGraph: {
       title: `${product.name} | Au jardin de Lison`,
       description: `Découvrez ${product.name} sur notre marché local.`,

@@ -1,8 +1,13 @@
 import React from 'react'
 
-export const metadata = {
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
   title: 'Politique de Confidentialité - Au jardin de Lison',
   description: 'Politique de confidentialité concernant l\'absence de collecte de données sur le site Au jardin de Lison.',
+  alternates: {
+    canonical: '/politique-de-confidentialite',
+  },
 }
 
 export default function PolitiqueConfidentialitePage() {

@@ -37,6 +37,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.title,
     description: post.title + " - Le journal du jardin de Lison.",
+    alternates: {
+      canonical: `/blog/${post.id}`,
+    },
     openGraph: {
       title: `${post.title} | Au jardin de Lison`,
       description: `Découvrez notre dernier article : ${post.title}`,

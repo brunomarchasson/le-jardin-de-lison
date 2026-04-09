@@ -17,6 +17,9 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: 'Le Marché',
   description: 'Découvrez nos bouquets de saison, nos créations artisanales et les produits de notre micro-ferme florale bio.',
+  alternates: {
+    canonical: '/le-marche',
+  },
 }
 
 interface Props {

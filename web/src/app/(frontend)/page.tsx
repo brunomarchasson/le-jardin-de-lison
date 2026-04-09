@@ -16,6 +16,9 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: 'Accueil | Fleurs bio, locales et de saison',
   description: 'Micro-ferme florale bio au Puy-Sainte-Réparade. Découvrez nos fleurs paysannes, nos bouquets de saison et notre démarche de slow floriculture.',
+  alternates: {
+    canonical: '/',
+  },
 }
 
 export default async function HomePage() {

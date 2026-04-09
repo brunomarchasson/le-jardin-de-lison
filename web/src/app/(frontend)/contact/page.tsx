@@ -13,6 +13,9 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: 'Contact',
   description: 'Une question ? Envie de commander des fleurs ? Contactez Cécile au jardin de Lison, micro-ferme florale au Puy-Sainte-Réparade.',
+  alternates: {
+    canonical: '/contact',
+  },
 }
 
 export default async function ContactPage() {
