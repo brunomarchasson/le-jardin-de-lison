@@ -7,16 +7,13 @@
 */
 
 @theme inline {
-  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   
   /* On lie la classe Tailwind font-serif à notre variable dynamique */
   --font-serif: var(--font-current-serif);
 
   --font-spirax: var(--font-spirax);
   --font-lora: var(--font-lora);
-  --font-opensans: var(--font-opensans);
-  --font-nanum: var(--font-nanum);
-  --font-corben: var(--font-corben);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

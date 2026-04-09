@@ -72,6 +72,9 @@ export default async function HomePage() {
   const heroSubText = p.heroSubText || PAGE_DEFAULTS.accueil.heroSubText
   const philosophieTitle = p.philosophieTitle || PAGE_DEFAULTS.accueil.philosophieTitle
   const philosophieText = p.philosophieText || PAGE_DEFAULTS.accueil.philosophieText
+  
+  const seoSectionEnabled = p.seoSectionEnabled ?? PAGE_DEFAULTS.accueil.seoSectionEnabled
+  const seoItems = p.seoItems && p.seoItems.length > 0 ? p.seoItems : PAGE_DEFAULTS.accueil.seoItems
 
   return (
     <div className="flex flex-col min-h-screen grainy">
@@ -88,8 +91,8 @@ export default async function HomePage() {
                 fill
                 priority
                 className="object-cover object-center"
-                sizes="100vw"
-                quality={85}
+                sizes="(max-width: 768px) 100vw, 100vw"
+                quality={75}
              />
              <div className="absolute inset-0 bg-black/20" />
              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90" />
@@ -207,6 +210,24 @@ export default async function HomePage() {
               </p>
             </section>
           </FadeIn>
+
+          {/* Section SEO / Engagements */}
+          {seoSectionEnabled && (
+            <FadeIn delay={0.4}>
+              <section className="mt-24 py-12 border-t border-primary/5">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-left">
+                  {seoItems.map((item: { title: string; text: string; id?: string }, idx: number) => (
+                    <div key={item.id || idx} className="space-y-4">
+                      <h3 className="font-spirax text-2xl text-primary/80 text-center md:text-left">{item.title}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed font-lora">
+                        {item.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            </FadeIn>
+          )}
         </div>
       </div>
     </div>

@@ -7,16 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
-
-const fonts = [
-  { id: "lora", label: "Lora (Botanique)", variable: "var(--font-lora), ui-serif, serif" },
-  { id: "opensans", label: "Open Sans (Moderne)", variable: "var(--font-opensans), ui-sans-serif, sans-serif" },
-  { id: "nanum", label: "Nanum Gothic (Clair)", variable: "var(--font-nanum), ui-sans-serif, sans-serif" },
-  { id: "corben", label: "Corben (Vintage)", variable: "var(--font-corben), ui-serif, serif" },
-];
 
 const colorThemes = [
   { 
@@ -52,16 +43,7 @@ const colorThemes = [
 ];
 
 export function ThemeSwitcher() {
-  const [activeFont, setActiveFont] = useState("lora");
   const [activeColor, setActiveColor] = useState("original");
-
-  const updateFont = (fontId: string) => {
-    const font = fonts.find(f => f.id === fontId);
-    if (font) {
-      document.documentElement.style.setProperty('--font-current-serif', font.variable);
-      setActiveFont(fontId);
-    }
-  };
 
   const updateColors = (themeId: string) => {
     const theme = colorThemes.find(t => t.id === themeId);
@@ -84,18 +66,6 @@ export function ThemeSwitcher() {
         <PopoverContent side="top" align="start" className="w-80 max-h-[80vh] overflow-y-auto p-6 bg-background/95 backdrop-blur-xl border-primary/10 shadow-2xl rounded-[2rem] grainy">
           <div className="space-y-8">
             <div>
-              <h4 className="font-spirax text-xl text-primary mb-4">Typographie</h4>
-              <RadioGroup value={activeFont} onValueChange={updateFont} className="grid grid-cols-1 gap-2">
-                {fonts.map((f) => (
-                  <div key={f.id} className="flex items-center space-x-2">
-                    <RadioGroupItem value={f.id} id={`f-${f.id}`} />
-                    <Label htmlFor={`f-${f.id}`} className="font-lora cursor-pointer">{f.label}</Label>
-                  </div>
-                ))}
-              </RadioGroup>
-            </div>
-
-            <div className="pt-4 border-t border-primary/5">
               <h4 className="font-spirax text-xl text-primary mb-4">Ambiance Couleur</h4>
               <div className="grid grid-cols-1 gap-3">
                 {colorThemes.map((t) => (

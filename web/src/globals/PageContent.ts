@@ -97,6 +97,36 @@ export const PageContent: GlobalConfig = {
                 description: 'Laissez vide pour utiliser la valeur par défaut.',
               }
             },
+            {
+              name: 'seoSectionEnabled',
+              label: 'Afficher la section Engagements (SEO)',
+              type: 'checkbox',
+              defaultValue: true,
+            },
+            {
+              name: 'seoItems',
+              label: 'Éléments de la section Engagements (SEO)',
+              type: 'array',
+              minRows: 3,
+              maxRows: 3,
+              fields: [
+                {
+                  name: 'title',
+                  label: 'Titre',
+                  type: 'text',
+                  required: true,
+                },
+                {
+                  name: 'text',
+                  label: 'Texte',
+                  type: 'textarea',
+                  required: true,
+                },
+              ],
+              admin: {
+                description: 'Ces trois blocs sont essentiels pour le référencement (mots-clés, localisation).',
+              },
+            },
           ]
         },
         {

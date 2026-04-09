@@ -705,6 +705,17 @@ export interface PageContent {
      * Laissez vide pour utiliser la valeur par défaut.
      */
     philosophieText?: string | null;
+    seoSectionEnabled?: boolean | null;
+    /**
+     * Ces trois blocs sont essentiels pour le référencement (mots-clés, localisation).
+     */
+    seoItems?:
+      | {
+          title: string;
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
   };
   laFerme?: {
     title?: string | null;
@@ -869,6 +880,14 @@ export interface PageContentSelect<T extends boolean = true> {
         heroSubText?: T;
         philosophieTitle?: T;
         philosophieText?: T;
+        seoSectionEnabled?: T;
+        seoItems?:
+          | T
+          | {
+              title?: T;
+              text?: T;
+              id?: T;
+            };
       };
   laFerme?:
     | T
