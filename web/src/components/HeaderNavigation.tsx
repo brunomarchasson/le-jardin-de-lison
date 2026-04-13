@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Logo } from "./Logo";
 
 const navLinks = [
@@ -39,10 +39,17 @@ export function HeaderNavigation() {
               key={link.href}
               href={link.href}
               className={cn(
-                "px-5 py-2 rounded-full font-spirax text-base transition-all duration-300 relative z-10",
-                isActive ? "text-primary bg-secondary/30 shadow-sm" : "text-foreground/60 hover:text-primary hover:bg-primary/5"
+                "px-5 py-2 rounded-full font-spirax text-base transition-colors duration-300 relative z-10",
+                isActive ? "text-primary" : "text-foreground/60 hover:text-primary"
               )}
             >
+              {isActive && (
+                <motion.div
+                  layoutId="nav-pill"
+                  className="absolute inset-0 bg-secondary/40 rounded-full shadow-sm -z-10"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                />
+              )}
               {link.label}
             </Link>
           );
@@ -53,8 +60,7 @@ export function HeaderNavigation() {
       <div className="md:hidden">
         <button 
           onClick={() => setIsOpen(true)}
-          className="p-2 -mr-2 text-primary hover:bg-primary/5 rounded-full transition-colors outline-none w-12 h-12 flex items-center justify-center"
-          aria-expanded={isOpen}
+          className="p-2 -mr-2 text-primary hover:bg-primary/5 rounded-full transition-colors outline-none"
         >
           <Menu className="w-8 h-8" />
           <span className="sr-only">Ouvrir le menu</span>
@@ -84,33 +90,27 @@ export function HeaderNavigation() {
                   </Link>
                   <button 
                     onClick={() => setIsOpen(false)}
-                    className="p-2 rounded-full hover:bg-primary/5 text-primary transition-colors w-10 h-10 flex items-center justify-center"
+                    className="p-2 rounded-full hover:bg-primary/5 text-primary w-10 h-10 flex items-center justify-center"
                   >
                     <X className="w-8 h-8" />
                   </button>
                 </div>
 
                 <nav className="flex flex-col gap-4 p-6">
-                  {navLinks.map((link, idx) => {
+                  {navLinks.map((link) => {
                     const isActive = pathname === link.href || pathname.startsWith(link.href + '/');
                     return (
-                      <motion.div
+                      <Link
                         key={link.href}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: idx * 0.05 }}
+                        href={link.href}
+                        onClick={() => setIsOpen(false)}
+                        className={cn(
+                          "flex items-center justify-center text-2xl font-spirax py-3 px-6 rounded-full transition-all text-center w-full relative",
+                          isActive ? "text-primary bg-secondary/30 scale-105 shadow-sm" : "text-foreground/70"
+                        )}
                       >
-                        <Link
-                          href={link.href}
-                          onClick={() => setIsOpen(false)}
-                          className={cn(
-                            "flex items-center justify-center text-2xl font-spirax py-3 px-6 rounded-full transition-all text-center w-full",
-                            isActive ? "text-primary bg-secondary/30" : "text-foreground/70"
-                          )}
-                        >
-                          {link.label}
-                        </Link>
-                      </motion.div>
+                        {link.label}
+                      </Link>
                     );
                   })}
                 </nav>

@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import React, { useRef, useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface FadeInProps {
   children: React.ReactNode;
@@ -11,60 +11,54 @@ interface FadeInProps {
 }
 
 export function FadeIn({ children, delay = 0, direction = "up", fullWidth = false }: FadeInProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Si l'utilisateur préfère moins de mouvement, on ne fait qu'un fondu sans déplacement
-  const distance = shouldReduceMotion ? 0 : 20;
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { 
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px" 
+      }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const directions = {
-    up: { y: distance },
-    down: { y: -distance },
-    left: { x: distance },
-    right: { x: -distance },
-    none: { x: 0, y: 0 },
+    up: "translate-y-8",
+    down: "-translate-y-8",
+    left: "translate-x-8",
+    right: "-translate-x-8",
+    none: "",
   };
 
   return (
-    <motion.div
-      initial={{
-        opacity: 0,
-        ...directions[direction],
-      }}
-      whileInView={{
-        opacity: 1,
-        x: 0,
-        y: 0,
-      }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{
-        duration: 0.6,
-        delay: delay,
-        ease: [0.21, 0.47, 0.32, 0.98], // Cubic bezier pour une sensation naturelle
-      }}
-      style={{ width: fullWidth ? "100%" : "auto" }}
+    <div
+      ref={ref}
+      className={cn(
+        "transition-all duration-1000 ease-[cubic-bezier(0.21,0.47,0.32,0.98)]",
+        isVisible ? "opacity-100 translate-x-0 translate-y-0" : cn("opacity-0", directions[direction]),
+        fullWidth ? "w-full" : "w-auto"
+      )}
+      style={{ transitionDelay: `${delay}s` }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
-// Version pour les listes (Staggered Children)
-export function FadeInStagger({ children, staggerDelay = 0.1 }: { children: React.ReactNode, staggerDelay?: number }) {
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-50px" }}
-      variants={{
-        hidden: {},
-        show: {
-          transition: {
-            staggerChildren: staggerDelay,
-          },
-        },
-      }}
-    >
-      {children}
-    </motion.div>
-  );
+export function FadeInStagger({ children }: { children: React.ReactNode }) {
+  // En version CSS pure simplifiée, on laisse les enfants gérer leur propre délai
+  return <div className="w-full">{children}</div>;
 }

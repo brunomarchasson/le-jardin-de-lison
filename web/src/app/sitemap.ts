@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import config from '@/payload.config'
 
 export const dynamic = 'force-dynamic'
+export const revalidate = 3600 // Régénérer le sitemap une fois par heure maximum
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const payload = await getPayload({ config })

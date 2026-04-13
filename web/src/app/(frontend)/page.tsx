@@ -10,6 +10,7 @@ import { FadeIn, FadeInStagger } from '@/components/FadeIn'
 import type { Media } from '@/payload-types'
 import { PAGE_DEFAULTS } from '@/constants/defaults'
 import { Metadata } from 'next'
+import heroDefault from '../../../public/hero-accueil.png'
 
 // On retire force-dynamic pour permettre la génération statique avec revalidation
 export const revalidate = 3600 // La page sera régénérée au maximum toutes les heures
@@ -35,7 +36,7 @@ export default async function HomePage() {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: 'Au jardin de Lison',
-    description: 'Micro-ferme florale bio, locale et de saison.',
+    description: 'Micro-ferme florale bio, locale et de saison au Puy-Sainte-Réparade. Fleurs paysannes, bouquets de saison et slow floriculture en circuit court.',
     url: process.env.NEXT_PUBLIC_SERVER_URL || 'https://aujardindelison.fr',
     telephone: contact.telephone || PAGE_DEFAULTS.contact.telephone,
     address: {
@@ -43,6 +44,7 @@ export default async function HomePage() {
       streetAddress: contact.adresse || PAGE_DEFAULTS.contact.adresse,
       addressLocality: contact.ville || 'Le Puy-Sainte-Réparade',
       postalCode: contact.codePostal || '13610',
+      addressRegion: 'Bouches-du-Rhône',
       addressCountry: 'FR',
     },
     geo: {
@@ -50,6 +52,14 @@ export default async function HomePage() {
       latitude: 43.6631,
       longitude: 5.4326,
     },
+    areaServed: [
+      { '@type': 'City', name: 'Aix-en-Provence' },
+      { '@type': 'City', name: 'Le Puy-Sainte-Réparade' },
+      { '@type': 'Region', name: 'Luberon' },
+      { '@type': 'Region', name: 'Bouches-du-Rhône' }
+    ],
+    keywords: 'fleurs bio, fleurs locales, slow floriculture, bouquets de saison, micro-ferme florale, fleurs paysannes, Provence, Aix-en-Provence, Luberon',
+    priceRange: '€€',
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
@@ -69,7 +79,7 @@ export default async function HomePage() {
   const p = content.accueil || {}
   const currentGlanage = glanageStatus[p.glanage as keyof typeof glanageStatus] || glanageStatus.closed  
   const heroImage = p.heroImage as Media | null
-  const heroImageUrl = heroImage?.url || '/hero-accueil.png'
+  const heroImageUrl = heroImage?.url || null
   const heroSubText = p.heroSubText || PAGE_DEFAULTS.accueil.heroSubText
   const philosophieTitle = p.philosophieTitle || PAGE_DEFAULTS.accueil.philosophieTitle
   const philosophieText = p.philosophieText || PAGE_DEFAULTS.accueil.philosophieText
@@ -86,16 +96,30 @@ export default async function HomePage() {
       {/* Hero Section */}
       <section className="relative h-[75vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-             <Image
-                src={heroImageUrl}
-                alt="Au jardin de Lison - Micro-ferme florale bio"
-                fill
-                priority
-                fetchPriority="high"
-                className="object-cover object-center"
-                sizes="(max-width: 768px) 100vw, 100vw"
-                quality={75}
-             />
+             {heroImageUrl ? (
+               <Image
+                  src={heroImageUrl}
+                  alt="Au jardin de Lison - Micro-ferme florale bio"
+                  fill
+                  priority
+                  fetchPriority="high"
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, 100vw"
+                  quality={75}
+               />
+             ) : (
+               <Image
+                  src={heroDefault}
+                  alt="Au jardin de Lison - Micro-ferme florale bio"
+                  fill
+                  priority
+                  fetchPriority="high"
+                  placeholder="blur"
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, 100vw"
+                  quality={75}
+               />
+             )}
              <div className="absolute inset-0 bg-black/20" />
              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90" />
         </div>

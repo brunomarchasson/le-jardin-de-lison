@@ -20,9 +20,9 @@ export const metadata: Metadata = {
 // Fonction utilitaire pour vérifier si le RichText Lexical est réellement vide
 const isRichTextEmpty = (content: Record<string, unknown> | undefined | null) => {
   if (!content) return true;
-  const root = content.root as Record<string, any>;
+  const root = content.root as { children?: Array<{ type: string; children?: unknown[] }> };
   if (!root || !root.children) return true;
-  const children = root.children as any[];
+  const children = root.children;
   if (children.length === 0) return true;
   if (children.length === 1 && children[0].type === 'paragraph' && (!children[0].children || children[0].children.length === 0)) return true;
   return false;

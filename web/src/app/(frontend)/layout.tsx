@@ -3,18 +3,18 @@ import './styles.css'
 import Link from 'next/link'
 import { fontVariables } from '@/styles/fonts'
 import { cn } from '@/lib/utils'
-import { MotionProvider } from '@/components/MotionProvider'
 import { Logo } from '@/components/Logo'
 import { HeaderNavigation } from '@/components/HeaderNavigation'
 import { Metadata } from 'next'
+import { MotionProvider } from '@/components/MotionProvider'
 
 const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://aujardindelison.fr'
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
-  description: 'Micro-ferme florale bio, locale et de saison à Le Puy-Sainte-Réparade. Bouquets de fleurs paysannes, glanage et slow floriculture.',
+  description: 'Micro-ferme florale bio au Puy-Sainte-Réparade. Découvrez nos fleurs paysannes, bouquets de saison et notre démarche de slow floriculture près d\'Aix-en-Provence et du Luberon (13).',
   title: {
-    default: 'Au jardin de Lison | Fleurs bio et locales',
+    default: 'Au jardin de Lison | Micro-ferme florale bio & locale (13)',
     template: '%s | Jardin de Lison',
   },
   icons: {
@@ -49,10 +49,18 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="fr" className={cn(fontVariables)}>
-      <body className="min-h-screen bg-background font-serif antialiased text-foreground selection:bg-primary/20">
+    <html lang="fr" className={cn(fontVariables)} style={{ scrollBehavior: 'smooth' }}>
+      <head>
+        <link
+          rel="preload"
+          href="/hero-accueil.png"
+          as="image"
+          fetchPriority="high"
+        />
+      </head>
+      <body className="min-h-screen bg-background font-serif antialiased text-foreground selection:bg-primary/20 overflow-x-hidden">
         <MotionProvider>
-          <header className="sticky top-0 z-50 w-full border-b border-primary/10 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+          <header className="sticky top-0 z-[100] w-full border-b border-primary/10 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
             <div className="container mx-auto flex h-24 items-center justify-between px-4">
               <Link href="/" className="flex items-center gap-3 group" aria-label="Retour à l'accueil">
                 <Logo className="w-auto h-16 md:h-20 text-primary transition-transform duration-500 group-hover:scale-105" />
@@ -67,6 +75,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
                 <Logo className="w-40 h-16 opacity-80 text-primary/60 hover:text-primary transition-all grayscale hover:grayscale-0" />
               </div>
               <p className="font-lora text-xs text-foreground/70">© {new Date().getFullYear()} - Micro-ferme florale bio & locale</p>
+              <p className="font-lora text-[10px] text-foreground/40 mt-2 italic">
+                Fleurs paysannes produites au Puy-Sainte-Réparade, disponibles à proximité d&apos;Aix-en-Provence, Pertuis et du Sud Luberon.
+              </p>
               <div className="flex flex-wrap justify-center gap-6 mt-4 font-lora text-[10px] uppercase tracking-widest text-foreground/60">
                 <Link href="/mentions-legales" className="hover:text-primary transition-colors underline decoration-primary/20 underline-offset-4">Mentions Légales</Link>
                 <Link href="/politique-de-confidentialite" className="hover:text-primary transition-colors underline decoration-primary/20 underline-offset-4">Confidentialité</Link>
