@@ -6,7 +6,6 @@ import { cn } from '@/lib/utils'
 import { Logo } from '@/components/Logo'
 import { HeaderNavigation } from '@/components/HeaderNavigation'
 import { Metadata } from 'next'
-import { MotionProvider } from '@/components/MotionProvider'
 
 const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'https://aujardindelison.fr'
 
@@ -49,7 +48,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="fr" className={cn(fontVariables)} style={{ scrollBehavior: 'smooth' }}>
+    <html lang="fr" className={cn(fontVariables)}>
       <head>
         <link
           rel="preload"
@@ -58,12 +57,16 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           fetchPriority="high"
         />
       </head>
-      <body className="min-h-screen bg-background font-serif antialiased text-foreground selection:bg-primary/20 overflow-x-hidden">
-        <MotionProvider>
-          <header className="sticky top-0 z-[100] w-full border-b border-primary/10 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
-            <div className="container mx-auto flex h-24 items-center justify-between px-4">
+      <body className="min-h-screen bg-background font-serif antialiased text-foreground selection:bg-primary/20">
+          <header 
+            className="sticky top-0 z-[100] w-full border-b border-primary/10 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60"
+            style={{ 
+              
+            }}
+          >
+            <div className="container mx-auto flex h-20 md:h-24 items-center justify-between px-4">
               <Link href="/" className="flex items-center gap-3 group" aria-label="Retour à l'accueil">
-                <Logo className="w-auto h-16 md:h-20 text-primary transition-transform duration-500 group-hover:scale-105" />
+                <Logo className="w-auto h-12 md:h-16 lg:h-20 text-primary transition-transform duration-500 group-hover:scale-105" />
               </Link>
               <HeaderNavigation />
             </div>
@@ -75,7 +78,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
                 <Logo className="w-40 h-16 opacity-80 text-primary/60 hover:text-primary transition-all grayscale hover:grayscale-0" />
               </div>
               <p className="font-lora text-xs text-foreground/70">© {new Date().getFullYear()} - Micro-ferme florale bio & locale</p>
-              <p className="font-lora text-[10px] text-foreground/40 mt-2 italic">
+              <p className="font-lora text-[10px] text-foreground/40 mt-2 italic text-center max-w-md mx-auto">
                 Fleurs paysannes produites au Puy-Sainte-Réparade, disponibles à proximité d&apos;Aix-en-Provence, Pertuis et du Sud Luberon.
               </p>
               <div className="flex flex-wrap justify-center gap-6 mt-4 font-lora text-[10px] uppercase tracking-widest text-foreground/60">
@@ -89,7 +92,6 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
               </p>
             </div>
           </footer>
-        </MotionProvider>
       </body>
     </html>
   )

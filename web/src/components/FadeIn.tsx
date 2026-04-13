@@ -1,55 +1,58 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
+
+// Instance unique d'IntersectionObserver partagée pour tout le site
+let sharedObserver: IntersectionObserver | null = null;
+
+const getObserver = () => {
+  if (typeof window === "undefined") return null;
+  if (!sharedObserver) {
+    sharedObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            // On arrête d'observer une fois visible pour économiser des ressources
+            sharedObserver?.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+  }
+  return sharedObserver;
+};
 
 interface FadeInProps {
   children: React.ReactNode;
   delay?: number;
   direction?: "up" | "down" | "left" | "right" | "none";
   fullWidth?: boolean;
+  className?: string;
 }
 
-export function FadeIn({ children, delay = 0, direction = "up", fullWidth = false }: FadeInProps) {
+export function FadeIn({ children, delay = 0, direction = "up", fullWidth = false, className }: FadeInProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { 
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px" 
-      }
-    );
-
-    if (ref.current) {
+    const observer = getObserver();
+    if (ref.current && observer) {
       observer.observe(ref.current);
     }
-
-    return () => observer.disconnect();
+    return () => {
+      if (ref.current) observer?.unobserve(ref.current);
+    };
   }, []);
-
-  const directions = {
-    up: "translate-y-8",
-    down: "-translate-y-8",
-    left: "translate-x-8",
-    right: "-translate-x-8",
-    none: "",
-  };
 
   return (
     <div
       ref={ref}
       className={cn(
-        "transition-all duration-1000 ease-[cubic-bezier(0.21,0.47,0.32,0.98)]",
-        isVisible ? "opacity-100 translate-x-0 translate-y-0" : cn("opacity-0", directions[direction]),
-        fullWidth ? "w-full" : "w-auto"
+        "fade-in-on-scroll", // Classe définie dans styles.css
+        fullWidth ? "w-full" : "w-auto",
+        className
       )}
       style={{ transitionDelay: `${delay}s` }}
     >
@@ -58,7 +61,17 @@ export function FadeIn({ children, delay = 0, direction = "up", fullWidth = fals
   );
 }
 
-export function FadeInStagger({ children }: { children: React.ReactNode }) {
-  // En version CSS pure simplifiée, on laisse les enfants gérer leur propre délai
-  return <div className="w-full">{children}</div>;
+export function FadeInStagger({ children, staggerDelay = 0.1 }: { children: React.ReactNode, staggerDelay?: number }) {
+  return (
+    <div className="w-full">
+      {React.Children.map(children, (child, i) => {
+        if (React.isValidElement(child)) {
+          return React.cloneElement(child as React.CloneElement<any>, {
+            delay: (child.props.delay || 0) + i * staggerDelay,
+          });
+        }
+        return child;
+      })}
+    </div>
+  );
 }

@@ -12,8 +12,8 @@ import { PAGE_DEFAULTS } from '@/constants/defaults'
 import { Metadata } from 'next'
 import heroDefault from '../../../public/hero-accueil.png'
 
-// On retire force-dynamic pour permettre la génération statique avec revalidation
-export const revalidate = 3600 // La page sera régénérée au maximum toutes les heures
+// ISR: La page sera régénérée au maximum toutes les heures
+export const revalidate = 3600 
 
 export const metadata: Metadata = {
   title: 'Accueil | Fleurs bio, locales et de saison',
@@ -125,6 +125,7 @@ export default async function HomePage() {
         </div>
 
         <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto mt-12">
+          {/* Ces animations sont en CSS pur (pas d'observer) pour le LCP */}
           <div className="inline-block p-3 border border-white/30 rounded-full mb-6 backdrop-blur-sm animate-in fade-in zoom-in duration-1000">        
              <Leaf className="w-8 h-8 text-white/90" />
           </div>
@@ -191,7 +192,7 @@ export default async function HomePage() {
                         {currentGlanage.label}
                       </Badge>
                     </div>
-                    <p className="text-muted-foreground leading-relaxed">
+                    <p className="text-muted-foreground leading-relaxed font-lora">
                       Le champ est ouvert à la cueillette selon les horaires et la floraison.
                       Venez composer votre bouquet directement à la source.
                     </p>
