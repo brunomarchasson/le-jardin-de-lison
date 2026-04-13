@@ -11,6 +11,7 @@ import { PAGE_DEFAULTS } from '@/constants/defaults'
 import { RichText } from '@/components/RichText'
 import { ShoppingBag } from 'lucide-react'
 import { Metadata } from 'next'
+import { Where } from 'payload'
 
 export const revalidate = 3600 // La page sera régénérée au maximum toutes les heures
 
@@ -47,18 +48,19 @@ export default async function MarchePage({ searchParams }: Props) {
   })
 
   // Construction de la requête
-  const whereQuery: Record<string, unknown> = {
+  const whereQuery: Where = {
     status: { equals: 'published' }
   }
 
   if (categorySlug) {
+    // @ts-ignore - Payload types can be tricky with dynamic keys
     whereQuery['categories.slug'] = { equals: categorySlug }
   }
 
   const { docs: products } = await payload.find({
     collection: 'products',
     limit: 100,
-    where: whereQuery as any, // Payload nécessite souvent un cast final pour les requêtes complexes
+    where: whereQuery,
   })
 
   return (

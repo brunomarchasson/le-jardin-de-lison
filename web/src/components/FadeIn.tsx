@@ -38,19 +38,29 @@ export function FadeIn({ children, delay = 0, direction = "up", fullWidth = fals
 
   useEffect(() => {
     const observer = getObserver();
-    if (ref.current && observer) {
-      observer.observe(ref.current);
+    const currentRef = ref.current;
+    if (currentRef && observer) {
+      observer.observe(currentRef);
     }
     return () => {
-      if (ref.current) observer?.unobserve(ref.current);
+      if (currentRef && observer) observer.unobserve(currentRef);
     };
   }, []);
+
+  const directions = {
+    up: "translate-y-10",
+    down: "-translate-y-10",
+    left: "translate-x-10",
+    right: "-translate-x-10",
+    none: "",
+  };
 
   return (
     <div
       ref={ref}
       className={cn(
-        "fade-in-on-scroll", // Classe définie dans styles.css
+        "fade-in-on-scroll", // Classe de base avec opacity: 0
+        directions[direction], // On applique la translation initiale
         fullWidth ? "w-full" : "w-auto",
         className
       )}
@@ -65,8 +75,8 @@ export function FadeInStagger({ children, staggerDelay = 0.1 }: { children: Reac
   return (
     <div className="w-full">
       {React.Children.map(children, (child, i) => {
-        if (React.isValidElement(child)) {
-          return React.cloneElement(child as React.CloneElement<any>, {
+        if (React.isValidElement<{ delay?: number }>(child)) {
+          return React.cloneElement(child, {
             delay: (child.props.delay || 0) + i * staggerDelay,
           });
         }
