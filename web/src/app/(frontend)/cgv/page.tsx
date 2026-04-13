@@ -78,7 +78,7 @@ export default function CGVPage() {
             </div>
 
             <div>
-              <h3 className="text-xl font-bold text-foreground/80">Garantie "Produit Vivant"</h3>
+              <h3 className="text-xl font-bold text-foreground/80">Garantie &quot;Produit Vivant&quot;</h3>
               <p>
                 Nos fleurs sont cultivées en plein champ, sans produits chimiques de synthèse. Des variations naturelles de couleur, de taille ou de forme par rapport aux photos du catalogue sont normales et garantissent l&apos;authenticité de nos fleurs paysannes.
               </p>

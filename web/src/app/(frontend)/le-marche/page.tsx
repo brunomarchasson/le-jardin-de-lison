@@ -47,9 +47,9 @@ export default async function MarchePage({ searchParams }: Props) {
   })
 
   // Construction de la requête
-  const whereQuery = {
+  const whereQuery: Record<string, unknown> = {
     status: { equals: 'published' }
-  } as any // On garde any ici temporairement si Payload le nécessite pour l'assignation dynamique, mais on évite Record<string, any>
+  }
 
   if (categorySlug) {
     whereQuery['categories.slug'] = { equals: categorySlug }
@@ -58,7 +58,7 @@ export default async function MarchePage({ searchParams }: Props) {
   const { docs: products } = await payload.find({
     collection: 'products',
     limit: 100,
-    where: whereQuery,
+    where: whereQuery as any, // Payload nécessite souvent un cast final pour les requêtes complexes
   })
 
   return (
