@@ -6,14 +6,14 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json pnpm-lock.yaml* ./
-RUN corepack enable pnpm && pnpm i --frozen-lockfile
+RUN corepack enable pnpm && corepack prepare pnpm@9.15.5 --activate && pnpm i --frozen-lockfile
 
 # Builder
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN corepack enable pnpm && pnpm run build
+RUN corepack enable pnpm && corepack prepare pnpm@9.15.5 --activate && pnpm run build
 
 # Runner
 FROM base AS runner
