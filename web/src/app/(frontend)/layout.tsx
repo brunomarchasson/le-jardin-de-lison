@@ -49,21 +49,8 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="fr" className={cn(fontVariables)}>
-      <head>
-        <link
-          rel="preload"
-          href="/hero-accueil.png"
-          as="image"
-          fetchPriority="high"
-        />
-      </head>
       <body className="min-h-screen bg-background font-serif antialiased text-foreground selection:bg-primary/20">
-          <header 
-            className="sticky top-0 z-[100] w-full border-b border-primary/10 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60"
-            style={{ 
-              
-            }}
-          >
+          <header className="sticky top-0 z-[100] w-full border-b border-primary/10 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
             <div className="container mx-auto flex h-20 md:h-24 items-center justify-between px-4">
               <Link href="/" className="flex items-center gap-3 group" aria-label="Retour à l'accueil">
                 <Logo className="w-auto h-12 md:h-16 lg:h-20 text-primary transition-transform duration-500 group-hover:scale-105" />

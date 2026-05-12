@@ -11,7 +11,8 @@ import { RichText } from '@/components/RichText'
 import type { Media, Category } from '@/payload-types'
 import { Metadata } from 'next'
 
-export const dynamic = 'force-dynamic'
+// On retire force-dynamic pour permettre la génération statique avec revalidation
+export const revalidate = 3600 // La page sera régénérée au maximum toutes les heures
 
 type Props = {
   params: Promise<{
